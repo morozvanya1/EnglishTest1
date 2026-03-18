@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Journey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a1a18;
+      --paper: #f5f0e8;
+      --accent: #c4410c;
+      --muted: #9b9183;
+      --card-bg: #fffdf7;
+      --border: #ddd8cc;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Grain texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    header {
+      padding: 60px 60px 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .title-block h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+
+    .title-block h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .title-block p {
+      margin-top: 16px;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .stats-block {
+      text-align: right;
+      padding-top: 8px;
+    }
+
+    .stats-block .big-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--accent);
+    }
+
+    .stats-block .big-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .divider {
+      margin: 40px 60px;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Controls */
+    .controls {
+      padding: 0 60px 30px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .controls label {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .controls input {
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 7px 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 160px;
+    }
+
+    .controls input:focus { border-color: var(--accent); }
+
+    .view-toggle {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+    }
+
+    .view-btn {
+      background: none;
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      transition: all 0.2s;
+    }
+
+    .view-btn.active {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    /* Grid */
+    .grid {
+      padding: 0 52px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .grid.list-view {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+
+    /* Card */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 28px 24px 22px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      animation: fadeUp 0.4s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 4px 6px 0 var(--border);
+      border-color: var(--accent);
+      z-index: 1;
+    }
+
+    .card-day {
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .card-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .card-arrow {
+      position: absolute;
+      bottom: 18px;
+      right: 20px;
+      font-size: 1.1rem;
+      color: var(--accent);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .card:hover .card-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .card-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    /* List view card */
+    .list-view .card {
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .list-view .card-day { margin-bottom: 0; min-width: 80px; }
+    .list-view .card-num { font-size: 1.6rem; }
+
+    .list-view .card-filename {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .list-view .card-arrow {
+      position: static;
+      margin-left: auto;
+      opacity: 0.5;
+      transform: none;
+    }
+
+    .list-view .card:hover .card-arrow {
+      opacity: 1;
+    }
+
+    /* Empty state */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+    }
+
+    .empty .empty-icon { font-size: 3rem; margin-bottom: 16px; }
+    .empty p { font-size: 0.75rem; letter-spacing: 0.06em; }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--border);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      transition: width 0.6s ease;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 12px 20px;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s;
+      pointer-events: none;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* Hidden */
+    .hidden { display: none !important; }
+
+    @media (max-width: 600px) {
+      header, .controls { padding-left: 24px; padding-right: 24px; }
+      .divider { margin-left: 24px; margin-right: 24px; }
+      .grid { padding-left: 16px; padding-right: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="title-block">
+      <h1>English<br /><em>Journey</em></h1>
+      <p>Daily practice log &mdash; every file, every day</p>
+    </div>
+    <div class="stats-block">
+      <div class="big-num" id="dayCount">0</div>
+      <div class="big-label">Days completed</div>
+    </div>
+  </header>
+
+  <hr class="divider" />
+
+  <div class="controls">
+    <label for="searchInput">Filter</label>
+    <input id="searchInput" type="text" placeholder="Day number..." oninput="filterCards()" />
+    <div class="view-toggle">
+      <button class="view-btn active" id="gridBtn" onclick="setView('grid')">Grid</button>
+      <button class="view-btn" id="listBtn" onclick="setView('list')">List</button>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ─── Configuration ──────────────────────────────────────────────
+    // Change MAX_DAYS to however high you plan to go,
+    // or the app will auto-detect based on what loads.
+    const FILE_PREFIX = 'english_day';
+    const FILE_EXT    = '.html';
+
+    // We'll try to detect available days by probing each file.
+    // For a local setup this works via fetch HEAD requests.
+    // If you prefer a fixed list, replace `detectDays()` with a manual array.
+
+    let allDays = [];
+    let currentView = 'grid';
+
+    async function detectDays() {
+      const days = [];
+      // Probe up to day 365
+      const probes = [];
+      for (let i = 1; i <= 365; i++) {
+        probes.push(
+          fetch(`${FILE_PREFIX}${i}${FILE_EXT}`, { method: 'HEAD' })
+            .then(r => r.ok ? i : null)
+            .catch(() => null)
+        );
+      }
+      const results = await Promise.all(probes);
+      return results.filter(Boolean);
+    }
+
+    // Fallback: scan the current page's directory by looking at what
+    // the browser already knows (works when files are served locally).
+    function buildCardsFromDays(days) {
+      allDays = days;
+      document.getElementById('dayCount').textContent = days.length;
+
+      // Progress: arbitrary goal of 100 days
+      const pct = Math.min(100, (days.length / 100) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+
+      renderCards(days);
+    }
+
+    function renderCards(days) {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+
+      if (days.length === 0) {
+        grid.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">📄</div>
+            <p>No files found yet. Add english_day1.html to get started.</p>
+          </div>`;
+        return;
+      }
+
+      days.forEach((day, idx) => {
+        const href = `${FILE_PREFIX}${day}${FILE_EXT}`;
+        const a = document.createElement('a');
+        a.className = 'card';
+        a.href = href;
+        a.style.animationDelay = `${idx * 40}ms`;
+        a.innerHTML = `
+          <div class="card-dot"></div>
+          <div class="card-day">Day</div>
+          <div class="card-num">${String(day).padStart(2,'0')}</div>
+          <div class="card-filename" style="display:none;font-size:.7rem;color:var(--muted);margin-top:6px">${href}</div>
+          <div class="card-arrow">→</div>
+        `;
+        grid.appendChild(a);
+      });
+
+      // Show filename in list view
+      if (currentView === 'list') {
+        grid.querySelectorAll('.card-filename').forEach(el => el.style.display = 'block');
+      }
+    }
+
+    function filterCards() {
+      const q = document.getElementById('searchInput').value.trim();
+      if (!q) { renderCards(allDays); return; }
+      const filtered = allDays.filter(d => String(d).includes(q));
+      renderCards(filtered);
+    }
+
+    function setView(v) {
+      currentView = v;
+      const grid = document.getElementById('grid');
+      if (v === 'list') {
+        grid.classList.add('list-view');
+        grid.querySelectorAll('.card-filename').forEach(el => el.style.display = 'block');
+        document.getElementById('listBtn').classList.add('active');
+        document.getElementById('gridBtn').classList.remove('active');
+      } else {
+        grid.classList.remove('list-view');
+        grid.querySelectorAll('.card-filename').forEach(el => el.style.display = 'none');
+        document.getElementById('gridBtn').classList.add('active');
+        document.getElementById('listBtn').classList.remove('active');
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // ─── Init ────────────────────────────────────────────────────────
+    (async () => {
+      const days = await detectDays();
+      buildCardsFromDays(days);
+      if (days.length > 0) {
+        showToast(`${days.length} day${days.length > 1 ? 's' : ''} loaded`);
+      }
+    })();
+  </script>
+</body>
+</html>
