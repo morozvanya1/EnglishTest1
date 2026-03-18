@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Mastery | День 1 из 90</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@400;500&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --accent: #f5a623;
+    --accent2: #e8534a;
+    --accent3: #4ade80;
+    --accent4: #60a5fa;
+    --text: #e8eaf0;
+    --muted: #8892a4;
+    --border: #1e2d45;
+    --gold: #fbbf24;
+    --correct: #4ade80;
+    --wrong: #f87171;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,166,35,0.13) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(96,165,250,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 80% 60%, rgba(232,83,74,0.08) 0%, transparent 60%);
+    pointer-events: none;
+    animation: bgpulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgpulse {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+  }
+
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(245,166,35,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,166,35,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .day-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, rgba(245,166,35,0.15), rgba(245,166,35,0.05));
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 50px;
+    padding: 8px 22px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadedown 0.8s ease both;
+  }
+
+  .day-badge .dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+  }
+
+  @keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 16px;
+    animation: fadedown 0.9s 0.1s ease both;
+  }
+
+  .hero h1 span { color: var(--accent); font-style: italic; }
+
+  .hero .subtitle {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto 40px;
+    animation: fadedown 0.9s 0.2s ease both;
+  }
+
+  .hero .subtitle strong { color: var(--text); }
+
+  .progress-hero {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 28px;
+    animation: fadedown 1s 0.35s ease both;
+  }
+
+  .progress-hero .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .progress-hero .val { font-family: 'DM Mono', monospace; font-size: 1.6rem; color: var(--accent); font-weight: 700; }
+  .progress-hero .divider { width: 1px; height: 40px; background: var(--border); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--muted);
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    animation: fadeup 1s 1s ease both, bounce 2s 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%,100%{transform:translateX(-50%) translateY(0)}
+    50%{transform:translateX(-50%) translateY(8px)}
+  }
+
+  /* ROADMAP STRIP */
+  .roadmap {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .roadmap-track {
+    display: flex;
+    gap: 0;
+    width: max-content;
+    animation: scroll 40s linear infinite;
+  }
+
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .roadmap-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 36px;
+    border-right: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .roadmap-item .phase {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .roadmap-item .name { font-size: 14px; font-weight: 600; }
+
+  /* MAIN CONTENT */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(245,166,35,0.1);
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 6px;
+    padding: 4px 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    margin-top: 6px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .section-title span { color: var(--accent); font-style: italic; }
+  .section-sub { color: var(--muted); font-size: 15px; margin-top: 6px; }
+
+  /* THEORY BLOCKS */
+  .theory-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+
+  .theory-block h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .theory-block p { color: var(--text); font-size: 15px; margin-bottom: 10px; }
+  .theory-block p:last-child { margin-bottom: 0; }
+  .theory-block .ru { color: var(--muted); font-size: 13px; font-style: italic; }
+
+  /* ALPHABET TABLE */
+  .alphabet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .letter-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 10px;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .letter-card:hover {
+    border-color: var(--accent);
+    background: rgba(245,166,35,0.08);
+    transform: translateY(-2px);
+  }
+
+  .letter-card .big { font-size: 22px; font-weight: 800; font-family: 'Playfair Display', serif; }
+  .letter-card .small { font-size: 16px; color: var(--muted); margin-left: 4px; }
+  .letter-card .pron { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); margin-top: 4px; }
+
+  /* VOCABULARY TABLE */
+  .vocab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 15px;
+  }
+
+  .vocab-table thead tr {
+    background: rgba(245,166,35,0.08);
+    border-bottom: 2px solid var(--accent);
+  }
+
+  .vocab-table th {
+    padding: 14px 18px;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .vocab-table td {
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .vocab-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .vocab-table .en { font-weight: 700; color: var(--text); }
+  .vocab-table .tr { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent4); }
+  .vocab-table .ru { color: var(--muted); }
+  .vocab-table .ex { font-style: italic; font-size: 13px; color: var(--accent3); }
+
+  /* GRAMMAR TABLE */
+  .grammar-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 15px;
+  }
+
+  .grammar-table thead tr {
+    background: rgba(96,165,250,0.08);
+    border-bottom: 2px solid var(--accent4);
+  }
+
+  .grammar-table th {
+    padding: 14px 18px;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent4);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .grammar-table td {
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .grammar-table .pronoun { font-weight: 800; color: var(--accent); }
+  .grammar-table .form { font-family: 'DM Mono', monospace; color: var(--accent4); font-size: 16px; }
+  .grammar-table .ex { font-style: italic; color: var(--accent3); }
+  .grammar-table .neg { color: var(--accent2); font-family: 'DM Mono', monospace; }
+
+  /* PHRASE CARDS */
+  .phrase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .phrase-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: 0.2s;
+  }
+
+  .phrase-card:hover {
+    border-color: var(--accent4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  .phrase-card .en-ph { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+  .phrase-card .tr-ph { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent4); margin-bottom: 6px; }
+  .phrase-card .ru-ph { font-size: 13px; color: var(--muted); }
+
+  /* EXERCISE */
+  .exercise-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+
+  .exercise-block h4 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .exercise-block .task { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+
+  .fill-blank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 17px;
+    align-items: center;
+    line-height: 2.2;
+  }
+
+  .blank {
+    display: inline-block;
+    min-width: 80px;
+    border-bottom: 2px solid var(--accent);
+    text-align: center;
+    padding: 2px 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    cursor: pointer;
+    background: rgba(245,166,35,0.05);
+    border-radius: 4px 4px 0 0;
+    transition: 0.2s;
+    position: relative;
+  }
+
+  .blank:hover { background: rgba(245,166,35,0.12); }
+
+  input.fill-input {
+    background: rgba(245,166,35,0.08);
+    border: 1px solid rgba(245,166,35,0.4);
+    border-bottom: 2px solid var(--accent);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--text);
+    min-width: 80px;
+    outline: none;
+    text-align: center;
+  }
+
+  input.fill-input:focus { border-color: var(--gold); background: rgba(245,166,35,0.12); }
+  input.fill-input.correct { border-color: var(--correct); background: rgba(74,222,128,0.1); color: var(--correct); }
+  input.fill-input.wrong { border-color: var(--wrong); background: rgba(248,113,113,0.1); color: var(--wrong); }
+
+  .check-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--accent), #d97706);
+    color: #000;
+    font-weight: 800;
+    font-size: 14px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 14px;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .check-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245,166,35,0.4); }
+
+  /* QUIZ */
+  .quiz-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px;
+  }
+
+  .quiz-progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 99px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+
+  .quiz-progress-bar .fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+
+  .quiz-q-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .quiz-question {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    line-height: 1.4;
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .quiz-opt {
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .quiz-opt:hover:not(:disabled) { border-color: var(--accent4); background: rgba(96,165,250,0.08); }
+  .quiz-opt.correct { border-color: var(--correct); background: rgba(74,222,128,0.1); color: var(--correct); }
+  .quiz-opt.wrong { border-color: var(--wrong); background: rgba(248,113,113,0.1); color: var(--wrong); }
+  .quiz-opt:disabled { cursor: not-allowed; }
+
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    background: var(--border);
+    border-radius: 4px;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .quiz-feedback {
+    min-height: 44px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct-fb { background: rgba(74,222,128,0.1); border: 1px solid var(--correct); color: var(--correct); }
+  .quiz-feedback.wrong-fb { background: rgba(248,113,113,0.1); border: 1px solid var(--wrong); color: var(--wrong); }
+
+  .quiz-next {
+    background: linear-gradient(135deg, var(--accent4), #2563eb);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: 'Nunito', sans-serif;
+    display: none;
+  }
+
+  .quiz-next.show { display: inline-flex; align-items: center; gap: 8px; }
+  .quiz-next:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(96,165,250,0.3); }
+
+  /* RESULT */
+  .quiz-result {
+    text-align: center;
+    padding: 20px 0;
+    display: none;
+  }
+
+  .quiz-result.show { display: block; }
+
+  .quiz-result .score-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    background: rgba(245,166,35,0.08);
+  }
+
+  .quiz-result .score-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .quiz-result .score-total { font-size: 14px; color: var(--muted); }
+  .quiz-result h3 { font-size: 1.4rem; margin-bottom: 8px; }
+  .quiz-result p { color: var(--muted); font-size: 15px; }
+
+  /* SPEAKING BLOCK */
+  .speaking-block {
+    background: linear-gradient(135deg, rgba(74,222,128,0.06), rgba(74,222,128,0.01));
+    border: 1px solid rgba(74,222,128,0.2);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+
+  .speaking-block h4 {
+    color: var(--accent3);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dialogue-line {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+
+  .dialogue-line .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+  }
+
+  .dialogue-line .bubble {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    flex: 1;
+  }
+
+  .dialogue-line.speaker2 { flex-direction: row-reverse; }
+  .dialogue-line.speaker2 .bubble {
+    background: rgba(96,165,250,0.08);
+    border-color: rgba(96,165,250,0.2);
+  }
+
+  .bubble .en-line { font-weight: 700; font-size: 15px; }
+  .bubble .tr-line { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent4); }
+  .bubble .ru-line { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  /* READING */
+  .reading-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+
+  .reading-block .text-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--gold);
+  }
+
+  .reading-block p {
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+
+  .reading-block .word-highlight {
+    border-bottom: 1px dashed var(--accent);
+    cursor: help;
+    position: relative;
+  }
+
+  /* PLAN OVERVIEW */
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .plan-phase {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .plan-phase::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+  }
+
+  .plan-phase.p1::before { background: var(--accent); }
+  .plan-phase.p2::before { background: var(--accent4); }
+  .plan-phase.p3::before { background: var(--accent3); }
+  .plan-phase.p4::before { background: var(--accent2); }
+  .plan-phase.p5::before { background: var(--gold); }
+
+  .plan-phase:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .plan-phase .days { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .plan-phase .level { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+  .plan-phase .desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  /* TODAY SCHEDULE */
+  .schedule-list {
+    margin-top: 20px;
+  }
+
+  .schedule-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .schedule-item:last-child { border-bottom: none; }
+
+  .schedule-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    background: rgba(245,166,35,0.1);
+    border-radius: 6px;
+    padding: 4px 10px;
+    white-space: nowrap;
+    margin-top: 2px;
+    min-width: 70px;
+    text-align: center;
+  }
+
+  .schedule-content .title { font-weight: 700; font-size: 15px; margin-bottom: 2px; }
+  .schedule-content .desc { font-size: 13px; color: var(--muted); }
+
+  /* TIP BLOCKS */
+  .tip {
+    background: rgba(251,191,36,0.06);
+    border: 1px solid rgba(251,191,36,0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--text);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .tip .icon { font-size: 18px; flex-shrink: 0; }
+  .tip strong { color: var(--gold); }
+
+  /* TAG */
+  .tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+
+  .tag-vocab { background: rgba(245,166,35,0.15); color: var(--accent); border: 1px solid rgba(245,166,35,0.3); }
+  .tag-grammar { background: rgba(96,165,250,0.15); color: var(--accent4); border: 1px solid rgba(96,165,250,0.3); }
+  .tag-speaking { background: rgba(74,222,128,0.15); color: var(--accent3); border: 1px solid rgba(74,222,128,0.3); }
+  .tag-test { background: rgba(232,83,74,0.15); color: var(--accent2); border: 1px solid rgba(232,83,74,0.3); }
+  .tag-reading { background: rgba(167,139,250,0.15); color: #a78bfa; border: 1px solid rgba(167,139,250,0.3); }
+
+  /* FOOTER */
+  .footer {
+    padding: 60px 0;
+    text-align: center;
+  }
+
+  .footer .next-day {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, rgba(245,166,35,0.12), rgba(245,166,35,0.03));
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 12px;
+    padding: 16px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 28px;
+  }
+
+  .footer .next-day .arrow { color: var(--accent); font-size: 20px; }
+  .footer .muted { color: var(--muted); font-size: 14px; max-width: 400px; margin: 0 auto; }
+
+  /* ANIMATIONS */
+  @keyframes fadedown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeup {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* PRONUNCIATION CHART */
+  .pron-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .pron-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .pron-card .sound { font-size: 22px; font-weight: 800; font-family: 'Playfair Display', serif; color: var(--accent2); }
+  .pron-card .ipa { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent4); }
+  .pron-card .word { font-size: 13px; color: var(--muted); }
+
+  /* NUMBER CARDS */
+  .number-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .number-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 12px;
+    text-align: center;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+
+  .number-card:hover {
+    border-color: var(--accent2);
+    background: rgba(232,83,74,0.06);
+    transform: translateY(-2px);
+  }
+
+  .number-card .num { font-size: 24px; font-weight: 900; font-family: 'Playfair Display', serif; color: var(--accent2); }
+  .number-card .word { font-weight: 700; font-size: 14px; }
+  .number-card .ru { font-size: 12px; color: var(--muted); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .quiz-options { grid-template-columns: 1fr; }
+    .phrase-grid { grid-template-columns: 1fr; }
+    .plan-grid { grid-template-columns: 1fr 1fr; }
+    .alphabet-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="grid-overlay"></div>
+  <div class="day-badge">
+    <span class="dot"></span>
+    День 1 из 90 · Уровень A1 → Native
+  </div>
+  <h1>English<br><span>Mastery</span><br>Plan</h1>
+  <p class="subtitle">90-дневная программа от <strong>A1 до уровня носителя</strong> — для лекций, книг и профессионального владения языком</p>
+  <div class="progress-hero">
+    <div>
+      <div class="label">Текущий уровень</div>
+      <div class="val">A1</div>
+    </div>
+    <div class="divider"></div>
+    <div>
+      <div class="label">Цель</div>
+      <div class="val">Native</div>
+    </div>
+    <div class="divider"></div>
+    <div>
+      <div class="label">Прогресс</div>
+      <div class="val">1%</div>
+    </div>
+    <div class="divider"></div>
+    <div>
+      <div class="label">Осталось дней</div>
+      <div class="val">89</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Прокрутите вниз</span>
+    <span>↓</span>
+  </div>
+</section>
+
+<!-- ROADMAP STRIP -->
+<div class="roadmap">
+  <div class="roadmap-track" id="roadmapTrack">
+    <div class="roadmap-item"><span class="phase">Дни 1–18</span><span class="name">A1 — Абсолютный старт</span></div>
+    <div class="roadmap-item"><span class="phase">Дни 19–36</span><span class="name">A2 — Выживание в языке</span></div>
+    <div class="roadmap-item"><span class="phase">Дни 37–54</span><span class="name">B1 — Уверенное общение</span></div>
+    <div class="roadmap-item"><span class="phase">Дни 55–72</span><span class="name">B2 — Независимость</span></div>
+    <div class="roadmap-item"><span class="phase">Дни 73–81</span><span class="name">C1 — Академический</span></div>
+    <div class="roadmap-item"><span class="phase">Дни 82–90</span><span class="name">C2/Native — Мастерство</span></div>
+    <div class="roadmap-item"><span class="phase">Дни 1–18</span><span class="name">A1 — Абсолютный старт</span></div>
+    <div class="roadmap-item"><span class="phase">Дни 19–36</span><span class="name">A2 — Выживание в языке</span></div>
+    <div class="roadmap-item"><span class="phase">Дни 37–54</span><span class="name">B1 — Уверенное общение</span></div>
+    <div class="roadmap-item"><span class="phase">Дни 55–72</span><span class="name">B2 — Независимость</span></div>
+    <div class="roadmap-item"><span class="phase">Дни 73–81</span><span class="name">C1 — Академический</span></div>
+    <div class="roadmap-item"><span class="phase">Дни 82–90</span><span class="name">C2/Native — Мастерство</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- SECTION 0: 90 DAY OVERVIEW -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-num">Обзор</div>
+    <div>
+      <div class="section-title">90-дневный <span>план</span></div>
+      <div class="section-sub">Шесть фаз — от нуля до написания книг на английском</div>
+    </div>
+  </div>
+
+  <div class="plan-grid">
+    <div class="plan-phase p1">
+      <div class="days">Дни 1–18 · 3 нед.</div>
+      <div class="level">A1 → A2</div>
+      <div class="desc">Алфавит, 500 слов, глагол to be, числа, цвета, базовые фразы</div>
+    </div>
+    <div class="plan-phase p2">
+      <div class="days">Дни 19–36 · 3 нед.</div>
+      <div class="level">A2 → B1</div>
+      <div class="desc">1500 слов, времена Present/Past, бытовые диалоги, чтение текстов</div>
+    </div>
+    <div class="plan-phase p3">
+      <div class="days">Дни 37–54 · 3 нед.</div>
+      <div class="level">B1 → B1+</div>
+      <div class="desc">3000 слов, все глагольные времена, выражение мнений, дебаты</div>
+    </div>
+    <div class="plan-phase p4">
+      <div class="days">Дни 55–72 · 3 нед.</div>
+      <div class="level">B1+ → B2</div>
+      <div class="desc">5000 слов, академический стиль, письменные эссе, подкасты</div>
+    </div>
+    <div class="plan-phase p5">
+      <div class="days">Дни 73–81 · 9 дней</div>
+      <div class="level">B2 → C1</div>
+      <div class="desc">Риторика, нюансы языка, профессиональные тексты, лекции</div>
+    </div>
+    <div class="plan-phase p1">
+      <div class="days">Дни 82–90 · 9 дней</div>
+      <div class="level">C1 → C2/Native</div>
+      <div class="desc">Авторский стиль, написание книг, академические лекции, идиомы носителя</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: TODAY SCHEDULE -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-num">Расписание</div>
+    <div>
+      <div class="section-title">Программа <span>сегодня</span></div>
+      <div class="section-sub">День 1 · Уровень A1 · Алфавит, числа, приветствия, глагол to be</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:16px;">
+    <span class="tag tag-vocab">Лексика</span>
+    <span class="tag tag-grammar">Грамматика</span>
+    <span class="tag tag-speaking">Говорение</span>
+    <span class="tag tag-reading">Чтение</span>
+    <span class="tag tag-test">Тест</span>
+  </div>
+
+  <div class="schedule-list">
+    <div class="schedule-item">
+      <div class="schedule-time">15 мин</div>
+      <div class="schedule-content">
+        <div class="title">📖 Алфавит и произношение</div>
+        <div class="desc">26 букв, МФА, ключевые звуки которых нет в русском</div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">20 мин</div>
+      <div class="schedule-content">
+        <div class="title">📚 Числа 1–20 + базовая лексика</div>
+        <div class="desc">Numbers, colors, days of the week, greetings — 40 слов</div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">20 мин</div>
+      <div class="schedule-content">
+        <div class="title">⚡ Грамматика: To Be</div>
+        <div class="desc">I am / You are / He is — утверждение, вопрос, отрицание</div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">15 мин</div>
+      <div class="schedule-content">
+        <div class="title">💬 Диалог: Знакомство</div>
+        <div class="desc">Типовой диалог на знакомство, читаем вслух, повторяем</div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">15 мин</div>
+      <div class="schedule-content">
+        <div class="title">📝 Чтение: My First Day</div>
+        <div class="desc">Короткий адаптированный текст с переводом незнакомых слов</div>
+      </div>
+    </div>
+    <div class="schedule-item">
+      <div class="schedule-time">15 мин</div>
+      <div class="schedule-content">
+        <div class="title">🧩 Упражнения + Итоговый тест</div>
+        <div class="desc">Fill in the blanks, multiple choice, 10 вопросов</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: ALPHABET -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-num">Блок 1</div>
+    <div>
+      <div class="section-title">The English <span>Alphabet</span></div>
+      <div class="section-sub">Английский алфавит — 26 букв с произношением в МФА</div>
+    </div>
+  </div>
+
+  <div class="theory-block">
+    <h4>🎯 Ключевые звуки, которых нет в русском</h4>
+    <p>Эти звуки — главная трудность для русскоговорящих. Тренируйте их отдельно каждый день.</p>
+  </div>
+
+  <div class="pron-grid">
+    <div class="pron-card">
+      <div class="sound">th</div>
+      <div class="ipa">/θ/ — межзубный</div>
+      <div class="word">think, three, thanks</div>
+    </div>
+    <div class="pron-card">
+      <div class="sound">th</div>
+      <div class="ipa">/ð/ — звонкий</div>
+      <div class="word">this, the, that</div>
+    </div>
+    <div class="pron-card">
+      <div class="sound">w</div>
+      <div class="ipa">/w/ — не «в»!</div>
+      <div class="word">water, what, work</div>
+    </div>
+    <div class="pron-card">
+      <div class="sound">r</div>
+      <div class="ipa">/r/ — не «р»!</div>
+      <div class="word">right, red, run</div>
+    </div>
+    <div class="pron-card">
+      <div class="sound">æ</div>
+      <div class="ipa">/æ/ — «э» широкое</div>
+      <div class="word">cat, man, bad</div>
+    </div>
+    <div class="pron-card">
+      <div class="sound">ŋ</div>
+      <div class="ipa">/ŋ/ — носовой</div>
+      <div class="word">ring, king, sing</div>
+    </div>
+    <div class="pron-card">
+      <div class="sound">h</div>
+      <div class="ipa">/h/ — придыхание</div>
+      <div class="word">hello, help, hand</div>
+    </div>
+    <div class="pron-card">
+      <div class="sound">v</div>
+      <div class="ipa">/v/ — нижняя губа</div>
+      <div class="word">very, voice, love</div>
+    </div>
+  </div>
+
+  <div class="alphabet-grid" style="margin-top:28px;">
+    <div class="letter-card"><span class="big">A</span><span class="small">a</span><div class="pron">/eɪ/</div></div>
+    <div class="letter-card"><span class="big">B</span><span class="small">b</span><div class="pron">/biː/</div></div>
+    <div class="letter-card"><span class="big">C</span><span class="small">c</span><div class="pron">/siː/</div></div>
+    <div class="letter-card"><span class="big">D</span><span class="small">d</span><div class="pron">/diː/</div></div>
+    <div class="letter-card"><span class="big">E</span><span class="small">e</span><div class="pron">/iː/</div></div>
+    <div class="letter-card"><span class="big">F</span><span class="small">f</span><div class="pron">/ef/</div></div>
+    <div class="letter-card"><span class="big">G</span><span class="small">g</span><div class="pron">/dʒiː/</div></div>
+    <div class="letter-card"><span class="big">H</span><span class="small">h</span><div class="pron">/eɪtʃ/</div></div>
+    <div class="letter-card"><span class="big">I</span><span class="small">i</span><div class="pron">/aɪ/</div></div>
+    <div class="letter-card"><span class="big">J</span><span class="small">j</span><div class="pron">/dʒeɪ/</div></div>
+    <div class="letter-card"><span class="big">K</span><span class="small">k</span><div class="pron">/keɪ/</div></div>
+    <div class="letter-card"><span class="big">L</span><span class="small">l</span><div class="pron">/el/</div></div>
+    <div class="letter-card"><span class="big">M</span><span class="small">m</span><div class="pron">/em/</div></div>
+    <div class="letter-card"><span class="big">N</span><span class="small">n</span><div class="pron">/en/</div></div>
+    <div class="letter-card"><span class="big">O</span><span class="small">o</span><div class="pron">/oʊ/</div></div>
+    <div class="letter-card"><span class="big">P</span><span class="small">p</span><div class="pron">/piː/</div></div>
+    <div class="letter-card"><span class="big">Q</span><span class="small">q</span><div class="pron">/kjuː/</div></div>
+    <div class="letter-card"><span class="big">R</span><span class="small">r</span><div class="pron">/ɑːr/</div></div>
+    <div class="letter-card"><span class="big">S</span><span class="small">s</span><div class="pron">/es/</div></div>
+    <div class="letter-card"><span class="big">T</span><span class="small">t</span><div class="pron">/tiː/</div></div>
+    <div class="letter-card"><span class="big">U</span><span class="small">u</span><div class="pron">/juː/</div></div>
+    <div class="letter-card"><span class="big">V</span><span class="small">v</span><div class="pron">/viː/</div></div>
+    <div class="letter-card"><span class="big">W</span><span class="small">w</span><div class="pron">/ˈdʌb.l.juː/</div></div>
+    <div class="letter-card"><span class="big">X</span><span class="small">x</span><div class="pron">/eks/</div></div>
+    <div class="letter-card"><span class="big">Y</span><span class="small">y</span><div class="pron">/waɪ/</div></div>
+    <div class="letter-card"><span class="big">Z</span><span class="small">z</span><div class="pron">/zed/</div></div>
+  </div>
+
+  <div class="tip">
+    <span class="icon">💡</span>
+    <div><strong>Совет:</strong> Учите алфавит песней! The Alphabet Song — ритм помогает запомнить порядок. Произносите каждую букву вслух 5 раз. Зеркало — ваш лучший друг для постановки звуков.</div>
+  </div>
+</section>
+
+<!-- SECTION 3: NUMBERS & COLORS -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-num">Блок 2</div>
+    <div>
+      <div class="section-title">Numbers &amp; <span>Colors</span></div>
+      <div class="section-sub">Числа 1–20 и основные цвета — первые 40 слов в вашем словарном запасе</div>
+    </div>
+  </div>
+
+  <div class="number-grid">
+    <div class="number-card"><div class="num">1</div><div class="word">one</div><div class="ru">один</div></div>
+    <div class="number-card"><div class="num">2</div><div class="word">two</div><div class="ru">два</div></div>
+    <div class="number-card"><div class="num">3</div><div class="word">three</div><div class="ru">три</div></div>
+    <div class="number-card"><div class="num">4</div><div class="word">four</div><div class="ru">четыре</div></div>
+    <div class="number-card"><div class="num">5</div><div class="word">five</div><div class="ru">пять</div></div>
+    <div class="number-card"><div class="num">6</div><div class="word">six</div><div class="ru">шесть</div></div>
+    <div class="number-card"><div class="num">7</div><div class="word">seven</div><div class="ru">семь</div></div>
+    <div class="number-card"><div class="num">8</div><div class="word">eight</div><div class="ru">восемь</div></div>
+    <div class="number-card"><div class="num">9</div><div class="word">nine</div><div class="ru">девять</div></div>
+    <div class="number-card"><div class="num">10</div><div class="word">ten</div><div class="ru">десять</div></div>
+    <div class="number-card"><div class="num">11</div><div class="word">eleven</div><div class="ru">одиннадцать</div></div>
+    <div class="number-card"><div class="num">12</div><div class="word">twelve</div><div class="ru">двенадцать</div></div>
+    <div class="number-card"><div class="num">13</div><div class="word">thirteen</div><div class="ru">тринадцать</div></div>
+    <div class="number-card"><div class="num">14</div><div class="word">fourteen</div><div class="ru">четырнадцать</div></div>
+    <div class="number-card"><div class="num">15</div><div class="word">fifteen</div><div class="ru">пятнадцать</div></div>
+    <div class="number-card"><div class="num">16</div><div class="word">sixteen</div><div class="ru">шестнадцать</div></div>
+    <div class="number-card"><div class="num">17</div><div class="word">seventeen</div><div class="ru">семнадцать</div></div>
+    <div class="number-card"><div class="num">18</div><div class="word">eighteen</div><div class="ru">восемнадцать</div></div>
+    <div class="number-card"><div class="num">19</div><div class="word">nineteen</div><div class="ru">девятнадцать</div></div>
+    <div class="number-card"><div class="num">20</div><div class="word">twenty</div><div class="ru">двадцать</div></div>
+  </div>
+
+  <div style="margin-top:32px;">
+    <table class="vocab-table">
+      <thead>
+        <tr>
+          <th>English</th>
+          <th>Транскрипция</th>
+          <th>Русский</th>
+          <th>Пример</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="en">red</td><td class="tr">/red/</td><td class="ru">красный</td><td class="ex">The apple is red.</td></tr>
+        <tr><td class="en">blue</td><td class="tr">/bluː/</td><td class="ru">синий/голубой</td><td class="ex">The sky is blue.</td></tr>
+        <tr><td class="en">green</td><td class="tr">/ɡriːn/</td><td class="ru">зелёный</td><td class="ex">The tree is green.</td></tr>
+        <tr><td class="en">white</td><td class="tr">/waɪt/</td><td class="ru">белый</td><td class="ex">Snow is white.</td></tr>
+        <tr><td class="en">black</td><td class="tr">/blæk/</td><td class="ru">чёрный</td><td class="ex">The night is black.</td></tr>
+        <tr><td class="en">yellow</td><td class="tr">/ˈjel.oʊ/</td><td class="ru">жёлтый</td><td class="ex">The sun is yellow.</td></tr>
+        <tr><td class="en">orange</td><td class="tr">/ˈɔːr.ɪndʒ/</td><td class="ru">оранжевый</td><td class="ex">The orange is orange.</td></tr>
+        <tr><td class="en">pink</td><td class="tr">/pɪŋk/</td><td class="ru">розовый</td><td class="ex">The flower is pink.</td></tr>
+        <tr><td class="en">brown</td><td class="tr">/braʊn/</td><td class="ru">коричневый</td><td class="ex">The bear is brown.</td></tr>
+        <tr><td class="en">purple</td><td class="tr">/ˈpɜːr.pl/</td><td class="ru">фиолетовый</td><td class="ex">Grapes are purple.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SECTION 4: VOCABULARY - GREETINGS -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-num">Блок 3</div>
+    <div>
+      <div class="section-title">Essential <span>Greetings</span></div>
+      <div class="section-sub">40 ключевых слов и фраз — основа любого разговора</div>
+    </div>
+  </div>
+
+  <table class="vocab-table">
+    <thead>
+      <tr>
+        <th>English</th>
+        <th>Транскрипция</th>
+        <th>Русский</th>
+        <th>Когда использовать</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="en">Hello</td><td class="tr">/həˈloʊ/</td><td class="ru">Привет / Здравствуйте</td><td class="ex">Любое приветствие</td></tr>
+      <tr><td class="en">Hi</td><td class="tr">/haɪ/</td><td class="ru">Привет</td><td class="ex">Неформально</td></tr>
+      <tr><td class="en">Good morning</td><td class="tr">/ɡʊd ˈmɔːr.nɪŋ/</td><td class="ru">Доброе утро</td><td class="ex">До 12:00</td></tr>
+      <tr><td class="en">Good afternoon</td><td class="tr">/ɡʊd ˌæf.tərˈnuːn/</td><td class="ru">Добрый день</td><td class="ex">12:00 – 18:00</td></tr>
+      <tr><td class="en">Good evening</td><td class="tr">/ɡʊd ˈiːv.nɪŋ/</td><td class="ru">Добрый вечер</td><td class="ex">После 18:00</td></tr>
+      <tr><td class="en">Good night</td><td class="tr">/ɡʊd naɪt/</td><td class="ru">Спокойной ночи</td><td class="ex">Перед сном</td></tr>
+      <tr><td class="en">Goodbye</td><td class="tr">/ˌɡʊdˈbaɪ/</td><td class="ru">До свидания</td><td class="ex">Прощание</td></tr>
+      <tr><td class="en">See you later</td><td class="tr">/siː juː ˈleɪ.tər/</td><td class="ru">До встречи</td><td class="ex">Неформально</td></tr>
+      <tr><td class="en">How are you?</td><td class="tr">/haʊ ɑːr juː/</td><td class="ru">Как дела?</td><td class="ex">Формально/неформально</td></tr>
+      <tr><td class="en">I'm fine, thanks.</td><td class="tr">/aɪm faɪn θæŋks/</td><td class="ru">Хорошо, спасибо.</td><td class="ex">Стандартный ответ</td></tr>
+      <tr><td class="en">What's your name?</td><td class="tr">/wɒts jɔːr neɪm/</td><td class="ru">Как вас зовут?</td><td class="ex">Знакомство</td></tr>
+      <tr><td class="en">My name is…</td><td class="tr">/maɪ neɪm ɪz/</td><td class="ru">Меня зовут…</td><td class="ex">Представление</td></tr>
+      <tr><td class="en">Nice to meet you.</td><td class="tr">/naɪs tə miːt juː/</td><td class="ru">Приятно познакомиться.</td><td class="ex">При знакомстве</td></tr>
+      <tr><td class="en">Please</td><td class="tr">/pliːz/</td><td class="ru">Пожалуйста (просьба)</td><td class="ex">В просьбах</td></tr>
+      <tr><td class="en">Thank you</td><td class="tr">/θæŋk juː/</td><td class="ru">Спасибо</td><td class="ex">Благодарность</td></tr>
+      <tr><td class="en">You're welcome.</td><td class="tr">/jɔːr ˈwel.kəm/</td><td class="ru">Пожалуйста (ответ)</td><td class="ex">Ответ на спасибо</td></tr>
+      <tr><td class="en">Sorry / Excuse me</td><td class="tr">/ˈsɒr.i/ /ɪkˈskjuːz miː/</td><td class="ru">Извините</td><td class="ex">Извинение/просьба</td></tr>
+      <tr><td class="en">Yes / No</td><td class="tr">/jes/ /noʊ/</td><td class="ru">Да / Нет</td><td class="ex">Базовые ответы</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tip">
+    <span class="icon">🎧</span>
+    <div><strong>Метод повторения:</strong> Прочитайте каждое слово вслух 3 раза — сначала медленно с транскрипцией, затем в нормальном темпе. Закройте русский перевод и проверьте себя.</div>
+  </div>
+</section>
+
+<!-- SECTION 5: GRAMMAR - TO BE -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-num">Блок 4</div>
+    <div>
+      <div class="section-title">Grammar: Verb <span>"To Be"</span></div>
+      <div class="section-sub">Самый важный глагол в английском — быть, являться, находиться</div>
+    </div>
+  </div>
+
+  <div class="theory-block">
+    <h4>📌 Что такое "To Be"?</h4>
+    <p>В русском глагол «быть» в настоящем времени обычно опускается: «Я студент», «Она красивая». В английском это НЕВОЗМОЖНО — глагол to be обязателен: <strong>"I am a student"</strong>, <strong>"She is beautiful"</strong>.</p>
+    <p class="ru">Это первое и важнейшее правило английской грамматики — никогда не пропускайте to be!</p>
+  </div>
+
+  <table class="grammar-table">
+    <thead>
+      <tr>
+        <th>Местоимение</th>
+        <th>To Be</th>
+        <th>Краткая форма</th>
+        <th>Пример</th>
+        <th>Отрицание</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="pronoun">I (Я)</td>
+        <td class="form">am</td>
+        <td class="form">'m</td>
+        <td class="ex">I am a student.</td>
+        <td class="neg">I am not (I'm not)</td>
+      </tr>
+      <tr>
+        <td class="pronoun">You (Ты/Вы)</td>
+        <td class="form">are</td>
+        <td class="form">'re</td>
+        <td class="ex">You are my friend.</td>
+        <td class="neg">You are not (aren't)</td>
+      </tr>
+      <tr>
+        <td class="pronoun">He (Он)</td>
+        <td class="form">is</td>
+        <td class="form">'s</td>
+        <td class="ex">He is a doctor.</td>
+        <td class="neg">He is not (isn't)</td>
+      </tr>
+      <tr>
+        <td class="pronoun">She (Она)</td>
+        <td class="form">is</td>
+        <td class="form">'s</td>
+        <td class="ex">She is beautiful.</td>
+        <td class="neg">She is not (isn't)</td>
+      </tr>
+      <tr>
+        <td class="pronoun">It (Оно)</td>
+        <td class="form">is</td>
+        <td class="form">'s</td>
+        <td class="ex">It is cold today.</td>
+        <td class="neg">It is not (isn't)</td>
+      </tr>
+      <tr>
+        <td class="pronoun">We (Мы)</td>
+        <td class="form">are</td>
+        <td class="form">'re</td>
+        <td class="ex">We are from Russia.</td>
+        <td class="neg">We are not (aren't)</td>
+      </tr>
+      <tr>
+        <td class="pronoun">They (Они)</td>
+        <td class="form">are</td>
+        <td class="form">'re</td>
+        <td class="ex">They are happy.</td>
+        <td class="neg">They are not (aren't)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="theory-block" style="margin-top:24px; border-left-color: var(--accent4);">
+    <h4 style="color: var(--accent4);">❓ Как задать вопрос с To Be?</h4>
+    <p>В вопросе to be ПЕРЕНОСИТСЯ ПЕРЕД подлежащим:</p>
+    <p><strong>Are you a student?</strong> — Ты студент?</p>
+    <p><strong>Is she from Moscow?</strong> — Она из Москвы?</p>
+    <p><strong>Are they happy?</strong> — Они счастливы?</p>
+    <p class="ru">Схема: BE + Subject + ... ? → просто переставьте глагол!</p>
+  </div>
+</section>
+
+<!-- SECTION 6: EXERCISE 1 - FILL IN THE BLANKS -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-num">Упражнение 1</div>
+    <div>
+      <div class="section-title">Fill in the <span>Blanks</span></div>
+      <div class="section-sub">Вставьте правильную форму глагола to be</div>
+    </div>
+  </div>
+
+  <div class="exercise-block">
+    <h4>✏️ Задание A: To Be</h4>
+    <div class="task">Заполните пропуски правильной формой: am / is / are</div>
+
+    <div style="display:flex;flex-direction:column;gap:18px;" id="ex1">
+      <div class="fill-blank" data-answer="am">1. I <input class="fill-input" data-answer="am" placeholder="___"> a student from Moscow.</div>
+      <div class="fill-blank" data-answer="is">2. She <input class="fill-input" data-answer="is" placeholder="___"> my best friend.</div>
+      <div class="fill-blank" data-answer="are">3. They <input class="fill-input" data-answer="are" placeholder="___"> very happy today.</div>
+      <div class="fill-blank" data-answer="is">4. It <input class="fill-input" data-answer="is" placeholder="___"> cold outside.</div>
+      <div class="fill-blank" data-answer="are">5. We <input class="fill-input" data-answer="are" placeholder="___"> from Russia.</div>
+      <div class="fill-blank" data-answer="is">6. He <input class="fill-input" data-answer="is" placeholder="___"> a good doctor.</div>
+      <div class="fill-blank" data-answer="are">7. You <input class="fill-input" data-answer="are" placeholder="___"> my teacher.</div>
+    </div>
+    <button class="check-btn" onclick="checkFillBlanks()">✓ Проверить ответы</button>
+    <div id="ex1result" style="margin-top:14px;font-size:14px;display:none;padding:12px 16px;border-radius:8px;"></div>
+  </div>
+
+  <div class="exercise-block">
+    <h4>✏️ Задание B: Составьте отрицание</h4>
+    <div class="task">Напишите отрицательную форму. Используйте краткую форму (isn't / aren't / I'm not)</div>
+
+    <div style="display:flex;flex-direction:column;gap:18px;" id="ex2">
+      <div class="fill-blank">1. She is tired. → She <input class="fill-input" data-answer="isn't" placeholder="___"> tired.</div>
+      <div class="fill-blank">2. They are late. → They <input class="fill-input" data-answer="aren't" placeholder="___"> late.</div>
+      <div class="fill-blank">3. I am wrong. → <input class="fill-input" data-answer="I'm not" placeholder="___"> wrong.</div>
+      <div class="fill-blank">4. He is from France. → He <input class="fill-input" data-answer="isn't" placeholder="___"> from France.</div>
+    </div>
+    <button class="check-btn" onclick="checkFillBlanks2()">✓ Проверить ответы</button>
+    <div id="ex2result" style="margin-top:14px;font-size:14px;display:none;padding:12px 16px;border-radius:8px;"></div>
+  </div>
+</section>
+
+<!-- SECTION 7: SPEAKING - DIALOGUE -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-num">Блок 5</div>
+    <div>
+      <div class="section-title">Speaking: <span>First Meeting</span></div>
+      <div class="section-sub">Диалог-знакомство — прочитайте вслух 3 раза, меняйтесь ролями</div>
+    </div>
+  </div>
+
+  <div class="speaking-block">
+    <h4>🎤 Диалог: Meeting Someone New</h4>
+
+    <div class="dialogue-line">
+      <div class="avatar">👤</div>
+      <div class="bubble">
+        <div class="en-line">Hello! My name is Alex. What's your name?</div>
+        <div class="tr-line">/ˈhel.oʊ maɪ neɪm ɪz æl.ɪks wɒts jɔːr neɪm/</div>
+        <div class="ru-line">Здравствуйте! Меня зовут Алекс. Как вас зовут?</div>
+      </div>
+    </div>
+
+    <div class="dialogue-line speaker2">
+      <div class="avatar">👥</div>
+      <div class="bubble">
+        <div class="en-line">Hi, Alex! I'm Maria. Nice to meet you!</div>
+        <div class="tr-line">/haɪ æl.ɪks aɪm məˈriː.ə naɪs tə miːt juː/</div>
+        <div class="ru-line">Привет, Алекс! Я Мария. Приятно познакомиться!</div>
+      </div>
+    </div>
+
+    <div class="dialogue-line">
+      <div class="avatar">👤</div>
+      <div class="bubble">
+        <div class="en-line">Nice to meet you too, Maria! Where are you from?</div>
+        <div class="tr-line">/naɪs tə miːt juː tuː məˈriː.ə weər ɑːr juː frɒm/</div>
+        <div class="ru-line">Приятно познакомиться и мне, Мария! Откуда вы?</div>
+      </div>
+    </div>
+
+    <div class="dialogue-line speaker2">
+      <div class="avatar">👥</div>
+      <div class="bubble">
+        <div class="en-line">I am from Russia. I am from Moscow. And you?</div>
+        <div class="tr-line">/aɪ æm frɒm ˈrʌʃ.ə aɪ æm frɒm ˈmɒs.kaʊ ænd juː/</div>
+        <div class="ru-line">Я из России. Я из Москвы. А вы?</div>
+      </div>
+    </div>
+
+    <div class="dialogue-line">
+      <div class="avatar">👤</div>
+      <div class="bubble">
+        <div class="en-line">I'm from London. I'm a student. How old are you?</div>
+        <div class="tr-line">/aɪm frɒm ˈlʌn.dən aɪm ə ˈstjuː.dənt haʊ oʊld ɑːr juː/</div>
+        <div class="ru-line">Я из Лондона. Я студент. Сколько вам лет?</div>
+      </div>
+    </div>
+
+    <div class="dialogue-line speaker2">
+      <div class="avatar">👥</div>
+      <div class="bubble">
+        <div class="en-line">I am twenty-five years old. I am a teacher.</div>
+        <div class="tr-line">/aɪ æm ˈtwen.ti faɪv jɪərz oʊld aɪ æm ə ˈtiːtʃ.ər/</div>
+        <div class="ru-line">Мне двадцать пять лет. Я учитель.</div>
+      </div>
+    </div>
+
+    <div class="dialogue-line">
+      <div class="avatar">👤</div>
+      <div class="bubble">
+        <div class="en-line">That's great! It's nice to talk to you, Maria. See you later!</div>
+        <div class="tr-line">/ðæts ɡreɪt ɪts naɪs tə tɔːk tə juː məˈriː.ə siː juː ˈleɪ.tər/</div>
+        <div class="ru-line">Здорово! Приятно поговорить с тобой, Мария. До встречи!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <span class="icon">🗣️</span>
+    <div><strong>Задание:</strong> Прочитайте диалог вслух 3 раза. В первый раз — медленно, с паузами. Во второй — в нормальном темпе. В третий — попробуйте без текста! Запишите себя на телефон и прослушайте.</div>
+  </div>
+</section>
+
+<!-- SECTION 8: READING -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-num">Блок 6</div>
+    <div>
+      <div class="section-title">Reading: <span>My World</span></div>
+      <div class="section-sub">Первый адаптированный текст на английском — читайте вслух</div>
+    </div>
+  </div>
+
+  <div class="reading-block">
+    <div class="text-title">My World</div>
+    <p>
+      Hello! My <span class="word-highlight" title="имя">name</span> is Anna. I am from Russia. I am twenty years <span class="word-highlight" title="лет/старый">old</span>. I am a <span class="word-highlight" title="студент">student</span>.
+    </p>
+    <p>
+      My <span class="word-highlight" title="семья">family</span> is <span class="word-highlight" title="большой">big</span>. I have a <span class="word-highlight" title="мать">mother</span>, a <span class="word-highlight" title="отец">father</span>, and a <span class="word-highlight" title="брат">brother</span>. My mother is a <span class="word-highlight" title="врач">doctor</span>. My father is a <span class="word-highlight" title="инженер">engineer</span>. My brother is ten years old. He is a <span class="word-highlight" title="ученик, школьник">pupil</span>.
+    </p>
+    <p>
+      I am <span class="word-highlight" title="счастливый">happy</span>. My <span class="word-highlight" title="дом, жилье">home</span> is <span class="word-highlight" title="красивый, прекрасный">beautiful</span>. It is in Moscow. Moscow is a <span class="word-highlight" title="большой">big</span> <span class="word-highlight" title="город">city</span>. I <span class="word-highlight" title="люблю">love</span> Moscow!
+    </p>
+    <p>
+      My <span class="word-highlight" title="любимый">favourite</span> <span class="word-highlight" title="цвет">colour</span> is <span class="word-highlight" title="синий">blue</span>. My favourite <span class="word-highlight" title="число, номер">number</span> is <span class="word-highlight" title="семь">seven</span>. I am <span class="word-highlight" title="хорошо, хороший">good</span> at English. English is <span class="word-highlight" title="интересный">interesting</span>!
+    </p>
+  </div>
+
+  <div class="tip">
+    <span class="icon">📖</span>
+    <div><strong>Задание по тексту:</strong> Наведите курсор на <span style="border-bottom:1px dashed var(--accent);color:var(--accent)">подчёркнутые слова</span>, чтобы увидеть перевод. Прочитайте текст вслух 2 раза. Затем перескажите его по-английски своими словами — это важно!</div>
+  </div>
+</section>
+
+<!-- SECTION 9: PHRASE CARDS -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-num">Блок 7</div>
+    <div>
+      <div class="section-title">Everyday <span>Phrases</span></div>
+      <div class="section-sub">20 фраз на каждый день — учите по 5 в день</div>
+    </div>
+  </div>
+
+  <div class="phrase-grid">
+    <div class="phrase-card">
+      <div class="en-ph">What time is it?</div>
+      <div class="tr-ph">/wɒt taɪm ɪz ɪt/</div>
+      <div class="ru-ph">Который час?</div>
+    </div>
+    <div class="phrase-card">
+      <div class="en-ph">I don't understand.</div>
+      <div class="tr-ph">/aɪ doʊnt ʌndəˈstænd/</div>
+      <div class="ru-ph">Я не понимаю.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="en-ph">Can you repeat that?</div>
+      <div class="tr-ph">/kæn juː rɪˈpiːt ðæt/</div>
+      <div class="ru-ph">Можете повторить?</div>
+    </div>
+    <div class="phrase-card">
+      <div class="en-ph">Speak slowly, please.</div>
+      <div class="tr-ph">/spiːk ˈsloʊ.li pliːz/</div>
+      <div class="ru-ph">Говорите медленнее, пожалуйста.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="en-ph">I need help.</div>
+      <div class="tr-ph">/aɪ niːd help/</div>
+      <div class="ru-ph">Мне нужна помощь.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="en-ph">How do you say… in English?</div>
+      <div class="tr-ph">/haʊ duː juː seɪ … ɪn ˈɪŋ.ɡlɪʃ/</div>
+      <div class="ru-ph">Как сказать… по-английски?</div>
+    </div>
+    <div class="phrase-card">
+      <div class="en-ph">I am learning English.</div>
+      <div class="tr-ph">/aɪ æm ˈlɜːr.nɪŋ ˈɪŋ.ɡlɪʃ/</div>
+      <div class="ru-ph">Я учу английский.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="en-ph">What does it mean?</div>
+      <div class="tr-ph">/wɒt dʌz ɪt miːn/</div>
+      <div class="ru-ph">Что это значит?</div>
+    </div>
+    <div class="phrase-card">
+      <div class="en-ph">I am happy / sad / tired.</div>
+      <div class="tr-ph">/aɪ æm ˈhæp.i sæd ˈtaɪ.ərd/</div>
+      <div class="ru-ph">Я счастлив / грустен / устал.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="en-ph">It is very interesting!</div>
+      <div class="tr-ph">/ɪt ɪz ˈver.i ˈɪn.trəs.tɪŋ/</div>
+      <div class="ru-ph">Это очень интересно!</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 10: FINAL TEST -->
+<section class="section reveal">
+  <div class="section-header">
+    <div class="section-num">Финальный Тест</div>
+    <div>
+      <div class="section-title">Day 1 <span>Quiz</span></div>
+      <div class="section-sub">10 вопросов · Проверьте всё что изучили сегодня</div>
+    </div>
+  </div>
+
+  <div class="quiz-container">
+    <div class="quiz-progress-bar">
+      <div class="fill" id="quizBar" style="width:10%"></div>
+    </div>
+
+    <div id="quizMain">
+      <div class="quiz-q-num" id="qNum">Вопрос 1 из 10</div>
+      <div class="quiz-question" id="qText"></div>
+      <div class="quiz-options" id="qOpts"></div>
+      <div class="quiz-feedback" id="qFeedback"></div>
+      <button class="quiz-next" id="qNext" onclick="nextQuestion()">Следующий вопрос →</button>
+    </div>
+
+    <div class="quiz-result" id="quizResult">
+      <div class="score-circle">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-total">из 10</div>
+      </div>
+      <h3 id="resultTitle"></h3>
+      <p id="resultText"></p>
+      <div style="margin-top:24px;">
+        <button class="check-btn" onclick="restartQuiz()" style="background: linear-gradient(135deg,#4ade80,#22c55e);">🔄 Пройти снова</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer container">
+  <div class="next-day">
+    <span>📅 Завтра — День 2</span>
+    <span class="arrow">→</span>
+    <span>Present Simple · Профессии · Семья · 40 новых слов</span>
+  </div>
+  <p class="muted">Изучайте по 90–120 минут в день. Повторяйте слова из дня 1 каждое утро перед новым уроком. Последовательность — ключ к успеху.</p>
+</footer>
+
+</div><!-- /container -->
+
+<script>
+// =====================
+// QUIZ DATA
+// =====================
+const questions = [
+  {
+    q: "Как правильно переводится: 'I am a student'?",
+    opts: ["Он студент", "Я студент", "Мы студенты", "Ты студент"],
+    correct: 1,
+    explain: "'I' — это 'Я', 'am' — это форма to be для I, 'a student' — студент."
+  },
+  {
+    q: "Выберите правильную форму: 'She ___ from Moscow.'",
+    opts: ["am", "are", "is", "be"],
+    correct: 2,
+    explain: "С She, He, It используется форма IS."
+  },
+  {
+    q: "Что значит 'Good evening'?",
+    opts: ["Доброе утро", "Добрый день", "Добрый вечер", "Спокойной ночи"],
+    correct: 2,
+    explain: "Evening — вечер. Good evening говорят после 18:00."
+  },
+  {
+    q: "Какое число — 'fifteen'?",
+    opts: ["13", "14", "15", "16"],
+    correct: 2,
+    explain: "Fifteen = 15. Запомните: -teen добавляется к 3–19."
+  },
+  {
+    q: "Как спросить 'Как тебя зовут?' по-английски?",
+    opts: ["How are you?", "What's your name?", "Where are you from?", "How old are you?"],
+    correct: 1,
+    explain: "'What's your name?' = 'Как тебя зовут?' Буквально: 'Что есть твоё имя?'"
+  },
+  {
+    q: "Выберите краткую форму отрицания: 'She is not tired' →",
+    opts: ["She isn't tired", "She aren't tired", "She not tired", "She amn't tired"],
+    correct: 0,
+    explain: "Is not → isn't. Это сокращение, которое часто используют носители языка."
+  },
+  {
+    q: "Что значит слово 'beautiful'?",
+    opts: ["большой", "красивый", "быстрый", "добрый"],
+    correct: 1,
+    explain: "Beautiful = красивый/прекрасный. Транскрипция: /ˈbjuː.tɪ.fəl/"
+  },
+  {
+    q: "Как звучит слово 'three' (три) в МФА?",
+    opts: ["/triː/", "/θriː/", "/friː/", "/driː/"],
+    correct: 1,
+    explain: "Th в слове three — это межзубный глухой звук /θ/. Язык между зубами!"
+  },
+  {
+    q: "Выберите правильный вариант вопроса: '_____ you a teacher?'",
+    opts: ["Am", "Is", "Are", "Be"],
+    correct: 2,
+    explain: "С местоимением 'you' используется 'are'. Вопрос: Are you...?"
+  },
+  {
+    q: "Что значит фраза: 'Nice to meet you'?",
+    opts: ["Как дела?", "Спасибо", "Приятно познакомиться", "До свидания"],
+    correct: 2,
+    explain: "'Nice to meet you' говорят при первой встрече. Ответ: 'Nice to meet you too!'"
+  }
+];
+
+let current = 0;
+let score = 0;
+let answered = false;
+
+function renderQuestion() {
+  const q = questions[current];
+  document.getElementById('qNum').textContent = `Вопрос ${current + 1} из ${questions.length}`;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('quizBar').style.width = `${(current / questions.length) * 100 + 10}%`;
+
+  const optsEl = document.getElementById('qOpts');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const letters = ['A', 'B', 'C', 'D'];
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span>${opt}`;
+    btn.onclick = () => selectAnswer(i, btn);
+    optsEl.appendChild(btn);
+  });
+
+  const fb = document.getElementById('qFeedback');
+  fb.className = 'quiz-feedback';
+  fb.textContent = '';
+
+  document.getElementById('qNext').className = 'quiz-next';
+  answered = false;
+}
+
+function selectAnswer(i, btn) {
+  if (answered) return;
+  answered = true;
+
+  const q = questions[current];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById('qFeedback');
+  if (i === q.correct) {
+    btn.classList.add('correct');
+    score++;
+    fb.className = 'quiz-feedback correct-fb show';
+    fb.textContent = '✅ Правильно! ' + q.explain;
+  } else {
+    btn.classList.add('wrong');
+    opts[q.correct].classList.add('correct');
+    fb.className = 'quiz-feedback wrong-fb show';
+    fb.textContent = '❌ Неверно. ' + q.explain;
+  }
+
+  document.getElementById('qNext').className = 'quiz-next show';
+}
+
+function nextQuestion() {
+  current++;
+  if (current >= questions.length) {
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResult() {
+  document.getElementById('quizMain').style.display = 'none';
+  const res = document.getElementById('quizResult');
+  res.className = 'quiz-result show';
+  document.getElementById('quizBar').style.width = '100%';
+  document.getElementById('scoreNum').textContent = score;
+
+  let title, text;
+  if (score >= 9) {
+    title = '🏆 Превосходно! Отличный старт!';
+    text = 'Вы отлично усвоили материал первого дня. День 2 будет ещё интереснее!';
+  } else if (score >= 7) {
+    title = '👏 Хорошая работа!';
+    text = 'Почти всё правильно! Повторите ошибки и двигайтесь к Дню 2.';
+  } else if (score >= 5) {
+    title = '📚 Неплохо, но есть над чем работать';
+    text = 'Перечитайте разделы по грамматике (to be) и лексике. Повторите завтра перед новым уроком.';
+  } else {
+    title = '💪 Не сдавайтесь! Повторите материал';
+    text = 'Это нормально — первый день всегда самый трудный. Перечитайте урок и пройдите тест снова!';
+  }
+
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultText').textContent = text;
+}
+
+function restartQuiz() {
+  current = 0;
+  score = 0;
+  answered = false;
+  document.getElementById('quizMain').style.display = 'block';
+  document.getElementById('quizResult').className = 'quiz-result';
+  renderQuestion();
+}
+
+// =====================
+// EXERCISES
+// =====================
+function checkFillBlanks() {
+  const inputs = document.querySelectorAll('#ex1 .fill-input');
+  let correct = 0;
+  inputs.forEach(inp => {
+    const answer = inp.dataset.answer.toLowerCase().trim();
+    const val = inp.value.toLowerCase().trim();
+    if (val === answer) {
+      inp.classList.add('correct');
+      inp.classList.remove('wrong');
+      correct++;
+    } else {
+      inp.classList.add('wrong');
+      inp.classList.remove('correct');
+    }
+  });
+  const res = document.getElementById('ex1result');
+  res.style.display = 'block';
+  if (correct === inputs.length) {
+    res.style.background = 'rgba(74,222,128,0.1)';
+    res.style.border = '1px solid #4ade80';
+    res.style.color = '#4ade80';
+    res.innerHTML = `✅ Все ${inputs.length} ответов верны! Отлично!`;
+  } else {
+    res.style.background = 'rgba(248,113,113,0.1)';
+    res.style.border = '1px solid #f87171';
+    res.style.color = '#f87171';
+    res.innerHTML = `❌ Правильных: ${correct} из ${inputs.length}. Исправьте выделенные ошибки.`;
+  }
+}
+
+function checkFillBlanks2() {
+  const inputs = document.querySelectorAll('#ex2 .fill-input');
+  let correct = 0;
+  inputs.forEach(inp => {
+    const answer = inp.dataset.answer.toLowerCase().trim();
+    const val = inp.value.toLowerCase().trim();
+    if (val === answer) {
+      inp.classList.add('correct');
+      inp.classList.remove('wrong');
+      correct++;
+    } else {
+      inp.classList.add('wrong');
+      inp.classList.remove('correct');
+    }
+  });
+  const res = document.getElementById('ex2result');
+  res.style.display = 'block';
+  if (correct === inputs.length) {
+    res.style.background = 'rgba(74,222,128,0.1)';
+    res.style.border = '1px solid #4ade80';
+    res.style.color = '#4ade80';
+    res.innerHTML = `✅ Все ${inputs.length} ответов верны! Блестяще!`;
+  } else {
+    res.style.background = 'rgba(248,113,113,0.1)';
+    res.style.border = '1px solid #f87171';
+    res.style.color = '#f87171';
+    res.innerHTML = `❌ Правильных: ${correct} из ${inputs.length}. Подсказка: используйте isn't / aren't / I'm not.`;
+  }
+}
+
+// =====================
+// SCROLL REVEAL
+// =====================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// INIT QUIZ
+renderQuestion();
+</script>
+</body>
+</html>

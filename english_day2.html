@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Mastery | День 2 из 90</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --s1: #131a26;
+  --s2: #192030;
+  --s3: #1e2840;
+  --accent: #38bdf8;
+  --accent2: #fb7185;
+  --accent3: #a78bfa;
+  --accent4: #34d399;
+  --gold: #fbbf24;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --border: #1e293b;
+  --correct: #34d399;
+  --wrong: #fb7185;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;line-height:1.7;overflow-x:hidden}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:40px 20px}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hero-bg::before{content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 30% 20%, rgba(56,189,248,.12) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(167,139,250,.10) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 30% at 60% 90%, rgba(251,113,133,.07) 0%,transparent 60%)}
+.dots{position:absolute;inset:0;
+  background-image:radial-gradient(rgba(56,189,248,.06) 1px,transparent 1px);
+  background-size:32px 32px}
+
+.hero-inner{position:relative;text-align:center;max-width:760px}
+.day-pill{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);
+  border-radius:50px;padding:7px 20px;font-family:'JetBrains Mono',monospace;
+  font-size:12px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:28px;animation:fd .8s ease both}
+.day-pill .live{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+
+.hero h1{font-size:clamp(3rem,8vw,6.5rem);font-weight:800;line-height:1;margin-bottom:20px;animation:fd .9s .1s ease both}
+.hero h1 em{font-style:normal;color:var(--accent);font-family:'Crimson Pro',serif;font-style:italic}
+.hero p{font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);margin-bottom:40px;animation:fd .9s .2s ease both}
+.hero p strong{color:var(--text)}
+
+.stats-row{display:flex;justify-content:center;gap:0;animation:fd 1s .35s ease both;flex-wrap:wrap}
+.stat-box{padding:18px 32px;border:1px solid var(--border);background:var(--s1);
+  display:flex;flex-direction:column;align-items:center;gap:4px}
+.stat-box:first-child{border-radius:12px 0 0 12px}
+.stat-box:last-child{border-radius:0 12px 12px 0}
+.stat-box .val{font-family:'JetBrains Mono',monospace;font-size:1.8rem;font-weight:700;color:var(--accent)}
+.stat-box .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+.scroll-cue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  color:var(--muted);font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px;
+  animation:fd 1s 1.2s ease both,bob 2.5s 2s infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+@keyframes fd{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── PROGRESS RIBBON ── */
+.ribbon{background:var(--s1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;overflow:hidden}
+.ribbon-track{display:flex;width:max-content;animation:rib 35s linear infinite}
+@keyframes rib{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.rib-item{display:flex;align-items:center;gap:10px;padding:0 40px;border-right:1px solid var(--border);white-space:nowrap}
+.rib-item .ph{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:1px}
+.rib-item .nm{font-size:13px;font-weight:600}
+.rib-item.active .nm{color:var(--accent)}
+
+/* ── LAYOUT ── */
+.wrap{max-width:920px;margin:0 auto;padding:0 24px}
+
+/* ── SECTION ── */
+.sec{padding:80px 0;border-bottom:1px solid var(--border)}
+.sec-head{display:flex;gap:16px;align-items:flex-start;margin-bottom:40px}
+.sec-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);
+  background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.2);
+  border-radius:5px;padding:4px 10px;letter-spacing:1.5px;text-transform:uppercase;
+  white-space:nowrap;margin-top:6px}
+.sec-tag.v{color:var(--gold);background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.2)}
+.sec-tag.g{color:var(--accent3);background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.2)}
+.sec-tag.s{color:var(--accent4);background:rgba(52,211,153,.08);border-color:rgba(52,211,153,.2)}
+.sec-tag.t{color:var(--accent2);background:rgba(251,113,133,.08);border-color:rgba(251,113,133,.2)}
+.sec-title{font-family:'Crimson Pro',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;line-height:1.15}
+.sec-title em{color:var(--accent);font-style:italic}
+.sec-sub{color:var(--muted);font-size:14px;margin-top:6px}
+
+/* ── RECALL BOX ── */
+.recall{background:rgba(251,191,36,.05);border:1px solid rgba(251,191,36,.18);
+  border-radius:12px;padding:20px 24px;margin-bottom:32px;display:flex;gap:14px}
+.recall .icon{font-size:22px;flex-shrink:0}
+.recall-body p{font-size:14px;margin-bottom:6px}
+.recall-body strong{color:var(--gold)}
+.recall-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:12px;padding:4px 12px;
+  border-radius:50px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.2);
+  color:var(--accent)}
+
+/* ── THEORY BOX ── */
+.theory{background:var(--s1);border:1px solid var(--border);border-left:3px solid var(--accent3);
+  border-radius:12px;padding:22px 26px;margin-bottom:18px}
+.theory h4{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--accent3);
+  display:flex;align-items:center;gap:8px}
+.theory p{font-size:14px;color:var(--text);margin-bottom:8px}
+.theory p:last-child{margin-bottom:0}
+.theory .note{color:var(--muted);font-size:13px;font-style:italic}
+.theory.gold{border-left-color:var(--gold)}
+.theory.gold h4{color:var(--gold)}
+.theory.teal{border-left-color:var(--accent4)}
+.theory.teal h4{color:var(--accent4)}
+.theory.red{border-left-color:var(--accent2)}
+.theory.red h4{color:var(--accent2)}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-size:14px;margin-top:18px}
+.tbl thead tr{background:rgba(56,189,248,.06);border-bottom:2px solid rgba(56,189,248,.3)}
+.tbl th{padding:12px 16px;text-align:left;font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent)}
+.tbl td{padding:12px 16px;border-bottom:1px solid var(--border)}
+.tbl tr:hover td{background:rgba(255,255,255,.02)}
+.tbl .en{font-weight:700;font-size:15px}
+.tbl .ipa{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent)}
+.tbl .ru{color:var(--muted)}
+.tbl .ex{font-style:italic;color:var(--accent4);font-size:13px}
+.tbl .form{font-family:'JetBrains Mono',monospace;color:var(--accent3);font-size:15px;font-weight:700}
+.tbl .neg{font-family:'JetBrains Mono',monospace;color:var(--accent2)}
+.tbl .sbj{font-weight:800;color:var(--gold)}
+
+/* ── GRAMMAR FORMULA ── */
+.formula{display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  background:var(--s2);border:1px solid var(--border);border-radius:12px;
+  padding:18px 24px;margin:18px 0;font-family:'JetBrains Mono',monospace;font-size:14px}
+.formula .box{padding:6px 14px;border-radius:6px;font-weight:700}
+.formula .sbj-b{background:rgba(251,191,36,.12);color:var(--gold);border:1px solid rgba(251,191,36,.25)}
+.formula .vrb-b{background:rgba(56,189,248,.12);color:var(--accent);border:1px solid rgba(56,189,248,.25)}
+.formula .obj-b{background:rgba(167,139,250,.12);color:var(--accent3);border:1px solid rgba(167,139,250,.25)}
+.formula .pls{color:var(--muted);font-size:18px}
+.formula .eq{color:var(--muted);font-size:16px;padding:0 4px}
+
+/* ── CARDS GRID ── */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:18px}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:12px;
+  padding:16px 18px;transition:.2s;cursor:default}
+.card:hover{border-color:var(--accent);transform:translateY(-3px);
+  box-shadow:0 10px 28px rgba(0,0,0,.35)}
+.card .emoji{font-size:26px;margin-bottom:8px}
+.card .en-w{font-weight:800;font-size:17px;margin-bottom:2px}
+.card .ipa-w{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);margin-bottom:4px}
+.card .ru-w{font-size:13px;color:var(--muted)}
+.card .ex-w{font-size:12px;color:var(--accent4);font-style:italic;margin-top:6px;
+  border-top:1px solid var(--border);padding-top:6px}
+
+/* ── EXERCISE ── */
+.ex-block{background:var(--s1);border:1px solid var(--border);border-radius:14px;
+  padding:26px;margin-bottom:22px}
+.ex-block h4{font-size:16px;font-weight:700;margin-bottom:6px;
+  display:flex;align-items:center;gap:8px}
+.ex-block .task{color:var(--muted);font-size:13px;margin-bottom:20px}
+.fill-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  font-size:16px;margin-bottom:14px;line-height:2.4}
+input.blank{background:rgba(56,189,248,.06);border:none;
+  border-bottom:2px solid rgba(56,189,248,.4);
+  border-radius:5px 5px 0 0;padding:4px 10px;min-width:90px;
+  font-family:'JetBrains Mono',monospace;font-size:13px;
+  color:var(--text);outline:none;text-align:center;transition:.2s}
+input.blank:focus{border-color:var(--accent);background:rgba(56,189,248,.1)}
+input.blank.ok{border-color:var(--correct);background:rgba(52,211,153,.1);color:var(--correct)}
+input.blank.bad{border-color:var(--wrong);background:rgba(251,113,133,.1);color:var(--wrong)}
+
+.btn-check{display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--accent),#0284c7);
+  color:#000;font-weight:800;font-size:13px;padding:10px 24px;
+  border:none;border-radius:50px;cursor:pointer;transition:.2s;
+  font-family:'Syne',sans-serif;margin-top:12px}
+.btn-check:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(56,189,248,.35)}
+
+.ex-result{margin-top:14px;padding:10px 16px;border-radius:8px;font-size:13px;display:none}
+.ex-result.ok{display:block;background:rgba(52,211,153,.1);border:1px solid var(--correct);color:var(--correct)}
+.ex-result.bad{display:block;background:rgba(251,113,133,.1);border:1px solid var(--wrong);color:var(--wrong)}
+
+/* ── REORDER ── */
+.reorder-area{display:flex;flex-wrap:wrap;gap:8px;min-height:50px;
+  background:var(--s2);border:1px dashed var(--border);border-radius:10px;
+  padding:14px;margin-bottom:12px;transition:.2s}
+.reorder-area.drag-over{border-color:var(--accent);background:rgba(56,189,248,.05)}
+.word-tile{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;
+  padding:7px 14px;background:var(--s3);border:1px solid var(--border);
+  border-radius:7px;cursor:grab;user-select:none;transition:.2s;color:var(--text)}
+.word-tile:hover{border-color:var(--accent);background:rgba(56,189,248,.08)}
+.word-tile:active{cursor:grabbing;opacity:.7}
+.word-tile.placed{background:rgba(56,189,248,.1);border-color:rgba(56,189,248,.3);color:var(--accent)}
+
+/* ── DIALOGUE ── */
+.chat{display:flex;flex-direction:column;gap:16px;margin-top:20px}
+.msg{display:flex;gap:12px;align-items:flex-start}
+.msg.r{flex-direction:row-reverse}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+  font-size:18px;flex-shrink:0;background:var(--s2);border:1px solid var(--border)}
+.bubble{background:var(--s2);border:1px solid var(--border);border-radius:14px;
+  padding:13px 17px;max-width:78%;flex:1}
+.msg.r .bubble{background:rgba(56,189,248,.07);border-color:rgba(56,189,248,.18)}
+.bubble .en{font-weight:700;font-size:15px;margin-bottom:3px}
+.bubble .ipa{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);margin-bottom:4px}
+.bubble .ru{font-size:12px;color:var(--muted)}
+
+/* ── READING ── */
+.reading-box{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:30px}
+.reading-box .rtitle{font-family:'Crimson Pro',serif;font-size:1.5rem;font-weight:600;
+  color:var(--gold);margin-bottom:20px}
+.reading-box p{font-size:16px;line-height:2;margin-bottom:14px}
+.hw{border-bottom:1px dashed rgba(56,189,248,.5);color:var(--accent);cursor:help;
+  position:relative;transition:.2s}
+.hw:hover{color:var(--text);border-color:var(--accent)}
+
+/* ── QUIZ ── */
+.quiz-wrap{background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:32px}
+.qbar{height:3px;background:var(--border);border-radius:99px;margin-bottom:28px;overflow:hidden}
+.qbar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent3));
+  border-radius:99px;transition:width .5s ease}
+.q-counter{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.q-text{font-size:1.2rem;font-weight:700;line-height:1.45;margin-bottom:22px}
+.q-note{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent3);
+  margin-bottom:18px;background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.15);
+  border-radius:6px;padding:6px 12px;display:inline-block}
+.q-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.q-opt{background:var(--s2);border:2px solid var(--border);border-radius:10px;
+  padding:13px 16px;cursor:pointer;transition:.2s;font-size:14px;
+  font-family:'Syne',sans-serif;color:var(--text);text-align:left;
+  display:flex;align-items:center;gap:10px}
+.q-opt:hover:not(:disabled){border-color:var(--accent);background:rgba(56,189,248,.06)}
+.q-opt.ok{border-color:var(--correct);background:rgba(52,211,153,.1);color:var(--correct)}
+.q-opt.bad{border-color:var(--wrong);background:rgba(251,113,133,.1);color:var(--wrong)}
+.q-opt:disabled{cursor:not-allowed}
+.opt-l{font-family:'JetBrains Mono',monospace;font-size:11px;
+  background:var(--border);border-radius:4px;width:22px;height:22px;
+  display:grid;place-items:center;flex-shrink:0}
+.q-fb{padding:10px 16px;border-radius:8px;font-size:13px;margin-bottom:16px;display:none}
+.q-fb.ok{display:block;background:rgba(52,211,153,.1);border:1px solid var(--correct);color:var(--correct)}
+.q-fb.bad{display:block;background:rgba(251,113,133,.1);border:1px solid var(--wrong);color:var(--wrong)}
+.btn-next{display:none;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--accent3),#7c3aed);
+  color:#fff;font-weight:700;font-size:13px;padding:11px 26px;
+  border:none;border-radius:50px;cursor:pointer;transition:.2s;font-family:'Syne',sans-serif}
+.btn-next.show{display:inline-flex}
+.btn-next:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(167,139,250,.35)}
+
+.q-result{display:none;text-align:center;padding:20px 0}
+.q-result.show{display:block}
+.score-ring{width:130px;height:130px;border-radius:50%;
+  border:4px solid var(--accent);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;margin:0 auto 24px;
+  background:rgba(56,189,248,.06)}
+.score-n{font-family:'Crimson Pro',serif;font-size:3rem;font-weight:600;
+  color:var(--accent);line-height:1}
+.score-of{font-size:13px;color:var(--muted)}
+.q-result h3{font-size:1.4rem;margin-bottom:8px}
+.q-result p{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto}
+
+/* ── TIP ── */
+.tip{background:rgba(251,191,36,.05);border:1px solid rgba(251,191,36,.18);
+  border-radius:10px;padding:14px 18px;margin-top:16px;font-size:13px;
+  display:flex;gap:10px}
+.tip .icon{font-size:17px;flex-shrink:0;margin-top:1px}
+.tip strong{color:var(--gold)}
+
+/* ── TAGS ── */
+.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;
+  padding:3px 10px;border-radius:50px;letter-spacing:1px;text-transform:uppercase;
+  margin-right:5px;margin-bottom:5px}
+.tv{background:rgba(251,191,36,.12);color:var(--gold);border:1px solid rgba(251,191,36,.25)}
+.tg{background:rgba(167,139,250,.12);color:var(--accent3);border:1px solid rgba(167,139,250,.25)}
+.ts{background:rgba(52,211,153,.12);color:var(--accent4);border:1px solid rgba(52,211,153,.25)}
+.tt{background:rgba(251,113,133,.12);color:var(--accent2);border:1px solid rgba(251,113,133,.25)}
+.tr2{background:rgba(56,189,248,.12);color:var(--accent);border:1px solid rgba(56,189,248,.25)}
+
+/* ── SCHEDULE ── */
+.sch{margin-top:18px}
+.sch-item{display:flex;gap:16px;align-items:flex-start;
+  padding:14px 0;border-bottom:1px solid var(--border)}
+.sch-item:last-child{border-bottom:none}
+.sch-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent4);
+  background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);
+  border-radius:5px;padding:4px 10px;white-space:nowrap;margin-top:2px;min-width:65px;text-align:center}
+.sch-ttl{font-weight:700;font-size:14px;margin-bottom:2px}
+.sch-desc{font-size:12px;color:var(--muted)}
+
+/* ── FOOTER ── */
+footer{padding:60px 0;text-align:center}
+.next-pill{display:inline-flex;align-items:center;gap:10px;
+  background:var(--s1);border:1px solid var(--border);border-radius:12px;
+  padding:16px 26px;font-size:14px;font-weight:600;margin-bottom:24px;color:var(--text)}
+.next-pill .arr{color:var(--accent);font-size:20px}
+footer .mt{color:var(--muted);font-size:13px;max-width:420px;margin:0 auto}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .q-opts{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr 1fr}
+  .stats-row .stat-box{padding:14px 20px}
+  .formula{font-size:12px}
+}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg"><div class="dots"></div></div>
+  <div class="hero-inner">
+    <div class="day-pill"><span class="live"></span>День 2 из 90 · A1 → Native</div>
+    <h1>Present<br><em>Simple</em></h1>
+    <p>Профессии · Семья · Главное время английского · <strong>+50 слов</strong></p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="val">2</div><div class="lbl">День</div></div>
+      <div class="stat-box"><div class="val">90</div><div class="lbl">Всего слов</div></div>
+      <div class="stat-box"><div class="val">A1</div><div class="lbl">Уровень</div></div>
+      <div class="stat-box"><div class="val">2%</div><div class="lbl">Прогресс</div></div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Начать урок</span><span>↓</span></div>
+</section>
+
+<!-- ═══ RIBBON ═══ -->
+<div class="ribbon">
+  <div class="ribbon-track">
+    <div class="rib-item active"><span class="ph">Сейчас</span><span class="nm">День 2: Present Simple + Профессии</span></div>
+    <div class="rib-item"><span class="ph">День 3</span><span class="nm">Present Continuous · Дом · Комнаты</span></div>
+    <div class="rib-item"><span class="ph">День 4</span><span class="nm">Артикли a/an/the · Еда · Рестораны</span></div>
+    <div class="rib-item"><span class="ph">День 5</span><span class="nm">Past Simple · Вчера · Прошлое</span></div>
+    <div class="rib-item"><span class="ph">День 6</span><span class="nm">Вопросительные слова · WH-questions</span></div>
+    <div class="rib-item"><span class="ph">День 7</span><span class="nm">Повторение недели + Большой тест</span></div>
+    <div class="rib-item active"><span class="ph">Сейчас</span><span class="nm">День 2: Present Simple + Профессии</span></div>
+    <div class="rib-item"><span class="ph">День 3</span><span class="nm">Present Continuous · Дом · Комнаты</span></div>
+    <div class="rib-item"><span class="ph">День 4</span><span class="nm">Артикли a/an/the · Еда · Рестораны</span></div>
+    <div class="rib-item"><span class="ph">День 5</span><span class="nm">Past Simple · Вчера · Прошлое</span></div>
+    <div class="rib-item"><span class="ph">День 6</span><span class="nm">Вопросительные слова · WH-questions</span></div>
+    <div class="rib-item"><span class="ph">День 7</span><span class="nm">Повторение недели + Большой тест</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══ РАСПИСАНИЕ ═══ -->
+<section class="sec reveal">
+  <div class="sec-head">
+    <div class="sec-tag">Расписание</div>
+    <div>
+      <div class="sec-title">Программа <em>дня</em></div>
+      <div class="sec-sub">День 2 · ~100 минут · Present Simple + Лексика</div>
+    </div>
+  </div>
+  <span class="tag tv">Лексика</span><span class="tag tg">Грамматика</span>
+  <span class="tag ts">Говорение</span><span class="tag tr2">Чтение</span><span class="tag tt">Тест</span>
+  <div class="sch">
+    <div class="sch-item"><div class="sch-time">10 мин</div><div><div class="sch-ttl">🔁 Повторение Дня 1</div><div class="sch-desc">To Be, алфавит, числа — быстрый self-check</div></div></div>
+    <div class="sch-item"><div class="sch-time">20 мин</div><div><div class="sch-ttl">⚡ Грамматика: Present Simple</div><div class="sch-desc">Форма, правила s/es, отрицание, вопросы с do/does</div></div></div>
+    <div class="sch-item"><div class="sch-time">20 мин</div><div><div class="sch-ttl">📚 Лексика: Профессии + Семья</div><div class="sch-desc">+50 слов с транскрипцией и примерами предложений</div></div></div>
+    <div class="sch-item"><div class="sch-time">15 мин</div><div><div class="sch-ttl">✏️ Упражнения A, B, C</div><div class="sch-desc">Fill-in-blanks, построение предложений, Word Order</div></div></div>
+    <div class="sch-item"><div class="sch-time">15 мин</div><div><div class="sch-ttl">💬 Диалог: My Family</div><div class="sch-desc">Чтение вслух + пересказ</div></div></div>
+    <div class="sch-item"><div class="sch-time">10 мин</div><div><div class="sch-ttl">📖 Чтение: A Working Day</div><div class="sch-desc">Адаптированный текст · все слова из урока в контексте</div></div></div>
+    <div class="sch-item"><div class="sch-time">10 мин</div><div><div class="sch-ttl">🧩 Финальный тест — 12 вопросов</div><div class="sch-desc">Present Simple + профессии + семья</div></div></div>
+  </div>
+</section>
+
+<!-- ═══ RECALL DAY 1 ═══ -->
+<section class="sec reveal">
+  <div class="sec-head">
+    <div class="sec-tag">Повторение</div>
+    <div>
+      <div class="sec-title">День 1: <em>Quick Recall</em></div>
+      <div class="sec-sub">5 минут — убедитесь, что помните базу</div>
+    </div>
+  </div>
+  <div class="recall">
+    <div class="icon">🧠</div>
+    <div class="recall-body">
+      <p><strong>Проверьте себя устно:</strong> скажите вслух без паузы —</p>
+      <div class="recall-chips">
+        <span class="chip">I am / I'm</span>
+        <span class="chip">She is / She's</span>
+        <span class="chip">They are / They're</span>
+        <span class="chip">He isn't</span>
+        <span class="chip">Are you…?</span>
+        <span class="chip">one → twenty</span>
+        <span class="chip">Hello / Goodbye</span>
+        <span class="chip">Nice to meet you</span>
+      </div>
+      <p style="margin-top:10px;font-size:13px;color:var(--muted)">Если хоть одна фраза «зависла» — вернитесь к таблице из Дня 1 и повторите перед сном.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GRAMMAR: PRESENT SIMPLE ═══ -->
+<section class="sec reveal">
+  <div class="sec-head">
+    <div class="sec-tag g">Грамматика</div>
+    <div>
+      <div class="sec-title">Present <em>Simple</em></div>
+      <div class="sec-sub">Самое используемое время English — 60% всех текстов и речи</div>
+    </div>
+  </div>
+
+  <div class="theory gold">
+    <h4>📌 Когда использовать Present Simple?</h4>
+    <p><strong>1. Факты и истины:</strong> Water <em>boils</em> at 100°C. The sun <em>rises</em> in the east.</p>
+    <p><strong>2. Привычки и рутина:</strong> I <em>drink</em> coffee every morning. She <em>goes</em> to the gym on Mondays.</p>
+    <p><strong>3. Постоянные состояния:</strong> He <em>lives</em> in Moscow. They <em>work</em> at a hospital.</p>
+    <p><strong>4. Расписания:</strong> The train <em>leaves</em> at 9 AM.</p>
+    <p class="note">Маркеры времени: always, usually, often, sometimes, rarely, never, every day/week/year</p>
+  </div>
+
+  <!-- FORMULA POSITIVE -->
+  <p style="font-weight:700;margin:24px 0 10px;font-size:15px;color:var(--accent4)">✅ Утвердительное предложение</p>
+  <div class="formula">
+    <span class="box sbj-b">Subject</span>
+    <span class="pls">+</span>
+    <span class="box vrb-b">Verb (base / +s)</span>
+    <span class="pls">+</span>
+    <span class="box obj-b">Object / Adverb</span>
+    <span class="eq">=</span>
+    <span style="color:var(--text)">I <b style="color:var(--accent)">work</b> every day. / She <b style="color:var(--accent)">work<u>s</u></b> at a school.</span>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>Местоимение</th><th>Глагол WORK</th><th>Пример</th></tr></thead>
+    <tbody>
+      <tr><td class="sbj">I</td><td class="form">work</td><td class="ex">I work at home.</td></tr>
+      <tr><td class="sbj">You</td><td class="form">work</td><td class="ex">You work hard.</td></tr>
+      <tr><td class="sbj">He / She / It</td><td class="form">work<b style="color:var(--accent2)">s</b></td><td class="ex">She work<b style="color:var(--accent2)">s</b> at a bank.</td></tr>
+      <tr><td class="sbj">We</td><td class="form">work</td><td class="ex">We work together.</td></tr>
+      <tr><td class="sbj">They</td><td class="form">work</td><td class="ex">They work at night.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="theory red" style="margin-top:22px">
+    <h4>⚠️ Правила добавления -s / -es для He/She/It</h4>
+    <p><strong>Обычно +s:</strong> work→works, read→reads, play→plays, live→lives</p>
+    <p><strong>+es (после -s, -sh, -ch, -x, -o):</strong> go→go<b>es</b>, watch→watch<b>es</b>, teach→teach<b>es</b>, fix→fix<b>es</b></p>
+    <p><strong>y→ies (согл.+y):</strong> study→stud<b>ies</b>, fly→fl<b>ies</b>, carry→carr<b>ies</b></p>
+    <p><strong>Исключения:</strong> have→<b>has</b>, be→<b>is</b>, do→<b>does</b></p>
+  </div>
+
+  <!-- FORMULA NEGATIVE -->
+  <p style="font-weight:700;margin:28px 0 10px;font-size:15px;color:var(--accent2)">❌ Отрицательное предложение</p>
+  <div class="formula">
+    <span class="box sbj-b">Subject</span>
+    <span class="pls">+</span>
+    <span class="box" style="background:rgba(251,113,133,.12);color:var(--accent2);border:1px solid rgba(251,113,133,.25)">do not / does not</span>
+    <span class="pls">+</span>
+    <span class="box vrb-b">Verb (base)</span>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>Местоимение</th><th>Отрицание</th><th>Краткая форма</th><th>Пример</th></tr></thead>
+    <tbody>
+      <tr><td class="sbj">I / You / We / They</td><td class="form">do not</td><td class="neg">don't</td><td class="ex">I don't like coffee.</td></tr>
+      <tr><td class="sbj">He / She / It</td><td class="form">does not</td><td class="neg">doesn't</td><td class="ex">She doesn't work here.</td></tr>
+    </tbody>
+  </table>
+
+  <!-- FORMULA QUESTION -->
+  <p style="font-weight:700;margin:28px 0 10px;font-size:15px;color:var(--accent)">❓ Вопрос</p>
+  <div class="formula">
+    <span class="box" style="background:rgba(56,189,248,.12);color:var(--accent);border:1px solid rgba(56,189,248,.25)">Do / Does</span>
+    <span class="pls">+</span>
+    <span class="box sbj-b">Subject</span>
+    <span class="pls">+</span>
+    <span class="box vrb-b">Verb (base)</span>
+    <span class="pls">+</span>
+    <span class="box obj-b">...?</span>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>Вспомогательный</th><th>Местоимение</th><th>Пример</th><th>Ответ</th></tr></thead>
+    <tbody>
+      <tr><td class="form" style="color:var(--accent)">Do</td><td class="sbj">I / You / We / They</td><td class="ex">Do you speak English?</td><td class="ru">Yes, I do. / No, I don't.</td></tr>
+      <tr><td class="form" style="color:var(--accent)">Does</td><td class="sbj">He / She / It</td><td class="ex">Does she work here?</td><td class="ru">Yes, she does. / No, she doesn't.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tip">
+    <span class="icon">💡</span>
+    <div><strong>Ключевое правило:</strong> В вопросах и отрицаниях глагол <b>всегда в базовой форме</b> — никакого -s! <br>❌ Does she <s>works</s>? → ✅ Does she work?<br>❌ She doesn't <s>works</s>. → ✅ She doesn't work.</div>
+  </div>
+</section>
+
+<!-- ═══ VOCABULARY: PROFESSIONS ═══ -->
+<section class="sec reveal">
+  <div class="sec-head">
+    <div class="sec-tag v">Лексика</div>
+    <div>
+      <div class="sec-title"><em>Professions</em> — Профессии</div>
+      <div class="sec-sub">25 важнейших профессий с транскрипцией и примерами</div>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="emoji">👨‍⚕️</div><div class="en-w">doctor</div><div class="ipa-w">/ˈdɒk.tər/</div><div class="ru-w">врач</div><div class="ex-w">She is a doctor. She helps people.</div></div>
+    <div class="card"><div class="emoji">👩‍🏫</div><div class="en-w">teacher</div><div class="ipa-w">/ˈtiːtʃ.ər/</div><div class="ru-w">учитель</div><div class="ex-w">He teaches English at school.</div></div>
+    <div class="card"><div class="emoji">👮</div><div class="en-w">police officer</div><div class="ipa-w">/pəˈliːs ˈɒf.ɪ.sər/</div><div class="ru-w">полицейский</div><div class="ex-w">They protect the city.</div></div>
+    <div class="card"><div class="emoji">👨‍🍳</div><div class="en-w">chef / cook</div><div class="ipa-w">/ʃef/ /kʊk/</div><div class="ru-w">повар / шеф-повар</div><div class="ex-w">He cooks amazing food.</div></div>
+    <div class="card"><div class="emoji">👨‍💼</div><div class="en-w">manager</div><div class="ipa-w">/ˈmæn.ɪ.dʒər/</div><div class="ru-w">менеджер</div><div class="ex-w">She manages the team.</div></div>
+    <div class="card"><div class="emoji">👩‍💻</div><div class="en-w">programmer</div><div class="ipa-w">/ˈproʊ.ɡræm.ər/</div><div class="ru-w">программист</div><div class="ex-w">He writes code every day.</div></div>
+    <div class="card"><div class="emoji">✈️</div><div class="en-w">pilot</div><div class="ipa-w">/ˈpaɪ.lət/</div><div class="ru-w">пилот</div><div class="ex-w">She flies planes to Europe.</div></div>
+    <div class="card"><div class="emoji">🎨</div><div class="en-w">artist</div><div class="ipa-w">/ˈɑːr.tɪst/</div><div class="ru-w">художник</div><div class="ex-w">He paints beautiful pictures.</div></div>
+    <div class="card"><div class="emoji">👨‍🔧</div><div class="en-w">engineer</div><div class="ipa-w">/ˌen.dʒɪˈnɪər/</div><div class="ru-w">инженер</div><div class="ex-w">She designs new machines.</div></div>
+    <div class="card"><div class="emoji">⚖️</div><div class="en-w">lawyer</div><div class="ipa-w">/ˈlɔː.jər/</div><div class="ru-w">юрист / адвокат</div><div class="ex-w">He works in a law firm.</div></div>
+    <div class="card"><div class="emoji">📰</div><div class="en-w">journalist</div><div class="ipa-w">/ˈdʒɜːr.nə.lɪst/</div><div class="ru-w">журналист</div><div class="ex-w">She writes articles for a newspaper.</div></div>
+    <div class="card"><div class="emoji">🏗️</div><div class="en-w">architect</div><div class="ipa-w">/ˈɑːr.kɪ.tekt/</div><div class="ru-w">архитектор</div><div class="ex-w">He designs buildings.</div></div>
+    <div class="card"><div class="emoji">🔬</div><div class="en-w">scientist</div><div class="ipa-w">/ˈsaɪ.ən.tɪst/</div><div class="ru-w">учёный</div><div class="ex-w">They research new medicines.</div></div>
+    <div class="card"><div class="emoji">🎤</div><div class="en-w">singer</div><div class="ipa-w">/ˈsɪŋ.ər/</div><div class="ru-w">певец / певица</div><div class="ex-w">She sings on stage every night.</div></div>
+    <div class="card"><div class="emoji">🚒</div><div class="en-w">firefighter</div><div class="ipa-w">/ˈfaɪər.faɪ.tər/</div><div class="ru-w">пожарный</div><div class="ex-w">He saves lives every day.</div></div>
+    <div class="card"><div class="emoji">🏦</div><div class="en-w">accountant</div><div class="ipa-w">/əˈkaʊn.tənt/</div><div class="ru-w">бухгалтер</div><div class="ex-w">She counts money at a bank.</div></div>
+    <div class="card"><div class="emoji">📦</div><div class="en-w">driver</div><div class="ipa-w">/ˈdraɪ.vər/</div><div class="ru-w">водитель</div><div class="ex-w">He drives a truck across Russia.</div></div>
+    <div class="card"><div class="emoji">🛒</div><div class="en-w">shop assistant</div><div class="ipa-w">/ʃɒp əˈsɪs.tənt/</div><div class="ru-w">продавец</div><div class="ex-w">She works in a supermarket.</div></div>
+  </div>
+
+  <div class="tip" style="margin-top:22px">
+    <span class="icon">🎯</span>
+    <div><strong>Задание:</strong> Для каждой профессии составьте одно предложение в Present Simple. Например: «My father is an engineer. He designs bridges. He works very hard.»</div>
+  </div>
+</section>
+
+<!-- ═══ VOCABULARY: FAMILY ═══ -->
+<section class="sec reveal">
+  <div class="sec-head">
+    <div class="sec-tag v">Лексика</div>
+    <div>
+      <div class="sec-title"><em>Family</em> — Семья</div>
+      <div class="sec-sub">25 слов — члены семьи + прилагательные для описания</div>
+    </div>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>English</th><th>IPA</th><th>Русский</th><th>Пример</th></tr></thead>
+    <tbody>
+      <tr><td class="en">mother / mom</td><td class="ipa">/ˈmʌð.ər/ /mɒm/</td><td class="ru">мать / мама</td><td class="ex">My mother is a nurse.</td></tr>
+      <tr><td class="en">father / dad</td><td class="ipa">/ˈfɑː.ðər/ /dæd/</td><td class="ru">отец / папа</td><td class="ex">My dad works at a factory.</td></tr>
+      <tr><td class="en">sister</td><td class="ipa">/ˈsɪs.tər/</td><td class="ru">сестра</td><td class="ex">My sister studies medicine.</td></tr>
+      <tr><td class="en">brother</td><td class="ipa">/ˈbrʌð.ər/</td><td class="ru">брат</td><td class="ex">My brother plays football.</td></tr>
+      <tr><td class="en">grandmother / grandma</td><td class="ipa">/ˈɡrænd.mʌð.ər/</td><td class="ru">бабушка</td><td class="ex">My grandma cooks delicious food.</td></tr>
+      <tr><td class="en">grandfather / grandpa</td><td class="ipa">/ˈɡrænd.fɑː.ðər/</td><td class="ru">дедушка</td><td class="ex">My grandpa reads every evening.</td></tr>
+      <tr><td class="en">son</td><td class="ipa">/sʌn/</td><td class="ru">сын</td><td class="ex">Their son is seven years old.</td></tr>
+      <tr><td class="en">daughter</td><td class="ipa">/ˈdɔː.tər/</td><td class="ru">дочь</td><td class="ex">Their daughter studies in London.</td></tr>
+      <tr><td class="en">husband</td><td class="ipa">/ˈhʌz.bənd/</td><td class="ru">муж</td><td class="ex">Her husband is a pilot.</td></tr>
+      <tr><td class="en">wife</td><td class="ipa">/waɪf/</td><td class="ru">жена</td><td class="ex">His wife teaches at university.</td></tr>
+      <tr><td class="en">uncle</td><td class="ipa">/ˈʌŋ.kəl/</td><td class="ru">дядя</td><td class="ex">My uncle lives in New York.</td></tr>
+      <tr><td class="en">aunt</td><td class="ipa">/ɑːnt/</td><td class="ru">тётя</td><td class="ex">My aunt is a famous artist.</td></tr>
+      <tr><td class="en">cousin</td><td class="ipa">/ˈkʌz.ən/</td><td class="ru">двоюродный брат/сестра</td><td class="ex">My cousin studies in Moscow.</td></tr>
+      <tr><td class="en">parents</td><td class="ipa">/ˈpeər.ənts/</td><td class="ru">родители</td><td class="ex">My parents are both doctors.</td></tr>
+      <tr><td class="en">children</td><td class="ipa">/ˈtʃɪl.drən/</td><td class="ru">дети</td><td class="ex">They have three children.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="theory teal" style="margin-top:22px">
+    <h4>📎 Притяжательные местоимения с семьёй</h4>
+    <p><b>my</b> — мой/моя &nbsp;|&nbsp; <b>your</b> — твой &nbsp;|&nbsp; <b>his</b> — его &nbsp;|&nbsp; <b>her</b> — её &nbsp;|&nbsp; <b>our</b> — наш &nbsp;|&nbsp; <b>their</b> — их</p>
+    <p><em>My sister is a teacher. His brother works at a hospital. Their parents live in Moscow.</em></p>
+    <p class="note">В отличие от русского, притяжательные местоимения не изменяются по роду: «его» всегда <b>his</b>, «её» всегда <b>her</b>.</p>
+  </div>
+</section>
+
+<!-- ═══ EXERCISES ═══ -->
+<section class="sec reveal">
+  <div class="sec-head">
+    <div class="sec-tag t">Упражнения</div>
+    <div>
+      <div class="sec-title"><em>Practice</em> — Три задания</div>
+      <div class="sec-sub">Грамматика + Лексика + Word Order</div>
+    </div>
+  </div>
+
+  <!-- EX A -->
+  <div class="ex-block">
+    <h4>✏️ A — Present Simple: do / does / don't / doesn't</h4>
+    <div class="task">Вставьте правильный вспомогательный глагол</div>
+    <div class="fill-row">1. <input class="blank" id="a1" data-a="Do" placeholder="___"> you speak English?</div>
+    <div class="fill-row">2. She <input class="blank" id="a2" data-a="doesn't" placeholder="___"> work on weekends.</div>
+    <div class="fill-row">3. <input class="blank" id="a3" data-a="Does" placeholder="___"> he live in Moscow?</div>
+    <div class="fill-row">4. They <input class="blank" id="a4" data-a="don't" placeholder="___"> study French.</div>
+    <div class="fill-row">5. <input class="blank" id="a5" data-a="Does" placeholder="___"> your mother cook every day?</div>
+    <div class="fill-row">6. We <input class="blank" id="a6" data-a="don't" placeholder="___"> understand the question.</div>
+    <button class="btn-check" onclick="checkEx('A',['a1','a2','a3','a4','a5','a6'])">✓ Проверить</button>
+    <div class="ex-result" id="resA"></div>
+  </div>
+
+  <!-- EX B -->
+  <div class="ex-block">
+    <h4>✏️ B — Правильная форма глагола (+s / +es / +ies)</h4>
+    <div class="task">Напишите правильную форму глагола для He / She / It</div>
+    <div class="fill-row">1. She <input class="blank" id="b1" data-a="teaches" placeholder="___"> (teach) English.</div>
+    <div class="fill-row">2. He <input class="blank" id="b2" data-a="goes" placeholder="___"> (go) to work by bus.</div>
+    <div class="fill-row">3. My sister <input class="blank" id="b3" data-a="studies" placeholder="___"> (study) medicine.</div>
+    <div class="fill-row">4. He <input class="blank" id="b4" data-a="has" placeholder="___"> (have) three children.</div>
+    <div class="fill-row">5. She <input class="blank" id="b5" data-a="works" placeholder="___"> (work) at a hospital.</div>
+    <div class="fill-row">6. The train <input class="blank" id="b6" data-a="leaves" placeholder="___"> (leave) at 8 AM.</div>
+    <button class="btn-check" onclick="checkEx('B',['b1','b2','b3','b4','b5','b6'])">✓ Проверить</button>
+    <div class="ex-result" id="resB"></div>
+  </div>
+
+  <!-- EX C: WORD ORDER -->
+  <div class="ex-block">
+    <h4>✏️ C — Word Order: расставьте слова в правильном порядке</h4>
+    <div class="task">Перетащите плитки в правильном порядке — нажмите «Проверить» когда готово</div>
+
+    <div id="wo-puzzles"></div>
+    <button class="btn-check" onclick="checkWordOrder()">✓ Проверить порядок</button>
+    <div class="ex-result" id="resC"></div>
+  </div>
+</section>
+
+<!-- ═══ SPEAKING: DIALOGUE ═══ -->
+<section class="sec reveal">
+  <div class="sec-head">
+    <div class="sec-tag s">Говорение</div>
+    <div>
+      <div class="sec-title">Dialogue: <em>My Family</em></div>
+      <div class="sec-sub">Читайте вслух — меняйтесь ролями — пересказывайте</div>
+    </div>
+  </div>
+
+  <div class="chat">
+    <div class="msg">
+      <div class="avatar">👤</div>
+      <div class="bubble">
+        <div class="en">Tell me about your family, Anna.</div>
+        <div class="ipa">/tel miː əˈbaʊt jɔːr ˈfæm.ə.li ˈæn.ə/</div>
+        <div class="ru">Расскажи мне о своей семье, Анна.</div>
+      </div>
+    </div>
+    <div class="msg r">
+      <div class="avatar">👥</div>
+      <div class="bubble">
+        <div class="en">Sure! My family is not very big. I have a mother, a father, and one brother.</div>
+        <div class="ipa">/ʃʊər maɪ ˈfæm.ə.li ɪz nɒt ˈver.i bɪɡ aɪ hæv ə ˈmʌð.ər ə ˈfɑː.ðər ænd wʌn ˈbrʌð.ər/</div>
+        <div class="ru">Конечно! Моя семья не очень большая. У меня есть мама, папа и один брат.</div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar">👤</div>
+      <div class="bubble">
+        <div class="en">What does your mother do?</div>
+        <div class="ipa">/wɒt dʌz jɔːr ˈmʌð.ər duː/</div>
+        <div class="ru">Кем работает твоя мама? (Чем занимается твоя мама?)</div>
+      </div>
+    </div>
+    <div class="msg r">
+      <div class="avatar">👥</div>
+      <div class="bubble">
+        <div class="en">She is a doctor. She works at a big hospital in Moscow. She helps people every day.</div>
+        <div class="ipa">/ʃiː ɪz ə ˈdɒk.tər ʃiː wɜːrks æt ə bɪɡ ˈhɒs.pɪ.təl ɪn ˈmɒs.kaʊ ʃiː helps ˈpiː.pl ˈev.ri deɪ/</div>
+        <div class="ru">Она врач. Она работает в большой больнице в Москве. Она помогает людям каждый день.</div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar">👤</div>
+      <div class="bubble">
+        <div class="en">And your father? What does he do?</div>
+        <div class="ipa">/ænd jɔːr ˈfɑː.ðər wɒt dʌz hiː duː/</div>
+        <div class="ru">А твой папа? Кем он работает?</div>
+      </div>
+    </div>
+    <div class="msg r">
+      <div class="avatar">👥</div>
+      <div class="bubble">
+        <div class="en">He is an engineer. He designs bridges and roads. He doesn't work on weekends — he relaxes at home.</div>
+        <div class="ipa">/hiː ɪz æn ˌen.dʒɪˈnɪər hiː dɪˈzaɪnz ˈbrɪdʒ.ɪz ænd roʊdz hiː ˈdʌz.ənt wɜːrk ɒn ˈwiːk.endz hiː rɪˈlæks.ɪz æt hoʊm/</div>
+        <div class="ru">Он инженер. Он проектирует мосты и дороги. В выходные он не работает — он отдыхает дома.</div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="avatar">👤</div>
+      <div class="bubble">
+        <div class="en">What about your brother? How old is he?</div>
+        <div class="ipa">/wɒt əˈbaʊt jɔːr ˈbrʌð.ər haʊ oʊld ɪz hiː/</div>
+        <div class="ru">А твой брат? Сколько ему лет?</div>
+      </div>
+    </div>
+    <div class="msg r">
+      <div class="avatar">👥</div>
+      <div class="bubble">
+        <div class="en">He is sixteen. He studies at school. He loves football and video games. He doesn't like reading, but I do!</div>
+        <div class="ipa">/hiː ɪz ˈsɪk.stiːn hiː ˈstʌd.iz æt skuːl hiː lʌvz ˈfʊt.bɔːl ænd ˈvɪd.i.oʊ ɡeɪmz hiː ˈdʌz.ənt laɪk ˈriː.dɪŋ bʌt aɪ duː/</div>
+        <div class="ru">Ему шестнадцать. Он учится в школе. Он любит футбол и видеоигры. Ему не нравится читать, а мне нравится!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip" style="margin-top:20px">
+    <span class="icon">🗣️</span>
+    <div><strong>Задание:</strong> Прочитайте диалог 3 раза вслух. Затем <b>расскажите о своей семье</b> — 5–6 предложений на английском, используя Present Simple. Запишите себя на телефон и прослушайте произношение.</div>
+  </div>
+</section>
+
+<!-- ═══ READING ═══ -->
+<section class="sec reveal">
+  <div class="sec-head">
+    <div class="sec-tag tr2">Чтение</div>
+    <div>
+      <div class="sec-title">Reading: <em>A Working Day</em></div>
+      <div class="sec-sub">Все слова урока в контексте — читайте вслух медленно</div>
+    </div>
+  </div>
+
+  <div class="reading-box">
+    <div class="rtitle">A Working Day</div>
+    <p>
+      My name is <span class="hw" title="Виктор">Victor</span>. I am a <span class="hw" title="программист">programmer</span>. I <span class="hw" title="живу">live</span> in Moscow with my <span class="hw" title="семья">family</span>.
+    </p>
+    <p>
+      Every <span class="hw" title="утро">morning</span> I <span class="hw" title="встаю">wake up</span> at seven o'clock. I <span class="hw" title="пью">drink</span> coffee and <span class="hw" title="читаю">read</span> the news. I don't eat much in the morning — just bread and coffee.
+    </p>
+    <p>
+      I <span class="hw" title="работаю">work</span> from home. I <span class="hw" title="пишу">write</span> <span class="hw" title="код">code</span> for eight <span class="hw" title="часов">hours</span> every day. I love my <span class="hw" title="работу">job</span>! It is <span class="hw" title="интересная">interesting</span> and pays well.
+    </p>
+    <p>
+      My <span class="hw" title="жена">wife</span> is a <span class="hw" title="учитель">teacher</span>. She <span class="hw" title="преподаёт">teaches</span> <span class="hw" title="математику">mathematics</span> at a school. She <span class="hw" title="уходит">leaves</span> home at eight in the morning. She <span class="hw" title="возвращается">comes back</span> at five in the afternoon.
+    </p>
+    <p>
+      We have two <span class="hw" title="детей">children</span> — a <span class="hw" title="сын">son</span> and a <span class="hw" title="дочь">daughter</span>. Our son <span class="hw" title="учится">studies</span> at <span class="hw" title="университете">university</span>. He <span class="hw" title="хочет стать">wants to be</span> an <span class="hw" title="инженер">engineer</span>. Our daughter is only five — she doesn't <span class="hw" title="учится">go to school</span> yet. She <span class="hw" title="играет">plays</span> and <span class="hw" title="рисует">draws</span> all day.
+    </p>
+    <p>
+      In the <span class="hw" title="вечером">evening</span> we <span class="hw" title="едим">eat</span> <span class="hw" title="вместе">together</span>. We <span class="hw" title="разговариваем">talk</span>, <span class="hw" title="смеёмся">laugh</span>, and <span class="hw" title="отдыхаем">rest</span>. My family is <span class="hw" title="самое важное">the most important thing</span> in my life.
+    </p>
+  </div>
+
+  <div class="tip">
+    <span class="icon">📖</span>
+    <div><strong>Наведите на синие слова</strong> — увидите перевод. После чтения: <b>закройте текст и перескажите</b> историю о Викторе своими словами по-английски. 3–5 предложений достаточно!</div>
+  </div>
+</section>
+
+<!-- ═══ QUIZ ═══ -->
+<section class="sec reveal">
+  <div class="sec-head">
+    <div class="sec-tag t">Финальный Тест</div>
+    <div>
+      <div class="sec-title">Day 2 <em>Quiz</em></div>
+      <div class="sec-sub">12 вопросов · Present Simple + Профессии + Семья</div>
+    </div>
+  </div>
+
+  <div class="quiz-wrap">
+    <div class="qbar"><div class="qbar-fill" id="qBar" style="width:8%"></div></div>
+    <div id="qMain">
+      <div class="q-counter" id="qCtr">Вопрос 1 из 12</div>
+      <div class="q-text" id="qTxt"></div>
+      <div class="q-note" id="qNote" style="display:none"></div>
+      <div class="q-opts" id="qOpts"></div>
+      <div class="q-fb" id="qFb"></div>
+      <button class="btn-next" id="qNextBtn" onclick="nextQ()">Следующий →</button>
+    </div>
+    <div class="q-result" id="qRes">
+      <div class="score-ring">
+        <div class="score-n" id="sNum">0</div>
+        <div class="score-of">из 12</div>
+      </div>
+      <h3 id="sTitle"></h3>
+      <p id="sDesc"></p>
+      <div style="margin-top:22px">
+        <button class="btn-check" onclick="restartQ()" style="background:linear-gradient(135deg,var(--accent4),#059669)">🔄 Начать заново</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap" style="text-align:center">
+    <div class="next-pill">
+      <span>📅 Завтра — День 3</span>
+      <span class="arr">→</span>
+      <span>Present Continuous · Дом и комнаты · «прямо сейчас»</span>
+    </div>
+    <p class="mt">Повторяйте слова дней 1 и 2 каждое утро по 5 минут. Метод интервального повторения — ключ к долгосрочной памяти.</p>
+  </div>
+</footer>
+
+<script>
+/* ──────────── QUIZ DATA ──────────── */
+const Qs = [
+  {q:"Выберите правильное предложение в Present Simple:",opts:["She work at a hospital.","She works at a hospital.","She is work at a hospital.","She working at a hospital."],c:1,fb:"С She/He/It глагол получает окончание -s. 'Works' — правильная форма."},
+  {q:"Как сказать 'Он не любит кофе' по-английски?",opts:["He don't like coffee.","He isn't like coffee.","He doesn't like coffee.","He not likes coffee."],c:2,fb:"С He используем 'doesn't' + базовая форма глагола (без -s!)."},
+  {q:"Выберите правильный вопрос:",opts:["Does she goes to school?","Does she go to school?","Do she goes to school?","Is she go to school?"],c:1,fb:"В вопросах с Does глагол ВСЕГДА в базовой форме — без -s! Does she go (не 'goes')."},
+  {q:"Что значит 'What does your father do?'",opts:["Что твой отец делает сейчас?","Кем работает твой отец?","Где живёт твой отец?","Как зовут твоего отца?"],c:1,fb:"'What do/does someone do?' — классический вопрос о профессии в английском."},
+  {q:"Как правильно написать форму для He: глагол 'study'?",opts:["studys","studyes","studies","studyies"],c:2,fb:"study → studies. Правило: согласная + y → меняем y на i + es."},
+  {q:"Переведите: 'My grandmother cooks delicious food every day.'",opts:["Моя бабушка готовила вкусную еду каждый день.","Моя бабушка готовит вкусную еду каждый день.","Моя тётя готовит вкусную еду каждый день.","Моя мама готовила вкусную еду вчера."],c:1,fb:"grandmother = бабушка, cooks (3 лицо, ед.ч.) = готовит, every day = каждый день."},
+  {q:"Выберите правильный ответ на вопрос: 'Do you speak French?'",opts:["Yes, I speak.","Yes, I do.","Yes, I am.","Yes, do I."],c:1,fb:"Краткий ответ на вопрос с Do: Yes, I do. / No, I don't."},
+  {q:"Какое слово означает 'двоюродный брат/сестра'?",opts:["nephew","cousin","uncle","sibling"],c:1,fb:"Cousin = двоюродный брат или сестра. В английском одно слово для обоих полов!"},
+  {q:"Выберите правильное предложение о привычке:",opts:["She is drink tea every morning.","She drinks tea every morning.","She drink tea every morning.","She drank tea every morning."],c:1,fb:"Present Simple для привычек: She + drinks (She/He/It + verb+s). Every morning — маркер привычки."},
+  {q:"Как сказать 'Он инженер. Он проектирует мосты.' по-английски?",opts:["He is an engineer. He design bridges.","He is an engineer. He designs bridges.","He is engineer. He designs bridges.","He is a engineer. He designs bridges."],c:1,fb:"He designs (с -s) ✓ + He is AN engineer (перед гласной 'e' используем 'an', не 'a')."},
+  {q:"Что значит 'They don't work on weekends'?",opts:["Они работают по выходным.","Они не работают по выходным.","Они работали по выходным.","Они работают сейчас?"],c:1,fb:"don't work = не работают. On weekends = по выходным. Present Simple + отрицание."},
+  {q:"Переведите на английский: 'Моя сестра учится в медицинском университете.'",opts:["My sister study at medical university.","My sister studies at a medical university.","My sister is studies at medical university.","My sister studying at a medical university."],c:1,fb:"sister → studies (3 лицо +es). 'At A medical university' — нужен артикль a перед university."},
+];
+
+let cur=0, sc=0, ans=false;
+
+function renderQ(){
+  const q=Qs[cur];
+  document.getElementById('qCtr').textContent=`Вопрос ${cur+1} из ${Qs.length}`;
+  document.getElementById('qTxt').textContent=q.q;
+  document.getElementById('qBar').style.width=`${((cur)/Qs.length)*100+8}%`;
+  const ni=document.getElementById('qNote');
+  ni.style.display='none';
+
+  const oo=document.getElementById('qOpts');
+  oo.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const b=document.createElement('button');
+    b.className='q-opt';
+    b.innerHTML=`<span class="opt-l">${l}</span>${q.opts[i]}`;
+    b.onclick=()=>pickA(i,b);
+    oo.appendChild(b);
+  });
+  const fb=document.getElementById('qFb');
+  fb.className='q-fb'; fb.textContent='';
+  document.getElementById('qNextBtn').className='btn-next';
+  ans=false;
+}
+
+function pickA(i,btn){
+  if(ans)return; ans=true;
+  const q=Qs[cur];
+  document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('qFb');
+  if(i===q.c){sc++;btn.classList.add('ok');fb.className='q-fb ok';fb.textContent='✅ Правильно! '+q.fb;}
+  else{btn.classList.add('bad');document.querySelectorAll('.q-opt')[q.c].classList.add('ok');fb.className='q-fb bad';fb.textContent='❌ Неверно. '+q.fb;}
+  document.getElementById('qNextBtn').className='btn-next show';
+}
+
+function nextQ(){
+  cur++;
+  if(cur>=Qs.length){showRes();}else{renderQ();}
+}
+
+function showRes(){
+  document.getElementById('qMain').style.display='none';
+  const r=document.getElementById('qRes');r.className='q-result show';
+  document.getElementById('qBar').style.width='100%';
+  document.getElementById('sNum').textContent=sc;
+  let t,d;
+  if(sc>=11){t='🏆 Мастерски!';d='Вы отлично усвоили Present Simple. Готовы к Дню 3!';}
+  else if(sc>=9){t='👏 Отлично!';d='Почти всё верно. Повторите пару моментов и вперёд к Дню 3!';}
+  else if(sc>=7){t='📚 Хорошая работа!';d='Перечитайте правила отрицания и окончания -s/-es/-ies.';}
+  else{t='💪 Продолжайте!';d='Перечитайте грамматику Present Simple. Это фундамент — очень важно его закрепить!';}
+  document.getElementById('sTitle').textContent=t;
+  document.getElementById('sDesc').textContent=d;
+}
+
+function restartQ(){
+  cur=0;sc=0;ans=false;
+  document.getElementById('qMain').style.display='block';
+  document.getElementById('qRes').className='q-result';
+  renderQ();
+}
+
+/* ──────────── EXERCISES ──────────── */
+function checkEx(name, ids){
+  let ok=0;
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    const val=el.value.trim().toLowerCase();
+    const ans=el.dataset.a.trim().toLowerCase();
+    if(val===ans){el.classList.add('ok');el.classList.remove('bad');ok++;}
+    else{el.classList.add('bad');el.classList.remove('ok');}
+  });
+  const r=document.getElementById('res'+name);
+  if(ok===ids.length){r.className='ex-result ok';r.textContent=`✅ Все ${ok} ответов верны! Отличная работа!`;}
+  else{r.className='ex-result bad';r.textContent=`❌ Правильных: ${ok} из ${ids.length}. Проверьте выделенные красным.`;}
+}
+
+/* ──────────── WORD ORDER ──────────── */
+const puzzles=[
+  {words:['She','doesn\'t','work','on','Sundays','.'],answer:'She doesn\'t work on Sundays .'},
+  {words:['Does','your','brother','study','at','university','?'],answer:'Does your brother study at university ?'},
+  {words:['My','father','is','an','engineer','.',],answer:'My father is an engineer .'},
+];
+
+function initPuzzles(){
+  const area=document.getElementById('wo-puzzles');
+  area.innerHTML='';
+  puzzles.forEach((p,pi)=>{
+    const div=document.createElement('div');
+    div.style.marginBottom='22px';
+    div.innerHTML=`<div style="font-size:13px;color:var(--muted);margin-bottom:8px">Предложение ${pi+1}:</div>`;
+
+    const drop=document.createElement('div');
+    drop.className='reorder-area';
+    drop.id=`drop${pi}`;
+    drop.setAttribute('data-answer',p.answer);
+
+    const bank=document.createElement('div');
+    bank.className='reorder-area';
+    bank.id=`bank${pi}`;
+    bank.style.background='transparent';
+    bank.style.border='1px solid var(--border)';
+
+    const shuffled=[...p.words].sort(()=>Math.random()-.5);
+    shuffled.forEach(w=>{
+      const tile=makeTile(w,pi,bank,drop);
+      bank.appendChild(tile);
+    });
+
+    setupDrop(drop,bank,pi);
+    setupDrop(bank,drop,pi);
+
+    div.appendChild(drop);
+    div.appendChild(bank);
+    area.appendChild(div);
+  });
+}
+
+function makeTile(w,pi,src,tgt){
+  const t=document.createElement('div');
+  t.className='word-tile';t.textContent=w;t.draggable=true;
+  t.addEventListener('dragstart',e=>{e.dataTransfer.setData('text',w);e.dataTransfer.setData('pi',pi);t._src=t.parentNode;});
+  t.addEventListener('click',()=>{
+    const other=t.parentNode===src?tgt:src;
+    other.appendChild(t);
+  });
+  return t;
+}
+
+function setupDrop(el,other,pi){
+  el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('drag-over');});
+  el.addEventListener('dragleave',()=>el.classList.remove('drag-over'));
+  el.addEventListener('drop',e=>{
+    e.preventDefault();el.classList.remove('drag-over');
+    const w=e.dataTransfer.getData('text');
+    const existing=[...document.querySelectorAll('.word-tile')].find(t=>t.textContent===w&&t._src===el?null:t.parentNode&&t.textContent===w);
+    if(existing){el.appendChild(existing);}
+  });
+}
+
+function checkWordOrder(){
+  let allOk=true;
+  puzzles.forEach((p,pi)=>{
+    const drop=document.getElementById(`drop${pi}`);
+    const built=[...drop.querySelectorAll('.word-tile')].map(t=>t.textContent).join(' ');
+    const ok=built===p.answer;
+    if(!ok)allOk=false;
+    drop.style.border=`1px solid ${ok?'var(--correct)':'var(--wrong)'}`;
+    drop.style.background=ok?'rgba(52,211,153,.07)':'rgba(251,113,133,.07)';
+  });
+  const r=document.getElementById('resC');
+  if(allOk){r.className='ex-result ok';r.textContent='✅ Все предложения составлены верно! Отлично!';}
+  else{r.className='ex-result bad';r.textContent='❌ Есть ошибки. Красные зоны — неверный порядок слов. Попробуйте ещё раз!';}
+}
+
+/* ──────────── REVEAL ──────────── */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ──────────── INIT ──────────── */
+renderQ();
+initPuzzles();
+</script>
+</body>
+</html>
