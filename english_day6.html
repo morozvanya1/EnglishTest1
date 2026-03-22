@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Mastery | День 6 из 90</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e0f14;--s1:#13141b;--s2:#1a1c26;--s3:#222435;
+  --a1:#f0c040;--a2:#e8503a;--a3:#3ab8f0;--a4:#8de86a;--a5:#c97de8;
+  --text:#eceef5;--muted:#626880;--bdr:#22263a;
+  --ok:#8de86a;--bad:#e8503a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Lora',serif;line-height:1.75;overflow-x:hidden}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:60px 24px;position:relative;overflow:hidden;text-align:center}
+.metro-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.metro-line{position:absolute;border-radius:99px;opacity:.07}
+.ml1{width:3px;height:140%;left:18%;top:-20%;background:var(--a1);transform:rotate(-15deg)}
+.ml2{width:3px;height:120%;left:38%;top:-10%;background:var(--a3);transform:rotate(8deg)}
+.ml3{width:3px;height:150%;left:62%;top:-25%;background:var(--a2);transform:rotate(-5deg)}
+.ml4{width:3px;height:130%;left:82%;top:-15%;background:var(--a4);transform:rotate(20deg)}
+.ml5{width:120%;height:3px;top:35%;left:-10%;background:var(--a5);transform:rotate(-3deg)}
+.ml6{width:130%;height:3px;top:68%;left:-15%;background:var(--a1);transform:rotate(5deg)}
+.hero-glow{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 65% 55% at 50% 15%,rgba(240,192,64,.10) 0%,transparent 65%),
+    radial-gradient(ellipse 40% 35% at 80% 70%,rgba(58,184,240,.08) 0%,transparent 55%),
+    radial-gradient(ellipse 30% 25% at 15% 65%,rgba(141,232,106,.06) 0%,transparent 50%)}
+
+.pill{display:inline-flex;align-items:center;gap:9px;margin-bottom:28px;
+  background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.25);
+  border-radius:50px;padding:8px 22px;font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--a1);letter-spacing:2px;text-transform:uppercase;
+  animation:up .8s ease both}
+.pulsedot{width:7px;height:7px;border-radius:50%;background:var(--a1);animation:blink 1.8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+
+.hero h1{font-family:'Unbounded',sans-serif;font-size:clamp(2.6rem,8vw,6.5rem);
+  font-weight:900;line-height:.95;margin-bottom:22px;letter-spacing:-2px;
+  animation:up .9s .1s ease both}
+.hero h1 em{color:var(--a1);font-style:normal;display:block;font-weight:300;font-size:.7em;letter-spacing:0}
+.hero .sub{font-size:clamp(.95rem,2vw,1.15rem);color:var(--muted);max-width:580px;
+  margin:0 auto 44px;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.8;
+  animation:up .9s .2s ease both}
+.hero .sub b{color:var(--text)}
+
+.statrow{display:flex;justify-content:center;flex-wrap:wrap;animation:up 1s .35s ease both}
+.stat{padding:14px 26px;background:var(--s1);border:1px solid var(--bdr);
+  display:flex;flex-direction:column;align-items:center;gap:3px}
+.stat:first-child{border-radius:12px 0 0 12px}.stat:last-child{border-radius:0 12px 12px 0}
+.stat .v{font-family:'Unbounded',sans-serif;font-size:1.8rem;font-weight:700;color:var(--a1)}
+.stat .l{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+
+.cue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;
+  text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:4px;
+  animation:up 1s 1.3s ease both,bob 2.5s 2.2s infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@keyframes up{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── METRO STRIP ── */
+.metro-strip{background:var(--s1);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);
+  overflow:hidden;height:44px;display:flex;align-items:center}
+.mtrack{display:flex;width:max-content;animation:mscroll 42s linear infinite}
+@keyframes mscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mitem{display:flex;align-items:center;gap:10px;padding:0 34px;
+  border-right:1px solid var(--bdr);white-space:nowrap;height:44px}
+.mitem .mph{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--a1);letter-spacing:2px;text-transform:uppercase}
+.mitem .mnm{font-size:13px;font-weight:600;font-family:'Unbounded',sans-serif;font-size:11px}
+.mitem.cur .mnm{color:var(--a1)}
+
+/* ── LAYOUT ── */
+.wrap{max-width:920px;margin:0 auto;padding:0 24px}
+.sec{padding:80px 0;border-bottom:1px solid var(--bdr)}
+.sh{display:flex;gap:16px;align-items:flex-start;margin-bottom:40px}
+.stag{font-family:'IBM Plex Mono',monospace;font-size:9px;border-radius:4px;
+  padding:5px 12px;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;margin-top:7px}
+.stag.g{color:var(--a1);background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.2)}
+.stag.v{color:var(--a4);background:rgba(141,232,106,.08);border:1px solid rgba(141,232,106,.2)}
+.stag.s{color:var(--a3);background:rgba(58,184,240,.08);border:1px solid rgba(58,184,240,.2)}
+.stag.r{color:var(--a5);background:rgba(201,125,232,.08);border:1px solid rgba(201,125,232,.2)}
+.stag.e{color:var(--a2);background:rgba(232,80,58,.08);border:1px solid rgba(232,80,58,.2)}
+.stag.t{color:var(--muted);background:rgba(98,104,128,.08);border:1px solid rgba(98,104,128,.2)}
+.stit{font-family:'Unbounded',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;line-height:1.1;letter-spacing:-1px}
+.stit em{color:var(--a1);font-style:normal}
+.ssub{color:var(--muted);font-size:13px;margin-top:8px;font-family:'IBM Plex Mono',monospace}
+
+/* ── THEORY ── */
+.th{background:var(--s1);border:1px solid var(--bdr);border-radius:10px;padding:22px 26px;margin-bottom:16px;position:relative}
+.th::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;border-radius:10px 0 0 10px}
+.th.gold::before{background:var(--a1)}.th.gold h4{color:var(--a1)}
+.th.blue::before{background:var(--a3)}.th.blue h4{color:var(--a3)}
+.th.red::before{background:var(--a2)}.th.red h4{color:var(--a2)}
+.th.grn::before{background:var(--a4)}.th.grn h4{color:var(--a4)}
+.th.purp::before{background:var(--a5)}.th.purp h4{color:var(--a5)}
+.th h4{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:9px;
+  font-family:'Unbounded',sans-serif;letter-spacing:.5px;text-transform:uppercase}
+.th p{font-size:14px;margin-bottom:8px;line-height:1.8}.th p:last-child{margin-bottom:0}
+.th .n{color:var(--muted);font-size:13px;font-style:italic;font-family:'IBM Plex Mono',monospace}
+.th strong{color:var(--text)}.th em{color:var(--a4);font-style:normal}
+
+/* ── WH-CARDS METRO STYLE ── */
+.wh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:20px}
+.wh-card{border-radius:10px;padding:20px 18px;border:1px solid var(--bdr);position:relative;overflow:hidden;transition:.2s;cursor:default}
+.wh-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.wh-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.5)}
+.wh-card.c1{background:rgba(240,192,64,.06)}.wh-card.c1::before{background:var(--a1)}
+.wh-card.c2{background:rgba(58,184,240,.06)}.wh-card.c2::before{background:var(--a3)}
+.wh-card.c3{background:rgba(141,232,106,.06)}.wh-card.c3::before{background:var(--a4)}
+.wh-card.c4{background:rgba(232,80,58,.06)}.wh-card.c4::before{background:var(--a2)}
+.wh-card.c5{background:rgba(201,125,232,.06)}.wh-card.c5::before{background:var(--a5)}
+.wh-card.c6{background:rgba(240,192,64,.04)}.wh-card.c6::before{background:rgba(240,192,64,.5)}
+.wh-card.c7{background:rgba(58,184,240,.04)}.wh-card.c7::before{background:rgba(58,184,240,.5)}
+.wh-card.c8{background:rgba(141,232,106,.04)}.wh-card.c8::before{background:rgba(141,232,106,.5)}
+.wh-word{font-family:'Unbounded',sans-serif;font-size:1.5rem;font-weight:900;margin-bottom:6px;letter-spacing:-1px}
+.wh-card.c1 .wh-word{color:var(--a1)}.wh-card.c2 .wh-word{color:var(--a3)}
+.wh-card.c3 .wh-word{color:var(--a4)}.wh-card.c4 .wh-word{color:var(--a2)}
+.wh-card.c5 .wh-word{color:var(--a5)}.wh-card.c6 .wh-word{color:var(--a1)}
+.wh-card.c7 .wh-word{color:var(--a3)}.wh-card.c8 .wh-word{color:var(--a4)}
+.wh-ipa{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:8px}
+.wh-ru{font-size:13px;font-weight:700;margin-bottom:8px}
+.wh-uses{font-size:12px;color:var(--muted);line-height:1.7}
+.wh-examples{margin-top:10px;padding-top:10px;border-top:1px solid var(--bdr)}
+.wh-ex{font-size:12px;font-style:italic;color:var(--a4);margin-bottom:3px}
+
+/* ── WH TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}
+.tbl thead tr{border-bottom:1px solid rgba(240,192,64,.4)}
+.tbl th{padding:12px 15px;text-align:left;font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--a1)}
+.tbl td{padding:12px 15px;border-bottom:1px solid var(--bdr)}
+.tbl tr:hover td{background:rgba(255,255,255,.015)}
+.tbl .en{font-weight:700;font-size:15px}.tbl .ipa{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--a3)}
+.tbl .ru{color:var(--muted)}.tbl .ex{font-style:italic;color:var(--a4);font-size:13px}
+.tbl .wh{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:var(--a1)}
+.tbl .ans{font-size:13px;color:var(--a4);font-style:italic}
+.tbl .neg2{color:var(--a2);font-family:'IBM Plex Mono',monospace;font-size:12px}
+
+/* ── CITY MAP VOCAB ── */
+.city-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-top:18px}
+.city-card{background:var(--s1);border:1px solid var(--bdr);border-radius:8px;
+  padding:14px 16px;transition:.2s;cursor:default}
+.city-card:hover{border-color:var(--a1);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.4)}
+.city-card .ico{font-size:26px;margin-bottom:8px}
+.city-card .en{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;margin-bottom:3px;letter-spacing:-.5px}
+.city-card .ipa{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--a3);margin-bottom:4px}
+.city-card .ru{font-size:12px;color:var(--muted);margin-bottom:6px}
+.city-card .ex{font-size:11px;font-style:italic;color:var(--a4);border-top:1px solid var(--bdr);padding-top:6px;margin-top:4px;line-height:1.5}
+
+/* ── TRANSPORT STRIP ── */
+.transport-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.tr-chip{display:flex;align-items:center;gap:10px;background:var(--s1);border:1px solid var(--bdr);
+  border-radius:8px;padding:12px 16px;transition:.2s;flex:1;min-width:140px}
+.tr-chip:hover{border-color:var(--a3);background:rgba(58,184,240,.05)}
+.tr-chip .trico{font-size:22px}
+.tr-chip .tren{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;letter-spacing:-.3px}
+.tr-chip .tripa{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--a3)}
+.tr-chip .trru{font-size:12px;color:var(--muted)}
+
+/* ── DIRECTIONS ── */
+.dir-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.dir-card{background:var(--s1);border:1px solid var(--bdr);border-radius:8px;
+  padding:16px 18px;display:flex;align-items:flex-start;gap:12px}
+.dir-icon{font-size:24px;flex-shrink:0}
+.dir-en{font-weight:700;font-size:15px;margin-bottom:3px}
+.dir-ipa{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--a3);margin-bottom:4px}
+.dir-ru{font-size:13px;color:var(--muted);margin-bottom:5px}
+.dir-ex{font-size:12px;font-style:italic;color:var(--a4)}
+
+/* ── FORMULA ── */
+.form{display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  background:var(--s2);border:1px solid var(--bdr);border-radius:8px;
+  padding:18px 22px;margin:18px 0;font-family:'IBM Plex Mono',monospace;font-size:13px}
+.fb{padding:6px 14px;border-radius:6px;font-weight:600}
+.fw{background:rgba(240,192,64,.1);color:var(--a1);border:1px solid rgba(240,192,64,.2)}
+.fs{background:rgba(141,232,106,.1);color:var(--a4);border:1px solid rgba(141,232,106,.2)}
+.fv{background:rgba(58,184,240,.1);color:var(--a3);border:1px solid rgba(58,184,240,.2)}
+.fn{background:rgba(232,80,58,.1);color:var(--a2);border:1px solid rgba(232,80,58,.2)}
+.fp{color:var(--muted);font-size:16px}
+
+/* ── MAP DIALOGUE ── */
+.map-scene{background:var(--s2);border:1px solid var(--bdr);border-radius:12px;
+  padding:0;overflow:hidden;margin-top:20px}
+.map-header{background:linear-gradient(135deg,rgba(240,192,64,.1),rgba(240,192,64,.02));
+  padding:16px 24px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:10px}
+.map-header .mhico{font-size:20px}
+.map-header h5{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;letter-spacing:-.5px}
+.map-header p{font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace}
+.chat{display:flex;flex-direction:column;gap:14px;padding:24px}
+.msg{display:flex;gap:12px;align-items:flex-start}
+.msg.r{flex-direction:row-reverse}
+.av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+  font-size:17px;flex-shrink:0;border:1px solid var(--bdr);background:var(--s3)}
+.bub{background:var(--s3);border:1px solid var(--bdr);border-radius:10px;
+  padding:12px 16px;max-width:78%;flex:1}
+.msg.r .bub{background:rgba(240,192,64,.07);border-color:rgba(240,192,64,.18)}
+.bub .en{font-weight:700;font-size:15px;margin-bottom:3px}
+.bub .ip{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--a3);margin-bottom:4px}
+.bub .ru{font-size:12px;color:var(--muted)}
+
+/* ── EXERCISES ── */
+.ex-block{background:var(--s1);border:1px solid var(--bdr);border-radius:10px;padding:26px;margin-bottom:20px}
+.ex-block h4{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px;
+  display:flex;align-items:center;gap:8px;letter-spacing:-.5px}
+.ex-block .task{color:var(--muted);font-size:13px;margin-bottom:20px;font-family:'IBM Plex Mono',monospace;line-height:1.7}
+.fr{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:16px;margin-bottom:14px;line-height:2.6}
+input.bl{background:rgba(240,192,64,.06);border:none;border-bottom:2px solid rgba(240,192,64,.3);
+  border-radius:4px 4px 0 0;padding:4px 10px;min-width:90px;font-family:'IBM Plex Mono',monospace;
+  font-size:13px;color:var(--text);outline:none;text-align:center;transition:.2s}
+input.bl:focus{border-color:var(--a1);background:rgba(240,192,64,.1)}
+input.bl.ok{border-color:var(--ok);background:rgba(141,232,106,.1);color:var(--ok)}
+input.bl.bad{border-color:var(--bad);background:rgba(232,80,58,.1);color:var(--bad)}
+
+.chk{display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--a1),#c98a10);
+  color:#0e0f14;font-family:'Unbounded',sans-serif;font-weight:700;font-size:11px;
+  padding:11px 26px;border:none;border-radius:8px;cursor:pointer;transition:.2s;
+  letter-spacing:.5px;text-transform:uppercase;margin-top:12px}
+.chk:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(240,192,64,.3)}
+.exr{margin-top:14px;padding:10px 16px;border-radius:6px;font-size:13px;display:none;font-family:'IBM Plex Mono',monospace}
+.exr.ok{display:block;background:rgba(141,232,106,.07);border:1px solid var(--ok);color:var(--ok)}
+.exr.bad{display:block;background:rgba(232,80,58,.07);border:1px solid var(--bad);color:var(--bad)}
+
+/* ── QUESTION BUILDER ── */
+.qbuilder{background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:22px;margin-top:14px}
+.qb-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.qb-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);min-width:130px;text-transform:uppercase;letter-spacing:1px}
+.qb-select{background:var(--s3);border:1px solid var(--bdr);border-radius:6px;
+  padding:8px 14px;font-family:'Lora',serif;font-size:14px;color:var(--text);
+  outline:none;cursor:pointer;transition:.2s;min-width:150px}
+.qb-select:focus{border-color:var(--a1);background:rgba(240,192,64,.05)}
+.qb-select.ok{border-color:var(--ok);color:var(--ok)}
+.qb-select.bad{border-color:var(--bad);color:var(--bad)}
+.qb-result{background:var(--s3);border:1px solid rgba(240,192,64,.2);border-radius:6px;
+  padding:12px 16px;font-size:15px;font-weight:700;color:var(--a1);
+  margin-top:10px;font-family:'IBM Plex Mono',monospace;display:none;line-height:1.6}
+
+/* ── READING ── */
+.rbox{background:var(--s1);border:1px solid var(--bdr);border-radius:10px;padding:30px}
+.rbox .rtitle{font-family:'Unbounded',sans-serif;font-size:1.3rem;font-weight:700;
+  color:var(--a1);margin-bottom:20px;letter-spacing:-1px}
+.rbox p{font-size:15px;line-height:2.1;margin-bottom:14px}
+.hw{border-bottom:1px dashed rgba(240,192,64,.4);color:var(--a1);cursor:help;transition:.2s}
+.hw:hover{color:var(--text);border-color:transparent}
+
+/* ── QUIZ ── */
+.qwrap{background:var(--s1);border:1px solid var(--bdr);border-radius:10px;padding:32px}
+.qbar{height:3px;background:var(--bdr);margin-bottom:28px;overflow:hidden;border-radius:99px}
+.qfill{height:100%;background:linear-gradient(90deg,var(--a1),var(--a3));transition:width .5s;border-radius:99px}
+.qctr{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.qtxt{font-size:1.15rem;font-weight:700;line-height:1.45;margin-bottom:20px;font-family:'Unbounded',sans-serif;letter-spacing:-.5px;font-weight:600}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.qopt{background:var(--s2);border:1px solid var(--bdr);border-radius:8px;
+  padding:13px 15px;cursor:pointer;transition:.2s;font-size:14px;
+  font-family:'Lora',serif;color:var(--text);text-align:left;
+  display:flex;align-items:center;gap:10px}
+.qopt:hover:not(:disabled){border-color:var(--a1);background:rgba(240,192,64,.05)}
+.qopt.ok{border-color:var(--ok);background:rgba(141,232,106,.07);color:var(--ok)}
+.qopt.bad{border-color:var(--bad);background:rgba(232,80,58,.07);color:var(--bad)}
+.qopt:disabled{cursor:not-allowed}
+.ol{font-family:'IBM Plex Mono',monospace;font-size:10px;background:var(--bdr);
+  border-radius:4px;width:22px;height:22px;display:grid;place-items:center;flex-shrink:0}
+.qfb{padding:10px 16px;border-radius:6px;font-size:13px;margin-bottom:14px;display:none;font-family:'IBM Plex Mono',monospace;line-height:1.7}
+.qfb.ok{display:block;background:rgba(141,232,106,.07);border:1px solid var(--ok);color:var(--ok)}
+.qfb.bad{display:block;background:rgba(232,80,58,.07);border:1px solid var(--bad);color:var(--bad)}
+.qnxt{display:none;align-items:center;gap:8px;background:linear-gradient(135deg,var(--a3),#1e7ab0);
+  color:#fff;font-family:'Unbounded',sans-serif;font-weight:700;font-size:10px;
+  padding:12px 26px;border:none;border-radius:8px;cursor:pointer;transition:.2s;
+  letter-spacing:.5px;text-transform:uppercase}
+.qnxt.show{display:inline-flex}.qnxt:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(58,184,240,.3)}
+.qres{display:none;text-align:center;padding:20px 0}
+.qres.show{display:block}
+.sring{width:130px;height:130px;border-radius:50%;border:3px solid var(--a1);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 auto 24px;background:rgba(240,192,64,.06)}
+.snum{font-family:'Unbounded',sans-serif;font-size:3rem;font-weight:900;color:var(--a1);line-height:1}
+.sof{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)}
+.qres h3{font-family:'Unbounded',sans-serif;font-size:1.4rem;letter-spacing:-1px;margin-bottom:8px}
+.qres p{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto;font-family:'IBM Plex Mono',monospace}
+
+/* ── TIP ── */
+.tip{background:rgba(240,192,64,.04);border:1px solid rgba(240,192,64,.14);
+  border-radius:8px;padding:14px 18px;margin-top:16px;font-size:13px;display:flex;gap:10px;line-height:1.7;font-family:'IBM Plex Mono',monospace}
+.tip .ic{font-size:18px;flex-shrink:0}.tip strong{color:var(--a1)}
+
+/* ── SCH ── */
+.sch{margin-top:18px}
+.si{display:flex;gap:16px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--bdr)}
+.si:last-child{border-bottom:none}
+.st{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--a3);
+  background:rgba(58,184,240,.07);border:1px solid rgba(58,184,240,.15);
+  border-radius:4px;padding:4px 10px;white-space:nowrap;margin-top:2px;min-width:60px;text-align:center}
+.stt{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;margin-bottom:2px;letter-spacing:-.3px}
+.sds{font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace}
+
+/* ── TAGS ── */
+.tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;
+  padding:3px 10px;border-radius:4px;letter-spacing:1.5px;text-transform:uppercase;margin:0 4px 4px 0}
+.tg{background:rgba(240,192,64,.1);color:var(--a1);border:1px solid rgba(240,192,64,.2)}
+.tv{background:rgba(141,232,106,.1);color:var(--a4);border:1px solid rgba(141,232,106,.2)}
+.ts{background:rgba(58,184,240,.1);color:var(--a3);border:1px solid rgba(58,184,240,.2)}
+.tt{background:rgba(232,80,58,.1);color:var(--a2);border:1px solid rgba(232,80,58,.2)}
+.tr{background:rgba(201,125,232,.1);color:var(--a5);border:1px solid rgba(201,125,232,.2)}
+
+/* ── FOOTER ── */
+footer{padding:60px 0;text-align:center}
+.np{display:inline-flex;align-items:center;gap:12px;background:var(--s1);
+  border:1px solid var(--bdr);border-radius:10px;padding:16px 28px;
+  font-family:'Unbounded',sans-serif;font-size:12px;font-weight:600;
+  margin-bottom:22px;letter-spacing:-.3px}
+.np .ar{color:var(--a1);font-size:20px}
+footer .mt{color:var(--muted);font-size:12px;max-width:440px;margin:0 auto;
+  line-height:1.8;font-family:'IBM Plex Mono',monospace}
+
+/* ── REVEAL ── */
+.rev{opacity:0;transform:translateY(20px);transition:opacity .55s,transform .55s}
+.rev.in{opacity:1;transform:none}
+
+@media(max-width:640px){
+  .qopts,.dir-grid{grid-template-columns:1fr}
+  .city-grid{grid-template-columns:repeat(2,1fr)}
+  .wh-grid{grid-template-columns:repeat(2,1fr)}
+  .stat{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="metro-bg">
+    <div class="metro-line ml1"></div><div class="metro-line ml2"></div>
+    <div class="metro-line ml3"></div><div class="metro-line ml4"></div>
+    <div class="metro-line ml5"></div><div class="metro-line ml6"></div>
+  </div>
+  <div class="hero-glow"></div>
+  <div class="pill"><span class="pulsedot"></span>День 6 из 90 · A1 → Native</div>
+  <h1>WH<em>Questions + City</em></h1>
+  <p class="sub">What · Who · Where · When · Why · How<br>Город · Транспорт · Маршруты · <b>+60 слов</b></p>
+  <div class="statrow">
+    <div class="stat"><div class="v">6</div><div class="l">День</div></div>
+    <div class="stat"><div class="v">315</div><div class="l">Слов всего</div></div>
+    <div class="stat"><div class="v">A2</div><div class="l">Уровень</div></div>
+    <div class="stat"><div class="v">6%</div><div class="l">Прогресс</div></div>
+  </div>
+  <div class="cue"><span>Scroll</span><span>↓</span></div>
+</section>
+
+<!-- ═══ METRO STRIP ═══ -->
+<div class="metro-strip">
+  <div class="mtrack">
+    <div class="mitem"><span class="mph">✓ Д.1</span><span class="mnm">To Be · Алфавит</span></div>
+    <div class="mitem"><span class="mph">✓ Д.2</span><span class="mnm">Present Simple · Профессии</span></div>
+    <div class="mitem"><span class="mph">✓ Д.3</span><span class="mnm">Continuous · Дом</span></div>
+    <div class="mitem"><span class="mph">✓ Д.4</span><span class="mnm">Артикли · Еда · Ресторан</span></div>
+    <div class="mitem"><span class="mph">✓ Д.5</span><span class="mnm">Past Simple · Нерег. глаголы</span></div>
+    <div class="mitem cur"><span class="mph">Сейчас</span><span class="mnm">День 6: WH-вопросы · Город</span></div>
+    <div class="mitem"><span class="mph">Завтра</span><span class="mnm">День 7: Большой тест недели</span></div>
+    <div class="mitem"><span class="mph">✓ Д.1</span><span class="mnm">To Be · Алфавит</span></div>
+    <div class="mitem"><span class="mph">✓ Д.2</span><span class="mnm">Present Simple · Профессии</span></div>
+    <div class="mitem"><span class="mph">✓ Д.3</span><span class="mnm">Continuous · Дом</span></div>
+    <div class="mitem"><span class="mph">✓ Д.4</span><span class="mnm">Артикли · Еда · Ресторан</span></div>
+    <div class="mitem"><span class="mph">✓ Д.5</span><span class="mnm">Past Simple · Нерег. глаголы</span></div>
+    <div class="mitem cur"><span class="mph">Сейчас</span><span class="mnm">День 6: WH-вопросы · Город</span></div>
+    <div class="mitem"><span class="mph">Завтра</span><span class="mnm">День 7: Большой тест недели</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- SCHEDULE -->
+<section class="sec rev">
+  <div class="sh"><div class="stag e">Расписание</div>
+    <div><div class="stit">Программа <em>дня</em></div><div class="ssub">День 6 · ~110 мин · WH-вопросы + Город + Маршруты</div></div></div>
+  <div style="margin-bottom:16px">
+    <span class="tag tg">Грамматика</span><span class="tag tv">Лексика</span>
+    <span class="tag ts">Говорение</span><span class="tag tr">Чтение</span><span class="tag tt">Тест</span>
+  </div>
+  <div class="sch">
+    <div class="si"><div class="st">10 мин</div><div><div class="stt">🔁 Разогрев — дни 1–5</div><div class="sds">Past Simple · Артикли · Present Continuous — быстрая устная проверка</div></div></div>
+    <div class="si"><div class="st">25 мин</div><div><div class="stt">⚡ Грамматика: 8 WH-вопросов</div><div class="sds">What · Who · Where · When · Why · How · Which · Whose + формулы</div></div></div>
+    <div class="si"><div class="st">20 мин</div><div><div class="stt">📚 Город · Транспорт · Направления</div><div class="sds">30 мест в городе + 15 видов транспорта + 12 фраз направления</div></div></div>
+    <div class="si"><div class="st">15 мин</div><div><div class="stt">✏️ Упражнения A, B, C</div><div class="sds">Fill-in WH · Question Builder · дорога на карте</div></div></div>
+    <div class="si"><div class="st">15 мин</div><div><div class="stt">💬 Диалог: спросить дорогу</div><div class="sds">«Excuse me, how do I get to...» — полный диалог с транскрипцией</div></div></div>
+    <div class="si"><div class="st">10 мин</div><div><div class="stt">📖 Чтение: «Lost in London»</div><div class="sds">Все WH-вопросы и городская лексика в тексте</div></div></div>
+    <div class="si"><div class="st">15 мин</div><div><div class="stt">🧩 Финальный тест — 12 вопросов</div><div class="sds">WH-вопросы · Город · Транспорт · Направления</div></div></div>
+  </div>
+</section>
+
+<!-- WH-QUESTIONS GRAMMAR -->
+<section class="sec rev">
+  <div class="sh"><div class="stag g">Грамматика</div>
+    <div><div class="stit">WH <em>Questions</em></div><div class="ssub">8 вопросительных слов — фундамент любого разговора и интервью</div></div></div>
+
+  <div class="th gold">
+    <h4>📌 Зачем WH-вопросы?</h4>
+    <p>Yes/No вопросы дают только два ответа. WH-вопросы открывают разговор — они дают <strong>развёрнутые ответы</strong>. Для лекций, книг и профессионального общения WH-вопросы незаменимы — они управляют беседой и демонстрируют глубину мышления.</p>
+    <p class="n">Носители языка используют WH-вопросы в 70% разговорных конструкций.</p>
+  </div>
+
+  <div class="wh-grid">
+    <div class="wh-card c1">
+      <div class="wh-word">WHAT</div>
+      <div class="wh-ipa">/wɒt/</div>
+      <div class="wh-ru">Что / Какой</div>
+      <div class="wh-uses">О предметах, действиях, информации</div>
+      <div class="wh-examples">
+        <div class="wh-ex">What is your name?</div>
+        <div class="wh-ex">What did you eat?</div>
+        <div class="wh-ex">What time is it?</div>
+      </div>
+    </div>
+    <div class="wh-card c2">
+      <div class="wh-word">WHO</div>
+      <div class="wh-ipa">/huː/</div>
+      <div class="wh-ru">Кто / Кого / Кому</div>
+      <div class="wh-uses">О людях — субъект и объект</div>
+      <div class="wh-examples">
+        <div class="wh-ex">Who is your teacher?</div>
+        <div class="wh-ex">Who did you meet?</div>
+        <div class="wh-ex">Who called you?</div>
+      </div>
+    </div>
+    <div class="wh-card c3">
+      <div class="wh-word">WHERE</div>
+      <div class="wh-ipa">/weər/</div>
+      <div class="wh-ru">Где / Куда / Откуда</div>
+      <div class="wh-uses">О местах и направлениях</div>
+      <div class="wh-examples">
+        <div class="wh-ex">Where do you live?</div>
+        <div class="wh-ex">Where did she go?</div>
+        <div class="wh-ex">Where is the station?</div>
+      </div>
+    </div>
+    <div class="wh-card c4">
+      <div class="wh-word">WHEN</div>
+      <div class="wh-ipa">/wen/</div>
+      <div class="wh-ru">Когда</div>
+      <div class="wh-uses">О времени, датах, периодах</div>
+      <div class="wh-examples">
+        <div class="wh-ex">When did you arrive?</div>
+        <div class="wh-ex">When is your birthday?</div>
+        <div class="wh-ex">When does it open?</div>
+      </div>
+    </div>
+    <div class="wh-card c5">
+      <div class="wh-word">WHY</div>
+      <div class="wh-ipa">/waɪ/</div>
+      <div class="wh-ru">Почему / Зачем</div>
+      <div class="wh-uses">О причинах и мотивации</div>
+      <div class="wh-examples">
+        <div class="wh-ex">Why are you late?</div>
+        <div class="wh-ex">Why did he leave?</div>
+        <div class="wh-ex">Because… / So that…</div>
+      </div>
+    </div>
+    <div class="wh-card c6">
+      <div class="wh-word">HOW</div>
+      <div class="wh-ipa">/haʊ/</div>
+      <div class="wh-ru">Как / Каким образом</div>
+      <div class="wh-uses">О способе, качестве, количестве</div>
+      <div class="wh-examples">
+        <div class="wh-ex">How are you?</div>
+        <div class="wh-ex">How do I get there?</div>
+        <div class="wh-ex">How much / How many?</div>
+      </div>
+    </div>
+    <div class="wh-card c7">
+      <div class="wh-word">WHICH</div>
+      <div class="wh-ipa">/wɪtʃ/</div>
+      <div class="wh-ru">Который / Какой (из)</div>
+      <div class="wh-uses">Выбор из ограниченного набора</div>
+      <div class="wh-examples">
+        <div class="wh-ex">Which bus goes to centre?</div>
+        <div class="wh-ex">Which do you prefer?</div>
+        <div class="wh-ex">Which way is north?</div>
+      </div>
+    </div>
+    <div class="wh-card c8">
+      <div class="wh-word">WHOSE</div>
+      <div class="wh-ipa">/huːz/</div>
+      <div class="wh-ru">Чей / Чья / Чьё</div>
+      <div class="wh-uses">О принадлежности</div>
+      <div class="wh-examples">
+        <div class="wh-ex">Whose bag is this?</div>
+        <div class="wh-ex">Whose turn is it?</div>
+        <div class="wh-ex">Whose idea was it?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMULA -->
+  <p style="font-family:'Unbounded',sans-serif;font-weight:700;margin:28px 0 12px;font-size:12px;color:var(--a1);letter-spacing:-.3px;text-transform:uppercase">Формула WH-вопроса</p>
+  <div class="form">
+    <span class="fb fw">WH-word</span><span class="fp">+</span>
+    <span class="fb fn">do/does/did<br>am/is/are<br>was/were</span><span class="fp">+</span>
+    <span class="fb fs">Subject</span><span class="fp">+</span>
+    <span class="fb fv">Verb (base)</span><span class="fp">+</span>
+    <span class="fb" style="background:rgba(201,125,232,.1);color:var(--a5);border:1px solid rgba(201,125,232,.2)">...?</span>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>WH-слово</th><th>Вопрос</th><th>Структура</th><th>Ответ</th></tr></thead>
+    <tbody>
+      <tr><td class="wh">What</td><td class="ex">What do you do?</td><td class="neg2">What + do + you + do</td><td class="ans">I'm a teacher.</td></tr>
+      <tr><td class="wh">Where</td><td class="ex">Where did she go?</td><td class="neg2">Where + did + she + go</td><td class="ans">She went to Paris.</td></tr>
+      <tr><td class="wh">When</td><td class="ex">When does it start?</td><td class="neg2">When + does + it + start</td><td class="ans">At 7 PM.</td></tr>
+      <tr><td class="wh">Who</td><td class="ex">Who called you?</td><td class="neg2">Who + called (без do!)</td><td class="ans">My sister called.</td></tr>
+      <tr><td class="wh">Why</td><td class="ex">Why were you late?</td><td class="neg2">Why + were + you</td><td class="ans">Because of traffic.</td></tr>
+      <tr><td class="wh">How</td><td class="ex">How do I get there?</td><td class="neg2">How + do + I + get</td><td class="ans">Take the metro.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="th red" style="margin-top:18px">
+    <h4>⚠️ Особый случай: WHO как подлежащее</h4>
+    <p>Когда <strong>WHO</strong> — это и есть подлежащее (субъект), вспомогательный глагол DO/DID не нужен!</p>
+    <p>❌ <s>Who did call you?</s> → ✅ <strong>Who called you?</strong> (who = субъект, сразу глагол)</p>
+    <p>❌ <s>Who did write this book?</s> → ✅ <strong>Who wrote this book?</strong></p>
+    <p>Но: <strong>Who did you call?</strong> ✓ (you — субъект, who — объект → нужен did)</p>
+  </div>
+
+  <div class="th blue" style="margin-top:12px">
+    <h4>🔗 HOW + прилагательное — мощные комбинации</h4>
+    <p><strong>How much</strong> — сколько (неисчисляемое): How much does it cost?</p>
+    <p><strong>How many</strong> — сколько (исчисляемое): How many people are there?</p>
+    <p><strong>How long</strong> — как долго: How long does it take?</p>
+    <p><strong>How far</strong> — как далеко: How far is the station?</p>
+    <p><strong>How often</strong> — как часто: How often do you exercise?</p>
+    <p><strong>How old</strong> — сколько лет: How old are you?</p>
+  </div>
+</section>
+
+<!-- CITY VOCABULARY -->
+<section class="sec rev">
+  <div class="sh"><div class="stag v">Лексика</div>
+    <div><div class="stit">The <em>City</em></div><div class="ssub">30 мест в городе — основа для разговоров о маршрутах</div></div></div>
+
+  <div class="city-grid">
+    <div class="city-card"><div class="ico">🚉</div><div class="en">train station</div><div class="ipa">/treɪn ˈsteɪ.ʃən/</div><div class="ru">вокзал / ж/д станция</div><div class="ex">Where is the train station?</div></div>
+    <div class="city-card"><div class="ico">🚇</div><div class="en">metro / subway</div><div class="ipa">/ˈmet.roʊ/</div><div class="ru">метро</div><div class="ex">Take the metro to the centre.</div></div>
+    <div class="city-card"><div class="ico">✈️</div><div class="en">airport</div><div class="ipa">/ˈeər.pɔːrt/</div><div class="ru">аэропорт</div><div class="ex">How far is the airport?</div></div>
+    <div class="city-card"><div class="ico">🏥</div><div class="en">hospital</div><div class="ipa">/ˈhɒs.pɪ.təl/</div><div class="ru">больница</div><div class="ex">Is there a hospital nearby?</div></div>
+    <div class="city-card"><div class="ico">🏦</div><div class="en">bank</div><div class="ipa">/bæŋk/</div><div class="ru">банк</div><div class="ex">Where is the nearest bank?</div></div>
+    <div class="city-card"><div class="ico">🏪</div><div class="en">supermarket</div><div class="ipa">/ˈsuː.pəˌmɑːr.kɪt/</div><div class="ru">супермаркет</div><div class="ex">Which supermarket is open?</div></div>
+    <div class="city-card"><div class="ico">🏫</div><div class="en">school</div><div class="ipa">/skuːl/</div><div class="ru">школа</div><div class="ex">Where does she go to school?</div></div>
+    <div class="city-card"><div class="ico">🏛️</div><div class="en">museum</div><div class="ipa">/mjuːˈziː.əm/</div><div class="ru">музей</div><div class="ex">What time does the museum open?</div></div>
+    <div class="city-card"><div class="ico">🌳</div><div class="en">park</div><div class="ipa">/pɑːrk/</div><div class="ru">парк</div><div class="ex">How do I get to the park?</div></div>
+    <div class="city-card"><div class="ico">🏨</div><div class="en">hotel</div><div class="ipa">/hoʊˈtel/</div><div class="ru">гостиница</div><div class="ex">Which hotel did you stay at?</div></div>
+    <div class="city-card"><div class="ico">⛪</div><div class="en">church</div><div class="ipa">/tʃɜːrtʃ/</div><div class="ru">церковь</div><div class="ex">When was this church built?</div></div>
+    <div class="city-card"><div class="ico">🏬</div><div class="en">shopping mall</div><div class="ipa">/ˈʃɒp.ɪŋ mɔːl/</div><div class="ru">торговый центр</div><div class="ex">Where is the shopping mall?</div></div>
+    <div class="city-card"><div class="ico">🎭</div><div class="en">theatre</div><div class="ipa">/ˈθɪə.tər/</div><div class="ru">театр</div><div class="ex">Why did you go to the theatre?</div></div>
+    <div class="city-card"><div class="ico">💊</div><div class="en">pharmacy</div><div class="ipa">/ˈfɑːr.mə.si/</div><div class="ru">аптека</div><div class="ex">Is there a pharmacy near here?</div></div>
+    <div class="city-card"><div class="ico">🚔</div><div class="en">police station</div><div class="ipa">/pəˈliːs ˈsteɪ.ʃən/</div><div class="ru">полицейский участок</div><div class="ex">Where is the police station?</div></div>
+    <div class="city-card"><div class="ico">📮</div><div class="en">post office</div><div class="ipa">/ˈpoʊst ˌɒf.ɪs/</div><div class="ru">почта</div><div class="ex">How far is the post office?</div></div>
+    <div class="city-card"><div class="ico">🌉</div><div class="en">bridge</div><div class="ipa">/brɪdʒ/</div><div class="ru">мост</div><div class="ex">Cross the bridge and turn left.</div></div>
+    <div class="city-card"><div class="ico">🛣️</div><div class="en">street / road</div><div class="ipa">/striːt/ /roʊd/</div><div class="ru">улица / дорога</div><div class="ex">Which street do I take?</div></div>
+    <div class="city-card"><div class="ico">🔀</div><div class="en">crossroads / junction</div><div class="ipa">/ˈkrɒs.roʊdz/</div><div class="ru">перекрёсток</div><div class="ex">Turn left at the crossroads.</div></div>
+    <div class="city-card"><div class="ico">🚶</div><div class="en">pavement / sidewalk</div><div class="ipa">/ˈpeɪv.mənt/</div><div class="ru">тротуар</div><div class="ex">Walk along the pavement.</div></div>
+  </div>
+</section>
+
+<!-- TRANSPORT -->
+<section class="sec rev">
+  <div class="sh"><div class="stag v">Транспорт</div>
+    <div><div class="stit"><em>Transport</em> — Как добраться</div><div class="ssub">15 видов транспорта + ключевые глаголы для каждого</div></div></div>
+
+  <div class="transport-row">
+    <div class="tr-chip"><div class="trico">🚇</div><div><div class="tren">metro / tube</div><div class="tripa">/ˈmet.roʊ/</div><div class="trru">метро · take the metro</div></div></div>
+    <div class="tr-chip"><div class="trico">🚌</div><div><div class="tren">bus</div><div class="tripa">/bʌs/</div><div class="trru">автобус · take/catch a bus</div></div></div>
+    <div class="tr-chip"><div class="trico">🚕</div><div><div class="tren">taxi / cab</div><div class="tripa">/ˈtæk.si/</div><div class="trru">такси · take a taxi</div></div></div>
+    <div class="tr-chip"><div class="trico">🚆</div><div><div class="tren">train</div><div class="tripa">/treɪn/</div><div class="trru">поезд · catch a train</div></div></div>
+    <div class="tr-chip"><div class="trico">✈️</div><div><div class="tren">plane / flight</div><div class="tripa">/pleɪn/</div><div class="trru">самолёт · take a flight</div></div></div>
+    <div class="tr-chip"><div class="trico">🚲</div><div><div class="tren">bicycle / bike</div><div class="tripa">/ˈbaɪ.sɪ.kəl/</div><div class="trru">велосипед · ride a bike</div></div></div>
+    <div class="tr-chip"><div class="trico">🛵</div><div><div class="tren">motorbike</div><div class="tripa">/ˈmoʊ.tər.baɪk/</div><div class="trru">мотоцикл · ride a motorbike</div></div></div>
+    <div class="tr-chip"><div class="trico">🚢</div><div><div class="tren">boat / ferry</div><div class="tripa">/boʊt/ /ˈfer.i/</div><div class="trru">лодка/паром · go by boat</div></div></div>
+    <div class="tr-chip"><div class="trico">🚶</div><div><div class="tren">on foot</div><div class="tripa">/ɒn fʊt/</div><div class="trru">пешком · walk / go on foot</div></div></div>
+    <div class="tr-chip"><div class="trico">🚁</div><div><div class="tren">helicopter</div><div class="tripa">/ˈhel.ɪ.kɒp.tər/</div><div class="trru">вертолёт · fly by helicopter</div></div></div>
+  </div>
+
+  <div class="th blue" style="margin-top:22px">
+    <h4>🚦 Глаголы с транспортом — разница важна!</h4>
+    <p><strong>TAKE</strong> — общественный транспорт: take the bus/metro/train/taxi</p>
+    <p><strong>CATCH</strong> — успеть на рейс: catch a bus/train/flight (don't miss it!)</p>
+    <p><strong>RIDE</strong> — двухколёсный: ride a bike/motorbike/horse</p>
+    <p><strong>DRIVE</strong> — управлять машиной: drive a car/truck</p>
+    <p><strong>FLY</strong> — самолёт: fly to London / fly by plane</p>
+    <p><strong>SAIL</strong> — плыть на судне: sail across the ocean</p>
+    <p class="n">«How do you get to work?» → «I take the metro» / «I drive» / «I go on foot»</p>
+  </div>
+</section>
+
+<!-- DIRECTIONS -->
+<section class="sec rev">
+  <div class="sh"><div class="stag v">Направления</div>
+    <div><div class="stit"><em>Directions</em> — Как объяснить дорогу</div><div class="ssub">12 фраз для объяснения маршрута — базис выживания в городе</div></div></div>
+
+  <div class="dir-grid">
+    <div class="dir-card"><div class="dir-icon">⬆️</div><div><div class="dir-en">Go straight on / ahead</div><div class="dir-ipa">/ɡoʊ streɪt ɒn/</div><div class="dir-ru">Идите прямо</div><div class="dir-ex">Go straight on for 200 metres.</div></div></div>
+    <div class="dir-card"><div class="dir-icon">⬅️</div><div><div class="dir-en">Turn left</div><div class="dir-ipa">/tɜːrn left/</div><div class="dir-ru">Повернуть налево</div><div class="dir-ex">Turn left at the crossroads.</div></div></div>
+    <div class="dir-card"><div class="dir-icon">➡️</div><div><div class="dir-en">Turn right</div><div class="dir-ipa">/tɜːrn raɪt/</div><div class="dir-ru">Повернуть направо</div><div class="dir-ex">Turn right at the traffic lights.</div></div></div>
+    <div class="dir-card"><div class="dir-icon">🔄</div><div><div class="dir-en">Turn back / Go back</div><div class="dir-ipa">/tɜːrn bæk/</div><div class="dir-ru">Вернуться назад</div><div class="dir-ex">You need to go back 100 metres.</div></div></div>
+    <div class="dir-card"><div class="dir-icon">🏁</div><div><div class="dir-en">It's on the left/right</div><div class="dir-ipa">/ɪts ɒn ðə left/</div><div class="dir-ru">Это слева / справа</div><div class="dir-ex">The bank is on the left.</div></div></div>
+    <div class="dir-card"><div class="dir-icon">📍</div><div><div class="dir-en">It's opposite / next to</div><div class="dir-ipa">/ˈɒp.ə.zɪt/ /nekst tuː/</div><div class="dir-ru">Напротив / рядом с</div><div class="dir-ex">It's opposite the museum.</div></div></div>
+    <div class="dir-card"><div class="dir-icon">🌉</div><div><div class="dir-en">Cross the bridge / road</div><div class="dir-ipa">/krɒs ðə brɪdʒ/</div><div class="dir-ru">Перейдите мост/дорогу</div><div class="dir-ex">Cross the bridge and you'll see it.</div></div></div>
+    <div class="dir-card"><div class="dir-icon">📏</div><div><div class="dir-en">It's about 5 minutes' walk</div><div class="dir-ipa">/ɪts əˈbaʊt/</div><div class="dir-ru">Это примерно 5 минут пешком</div><div class="dir-ex">It's about 10 minutes by metro.</div></div></div>
+    <div class="dir-card"><div class="dir-icon">🔎</div><div><div class="dir-en">You can't miss it</div><div class="dir-ipa">/juː kɑːnt mɪs ɪt/</div><div class="dir-ru">Вы не пропустите это</div><div class="dir-ex">It's a big red building — you can't miss it!</div></div></div>
+    <div class="dir-card"><div class="dir-icon">❓</div><div><div class="dir-en">Excuse me, how do I get to…?</div><div class="dir-ipa">/ɪkˈskjuːz miː/</div><div class="dir-ru">Извините, как добраться до…?</div><div class="dir-ex">Excuse me, how do I get to the station?</div></div></div>
+    <div class="dir-card"><div class="dir-icon">🚦</div><div><div class="dir-en">at the traffic lights</div><div class="dir-ipa">/æt ðə ˈtræf.ɪk laɪts/</div><div class="dir-ru">на светофоре</div><div class="dir-ex">Turn right at the traffic lights.</div></div></div>
+    <div class="dir-card"><div class="dir-icon">🗺️</div><div><div class="dir-en">Can you show me on the map?</div><div class="dir-ipa">/kæn juː ʃoʊ miː/</div><div class="dir-ru">Можете показать на карте?</div><div class="dir-ex">Sorry, can you show me on the map?</div></div></div>
+  </div>
+</section>
+
+<!-- EXERCISES -->
+<section class="sec rev">
+  <div class="sh"><div class="stag e">Упражнения</div>
+    <div><div class="stit"><em>Practice</em> — три задания</div><div class="ssub">WH-слова · Формирование вопросов · Маршрут</div></div></div>
+
+  <!-- EX A: WH fill-in -->
+  <div class="ex-block">
+    <h4>✏️ A — Вставьте нужное WH-слово</h4>
+    <div class="task">What / Who / Where / When / Why / How / Which / Whose — выберите подходящее</div>
+    <div class="fr">1. <input class="bl" id="a1" data-a="Where" placeholder="___"> is the nearest hospital?</div>
+    <div class="fr">2. <input class="bl" id="a2" data-a="What" placeholder="___"> time does the museum open?</div>
+    <div class="fr">3. <input class="bl" id="a3" data-a="Who" placeholder="___"> is your favourite teacher?</div>
+    <div class="fr">4. <input class="bl" id="a4" data-a="How" placeholder="___"> do I get to the train station from here?</div>
+    <div class="fr">5. <input class="bl" id="a5" data-a="Why" placeholder="___"> did you leave so early yesterday?</div>
+    <div class="fr">6. <input class="bl" id="a6" data-a="Which" placeholder="___"> bus goes to the city centre?</div>
+    <div class="fr">7. <input class="bl" id="a7" data-a="When" placeholder="___"> did she arrive in London?</div>
+    <div class="fr">8. <input class="bl" id="a8" data-a="Whose" placeholder="___"> bag is on the seat?</div>
+    <div class="fr">9. <input class="bl" id="a9" data-a="How many" placeholder="___"> stops are there to the airport?</div>
+    <div class="fr">10. <input class="bl" id="a10" data-a="How long" placeholder="___"> does the journey take?</div>
+    <button class="chk" onclick="chkEx('A',['a1','a2','a3','a4','a5','a6','a7','a8','a9','a10'])">✓ Проверить</button>
+    <div class="exr" id="resA"></div>
+  </div>
+
+  <!-- EX B: QUESTION BUILDER -->
+  <div class="ex-block">
+    <h4>🔧 B — Question Builder: составьте вопрос</h4>
+    <div class="task">Выберите элементы — система покажет правильный WH-вопрос</div>
+    <div class="qbuilder">
+      <div class="qb-row">
+        <span class="qb-label">WH-слово:</span>
+        <select class="qb-select" id="wb-wh" onchange="buildQ()">
+          <option value="">— выбрать —</option>
+          <option value="What">What</option>
+          <option value="Where">Where</option>
+          <option value="When">When</option>
+          <option value="Who">Who</option>
+          <option value="Why">Why</option>
+          <option value="How">How</option>
+        </select>
+      </div>
+      <div class="qb-row">
+        <span class="qb-label">Вспомогат.:</span>
+        <select class="qb-select" id="wb-aux" onchange="buildQ()">
+          <option value="">— выбрать —</option>
+          <option value="do">do</option>
+          <option value="does">does</option>
+          <option value="did">did</option>
+          <option value="is">is</option>
+          <option value="are">are</option>
+          <option value="was">was</option>
+        </select>
+      </div>
+      <div class="qb-row">
+        <span class="qb-label">Подлежащее:</span>
+        <select class="qb-select" id="wb-subj" onchange="buildQ()">
+          <option value="">— выбрать —</option>
+          <option value="you">you</option>
+          <option value="she">she</option>
+          <option value="he">he</option>
+          <option value="they">they</option>
+          <option value="the train">the train</option>
+          <option value="the museum">the museum</option>
+        </select>
+      </div>
+      <div class="qb-row">
+        <span class="qb-label">Глагол:</span>
+        <select class="qb-select" id="wb-verb" onchange="buildQ()">
+          <option value="">— выбрать —</option>
+          <option value="live">live</option>
+          <option value="work">work</option>
+          <option value="go">go</option>
+          <option value="come">come</option>
+          <option value="arrive">arrive</option>
+          <option value="open">open</option>
+          <option value="leave">leave</option>
+        </select>
+      </div>
+      <div class="qb-result" id="qb-result"></div>
+    </div>
+  </div>
+
+  <!-- EX C: Directions fill-in -->
+  <div class="ex-block">
+    <h4>🗺️ C — Заполните диалог: объясните дорогу</h4>
+    <div class="task">Слова для использования: straight on · left · right · crossroads · opposite · minutes</div>
+    <div class="fr" style="font-size:15px;background:var(--s2);padding:16px 20px;border-radius:8px;border:1px solid var(--bdr);display:block;line-height:2.8">
+      <b>Tourist:</b> Excuse me, how do I get to the museum?<br>
+      <b>Local:</b> Of course! Go <input class="bl" id="c1" data-a="straight on" placeholder="___"> for two blocks.<br>
+      Then turn <input class="bl" id="c2" data-a="left" placeholder="___"> at the traffic lights.<br>
+      At the <input class="bl" id="c3" data-a="crossroads" placeholder="___">, turn <input class="bl" id="c4" data-a="right" placeholder="___">.<br>
+      The museum is <input class="bl" id="c5" data-a="opposite" placeholder="___"> the park — you can't miss it!<br>
+      It's about five <input class="bl" id="c6" data-a="minutes" placeholder="___"> on foot.<br>
+      <b>Tourist:</b> Thank you so much!<br>
+      <b>Local:</b> You're welcome. Enjoy the museum!
+    </div>
+    <button class="chk" onclick="chkEx('C',['c1','c2','c3','c4','c5','c6'])">✓ Проверить маршрут</button>
+    <div class="exr" id="resC"></div>
+  </div>
+</section>
+
+<!-- DIALOGUE -->
+<section class="sec rev">
+  <div class="sh"><div class="stag s">Говорение</div>
+    <div><div class="stit">Dialogue: <em>Excuse Me!</em></div><div class="ssub">Реальный диалог — спросить дорогу в незнакомом городе</div></div></div>
+
+  <div class="map-scene">
+    <div class="map-header">
+      <div class="mhico">🗺️</div>
+      <div><h5>Lost in the City</h5><p>Сцена: незнакомый город, нужно найти вокзал</p></div>
+    </div>
+    <div class="chat">
+      <div class="msg r"><div class="av">👤</div>
+        <div class="bub">
+          <div class="en">Excuse me! Sorry to bother you. Do you speak English?</div>
+          <div class="ip">/ɪkˈskjuːz miː ˈsɒri tə ˈbɒð.ər juː duː juː spiːk ˈɪŋ.ɡlɪʃ/</div>
+          <div class="ru">Извините! Простите за беспокойство. Вы говорите по-английски?</div>
+        </div>
+      </div>
+      <div class="msg"><div class="av">🧑</div>
+        <div class="bub">
+          <div class="en">Yes, a little! How can I help you?</div>
+          <div class="ip">/jes ə ˈlɪt.əl haʊ kæn aɪ help juː/</div>
+          <div class="ru">Да, немного! Чем могу помочь?</div>
+        </div>
+      </div>
+      <div class="msg r"><div class="av">👤</div>
+        <div class="bub">
+          <div class="en">How do I get to the central train station from here? I'm completely lost.</div>
+          <div class="ip">/haʊ duː aɪ ɡet tə ðə ˈsen.trəl treɪn ˈsteɪ.ʃən frɒm hɪər aɪm kəmˈpliːt.li lɒst/</div>
+          <div class="ru">Как мне добраться до центрального вокзала отсюда? Я совсем потерялся.</div>
+        </div>
+      </div>
+      <div class="msg"><div class="av">🧑</div>
+        <div class="bub">
+          <div class="en">No problem! Go straight on down this street for about three minutes. Then turn left at the big crossroads — you'll see traffic lights there.</div>
+          <div class="ip">/noʊ ˈprɒb.ləm ɡoʊ streɪt ɒn daʊn ðɪs striːt fər əˈbaʊt θriː ˈmɪn.ɪts ðen tɜːrn left æt ðə bɪɡ ˈkrɒs.roʊdz juːl siː ˈtræf.ɪk laɪts ðeər/</div>
+          <div class="ru">Не проблема! Идите прямо по этой улице около трёх минут. Затем поверните налево на большом перекрёстке — там будет светофор.</div>
+        </div>
+      </div>
+      <div class="msg r"><div class="av">👤</div>
+        <div class="bub">
+          <div class="en">Okay, go straight then turn left. Got it. And then what?</div>
+          <div class="ip">/ˈoʊ.keɪ ɡoʊ streɪt ðen tɜːrn left ɡɒt ɪt ænd ðen wɒt/</div>
+          <div class="ru">Хорошо, идти прямо, затем повернуть налево. Понял. А потом?</div>
+        </div>
+      </div>
+      <div class="msg"><div class="av">🧑</div>
+        <div class="bub">
+          <div class="en">After that, walk past the big park on your right. The station is opposite the park — it's a huge building, you really can't miss it! It's about ten minutes' walk in total.</div>
+          <div class="ip">/ˈɑːf.tər ðæt wɔːk pɑːst ðə bɪɡ pɑːrk ɒn jɔːr raɪt ðə ˈsteɪ.ʃən ɪz ˈɒp.ə.zɪt ðə pɑːrk ɪts ə hjuːdʒ ˈbɪl.dɪŋ juː ˈrɪə.li kɑːnt mɪs ɪt ɪts əˈbaʊt ten ˈmɪn.ɪts wɔːk ɪn ˈtoʊ.təl/</div>
+          <div class="ru">После этого идите мимо большого парка справа. Вокзал напротив парка — это огромное здание, вы точно не пропустите! Это около десяти минут пешком всего.</div>
+        </div>
+      </div>
+      <div class="msg r"><div class="av">👤</div>
+        <div class="bub">
+          <div class="en">Perfect, thank you so much! One more question — which exit should I use at the station for the London train?</div>
+          <div class="ip">/ˈpɜːr.fɪkt θæŋk juː soʊ mʌtʃ wʌn mɔːr ˈkwes.tʃən wɪtʃ ˈek.sɪt ʃʊd aɪ juːz æt ðə ˈsteɪ.ʃən fər ðə ˈlʌn.dən treɪn/</div>
+          <div class="ru">Отлично, огромное спасибо! Ещё один вопрос — какой выход мне использовать на вокзале для поезда на Лондон?</div>
+        </div>
+      </div>
+      <div class="msg"><div class="av">🧑</div>
+        <div class="bub">
+          <div class="en">Use the main entrance — it says "Platforms 1–8". You'll see signs. Good luck with your journey!</div>
+          <div class="ip">/juːz ðə meɪn ˈen.trəns ɪt sez ˈplæt.fɔːrmz wʌn tə eɪt juːl siː saɪnz ɡʊd lʌk wɪð jɔːr ˈdʒɜːr.ni/</div>
+          <div class="ru">Используйте главный вход — там написано «Платформы 1–8». Вы увидите указатели. Счастливого пути!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip" style="margin-top:16px"><span class="ic">🗣️</span>
+    <div><strong>Задание:</strong> Разыграйте диалог вслух дважды — поменяйтесь ролями. Потом придумайте новый маршрут от вашего дома до ближайшего супермаркета и объясните его по-английски за 4–6 предложений.</div>
+  </div>
+</section>
+
+<!-- READING -->
+<section class="sec rev">
+  <div class="sh"><div class="stag r">Чтение</div>
+    <div><div class="stit">Reading: <em>Lost in London</em></div><div class="ssub">Найдите все WH-вопросы и городскую лексику — их не менее 15</div></div></div>
+
+  <div class="rbox">
+    <div class="rtitle">Lost in London</div>
+    <p>Last month I <span class="hw" title="visited — правильный, Past Simple">visited</span> London for the first time. I was so <span class="hw" title="excited — взволнованный">excited</span> that I forgot to download a <span class="hw" title="map — карта">map</span>. On my first morning, I walked out of the <span class="hw" title="hotel — гостиница">hotel</span> and immediately got <span class="hw" title="lost — заблудился">lost</span>.</p>
+    <p>I stopped a woman on the street and asked: "<span class="hw" title="Excuse me — первая фраза при обращении">Excuse me</span>, <span class="hw" title="WH-вопрос: where">where</span> is the nearest <span class="hw" title="metro station — станция метро">metro station</span>?" She smiled and said: "Go <span class="hw" title="straight on — прямо">straight on</span>, then turn <span class="hw" title="left — налево">left</span> at the <span class="hw" title="traffic lights — светофор">traffic lights</span>. It is <span class="hw" title="opposite — напротив">opposite</span> the big <span class="hw" title="supermarket — супермаркет">supermarket</span>."</p>
+    <p>I thanked her and walked on. But then I saw a beautiful old <span class="hw" title="church — церковь">church</span> and stopped to take a photo. A man <span class="hw" title="nearby — рядом">nearby</span> asked: "<span class="hw" title="WH-вопрос: what">What</span> <span class="hw" title="brought — Past от 'bring'">brought</span> you to London? <span class="hw" title="WH-вопрос: when">When</span> did you arrive?" We talked for twenty minutes about the city, its history, and the best <span class="hw" title="places — места">places</span> to visit.</p>
+    <p>"<span class="hw" title="WH-вопрос: which">Which</span> museum is the best?" I asked him. "<span class="hw" title="WH-вопрос: how">How</span> do I get there?" He pointed to the right and said: "Walk <span class="hw" title="past — мимо">past</span> the <span class="hw" title="park — парк">park</span>, cross the <span class="hw" title="bridge — мост">bridge</span>, and you will see it. It is only ten <span class="hw" title="minutes — минут">minutes</span>' walk."</p>
+    <p>I never found the <span class="hw" title="metro station — станция метро">metro station</span> that morning. But I found something better — a new friend, two amazing museums, and the reason <span class="hw" title="why — почему">why</span> I love to travel: because getting lost sometimes leads you to the most wonderful places.</p>
+  </div>
+
+  <div class="th grn" style="margin-top:20px">
+    <h4>🔍 Задание по тексту</h4>
+    <p>1. Найдите все WH-вопросы (where, what, when, which, how, why) — их 6 штук. Выпишите каждый и переведите.</p>
+    <p>2. Найдите все слова из урока про город и транспорт (hotel, metro, church, park, bridge...). Составьте из них 3 предложения.</p>
+    <p>3. Перескажите текст в 5 предложениях: «Last month a tourist went to London. She / He was lost...»</p>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="sec rev">
+  <div class="sh"><div class="stag t">Финальный Тест</div>
+    <div><div class="stit">Day 6 <em>Quiz</em></div><div class="ssub">12 вопросов · WH-вопросы · Транспорт · Город · Направления</div></div></div>
+
+  <div class="qwrap">
+    <div class="qbar"><div class="qfill" id="qBar" style="width:8%"></div></div>
+    <div id="qMain">
+      <div class="qctr" id="qCtr">Вопрос 1 из 12</div>
+      <div class="qtxt" id="qTxt"></div>
+      <div class="qopts" id="qOpts"></div>
+      <div class="qfb" id="qFb"></div>
+      <button class="qnxt" id="qNxt" onclick="nextQ()">Next →</button>
+    </div>
+    <div class="qres" id="qRes">
+      <div class="sring"><div class="snum" id="sNum">0</div><div class="sof">из 12</div></div>
+      <h3 id="sTitle"></h3><p id="sDesc"></p>
+      <div style="margin-top:24px">
+        <button class="chk" onclick="restartQ()">🔄 Начать заново</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap" style="text-align:center">
+    <div class="np"><span>📅 Завтра — День 7</span><span class="ar">→</span><span>Большой тест всей недели + повторение A1→A2</span></div>
+    <p class="mt">Совет на сегодня: включите карты Google на английском. Каждый раз, когда прокладываете маршрут — читайте инструкции вслух по-английски. «Turn left onto... Take the... in 200 metres...»</p>
+  </div>
+</footer>
+
+<script>
+/* ═══ QUIZ ═══ */
+const Qs=[
+  {q:"Какое WH-слово спрашивает о причине?",opts:["Where","When","Why","Which"],c:2,fb:"WHY = почему/зачем. Ответ обычно начинается с 'Because...' или 'So that...'"},
+  {q:"Выберите правильный вопрос: 'Где живёт твоя сестра?'",opts:["Where does your sister live?","Where your sister lives?","Where does your sister lives?","Where is your sister live?"],c:0,fb:"Where + does (она/he/it) + subject + verb (base form). Where does your sister live? ✓"},
+  {q:"'Who wrote this book?' — почему нет 'did'?",opts:["Это ошибка, нужно 'Who did write'","Who здесь субъект — вспомогательный не нужен","Просто исключение","Потому что это вопрос о прошлом"],c:1,fb:"Когда WHO — подлежащее (субъект), do/did не нужен. Who wrote = кто написал (who = субъект). Сравните: Who did you call? (you — субъект, who — объект)"},
+  {q:"Как сказать 'Сколько остановок?' по-английски?",opts:["How much stops are there?","How many stops are there?","How stops are there?","Which many stops?"],c:1,fb:"HOW MANY — для исчисляемых существительных (stops, people, books). HOW MUCH — для неисчисляемых (water, money)."},
+  {q:"Что значит 'Go straight on, then turn left at the crossroads'?",opts:["Идите налево, затем прямо на перекрёстке","Идите прямо, затем поверните налево на перекрёстке","Поверните направо на перекрёстке","Вернитесь назад и идите прямо"],c:1,fb:"Go straight on = идите прямо. Turn left = поверните налево. At the crossroads = на перекрёстке."},
+  {q:"Какой глагол используем с автобусом/метро/поездом?",opts:["ride the bus","drive the metro","take the metro","catch a walk"],c:2,fb:"TAKE — для общественного транспорта: take the metro/bus/train/taxi. RIDE — для велосипеда/мотоцикла. DRIVE — для личного автомобиля."},
+  {q:"'___ is the museum from here?' — нужное WH-слово:",opts:["How far","How long","How much","How many"],c:0,fb:"HOW FAR = как далеко (расстояние). HOW LONG = как долго (время). 'How far is it?' → 'About 500 metres.'"},
+  {q:"Переведите: 'Which bus goes to the airport?'",opts:["Как добраться до аэропорта на автобусе?","Который автобус идёт до аэропорта?","Когда автобус идёт до аэропорта?","Почему автобус идёт до аэропорта?"],c:1,fb:"WHICH = который/какой (выбор из нескольких). Which bus = который/какой автобус (из тех, что есть)."},
+  {q:"Как вежливо спросить дорогу?",opts:["Hey! Station where?","Excuse me, how do I get to the station?","Tell me where station is!","Station, please?"],c:1,fb:"'Excuse me' — вежливое начало. 'How do I get to...?' — стандартная вежливая формула для вопроса о маршруте."},
+  {q:"'The café is opposite the bank.' Что это значит?",opts:["Кафе рядом с банком","Кафе напротив банка","Кафе за банком","Кафе между банками"],c:1,fb:"OPPOSITE = напротив. Сравните: next to = рядом с; behind = за; between = между."},
+  {q:"Переведите: 'How long does it take to get there by metro?'",opts:["Как далеко до метро?","Сколько времени занимает добраться туда на метро?","Как часто ходит метро туда?","Сколько стоит метро туда?"],c:1,fb:"HOW LONG = сколько времени. TAKE = занимать (время). 'How long does it take?' — классический вопрос о длительности поездки."},
+  {q:"Выберите правильный вопрос: 'Чья это машина?'",opts:["Who is this car?","Whose car is this?","Which car is this?","What is this car?"],c:1,fb:"WHOSE = чей/чья/чьё. Whose car is this? = Чья это машина? WHO = кто (о человеке), не об объекте."},
+];
+
+let cur=0,sc=0,done=false;
+function renderQ(){
+  const q=Qs[cur];
+  document.getElementById('qCtr').textContent=`Вопрос ${cur+1} из ${Qs.length}`;
+  document.getElementById('qTxt').textContent=q.q;
+  document.getElementById('qBar').style.width=`${(cur/Qs.length)*100+8}%`;
+  const oo=document.getElementById('qOpts');oo.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const b=document.createElement('button');b.className='qopt';
+    b.innerHTML=`<span class="ol">${l}</span>${q.opts[i]}`;
+    b.onclick=()=>pick(i,b);oo.appendChild(b);
+  });
+  document.getElementById('qFb').className='qfb';
+  document.getElementById('qNxt').className='qnxt';
+  done=false;
+}
+function pick(i,btn){
+  if(done)return;done=true;
+  const q=Qs[cur];
+  document.querySelectorAll('.qopt').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('qFb');
+  if(i===q.c){sc++;btn.classList.add('ok');fb.className='qfb ok';fb.textContent='✅ Правильно! '+q.fb;}
+  else{btn.classList.add('bad');document.querySelectorAll('.qopt')[q.c].classList.add('ok');fb.className='qfb bad';fb.textContent='❌ Неверно. '+q.fb;}
+  document.getElementById('qNxt').className='qnxt show';
+}
+function nextQ(){cur++;cur>=Qs.length?showRes():renderQ();}
+function showRes(){
+  document.getElementById('qMain').style.display='none';
+  document.getElementById('qRes').className='qres show';
+  document.getElementById('qBar').style.width='100%';
+  document.getElementById('sNum').textContent=sc;
+  const rows=[[11,'DESTINATION REACHED','WH-вопросы и город — ваши. Завтра итоговый тест недели!'],
+    [9,'ALMOST THERE','Отлично! Повторите HOW + прилагательное.'],
+    [7,'ON TRACK','Хорошая работа. Перечитайте раздел WH-вопросов перед тестом недели.'],
+    [0,'RECALCULATING...','Перечитайте грамматику WH-вопросов. Завтра большой тест — важно подготовиться!']];
+  const [,t,d]=rows.find(([n])=>sc>=n);
+  document.getElementById('sTitle').textContent=t;
+  document.getElementById('sDesc').textContent=d;
+}
+function restartQ(){cur=0;sc=0;done=false;document.getElementById('qMain').style.display='block';document.getElementById('qRes').className='qres';renderQ();}
+
+/* ═══ FILL-IN ═══ */
+function chkEx(name,ids){
+  let ok=0;
+  ids.forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const v=el.value.trim().toLowerCase(),a=el.dataset.a.trim().toLowerCase();
+    if(v===a){el.classList.add('ok');el.classList.remove('bad');ok++;}
+    else{el.classList.add('bad');el.classList.remove('ok');}
+  });
+  const r=document.getElementById('res'+name);
+  if(ok===ids.length){r.className='exr ok';r.textContent=`✅ Все ${ok} ответов верны! Превосходно!`;}
+  else{r.className='exr bad';r.textContent=`❌ Правильных: ${ok} из ${ids.length}. Красным — ошибки.`;}
+}
+
+/* ═══ QUESTION BUILDER ═══ */
+function buildQ(){
+  const wh=document.getElementById('wb-wh').value;
+  const aux=document.getElementById('wb-aux').value;
+  const subj=document.getElementById('wb-subj').value;
+  const verb=document.getElementById('wb-verb').value;
+  const res=document.getElementById('qb-result');
+  if(wh&&aux&&subj&&verb){
+    res.style.display='block';
+    res.textContent=`→ ${wh} ${aux} ${subj} ${verb}?`;
+  } else if(wh||aux||subj||verb){
+    res.style.display='block';
+    res.textContent=`${wh||'[WH]'} ${aux||'[вспом]'} ${subj||'[подл]'} ${verb||'[глагол]'}?`;
+  }
+}
+
+/* ═══ REVEAL ═══ */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.07});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+renderQ();
+</script>
+</body>
+</html>

@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Mastery | День 4 из 90</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=Inconsolata:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#12100e;--s1:#1a1713;--s2:#221f1b;--s3:#2b2720;
+  --a1:#e8a838;--a2:#e05c3a;--a3:#6db88a;--a4:#6caed6;--a5:#c97dbf;
+  --text:#f5efe8;--muted:#8a7d6e;--bdr:#2e2820;
+  --ok:#6db88a;--bad:#e05c3a;--gold:#e8a838;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;line-height:1.7;overflow-x:hidden}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:60px 24px;text-align:center}
+.hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(232,168,56,.11) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 15% 80%,rgba(224,92,58,.09) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 35% at 85% 60%,rgba(109,184,138,.07) 0%,transparent 55%);
+  pointer-events:none}
+.hero-lines{position:absolute;inset:0;pointer-events:none;opacity:.4;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(232,168,56,.06) 80px)}
+
+.pill{display:inline-flex;align-items:center;gap:9px;margin-bottom:32px;
+  border:1px solid rgba(232,168,56,.28);border-radius:4px;
+  padding:8px 22px;font-family:'Inconsolata',monospace;
+  font-size:11px;color:var(--a1);letter-spacing:2.5px;text-transform:uppercase;
+  animation:up .8s ease both}
+.pulsedot{width:6px;height:6px;border-radius:50%;background:var(--a1);animation:blink 1.8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(3.2rem,9vw,7rem);
+  line-height:.95;margin-bottom:22px;animation:up .9s .1s ease both;letter-spacing:-.5px}
+.hero h1 em{color:var(--a1);font-style:italic;display:block}
+.hero .sub{font-size:clamp(.95rem,2vw,1.15rem);color:var(--muted);max-width:580px;
+  margin:0 auto 44px;animation:up .9s .2s ease both}
+.hero .sub b{color:var(--text)}
+
+.bars{display:flex;justify-content:center;flex-wrap:wrap;gap:0;animation:up 1s .35s ease both}
+.bar{padding:16px 28px;background:var(--s1);border:1px solid var(--bdr);
+  display:flex;flex-direction:column;align-items:center;gap:3px}
+.bar:first-child{border-radius:4px 0 0 4px}.bar:last-child{border-radius:0 4px 4px 0}
+.bar .v{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--a1)}
+.bar .l{font-family:'Inconsolata',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+
+.arrow{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  color:var(--muted);font-size:11px;letter-spacing:1px;text-transform:uppercase;
+  font-family:'Inconsolata',monospace;display:flex;flex-direction:column;align-items:center;gap:5px;
+  animation:up 1s 1.3s ease both,dip 2.5s 2.2s infinite}
+@keyframes dip{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@keyframes up{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── MENU RIBBON ── */
+.ribbon{border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);
+  background:var(--s1);padding:0;overflow:hidden;height:44px;display:flex;align-items:center}
+.rtrack{display:flex;width:max-content;animation:rscroll 40s linear infinite}
+@keyframes rscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ritem{display:flex;align-items:center;gap:10px;padding:0 36px;border-right:1px solid var(--bdr);
+  white-space:nowrap;height:44px}
+.ritem .rph{font-family:'Inconsolata',monospace;font-size:9px;color:var(--a1);text-transform:uppercase;letter-spacing:2px}
+.ritem .rnm{font-size:13px;font-weight:500}.ritem.cur .rnm{color:var(--a1);font-weight:700}
+
+/* ── LAYOUT ── */
+.wrap{max-width:920px;margin:0 auto;padding:0 24px}
+.sec{padding:80px 0;border-bottom:1px solid var(--bdr)}
+.sh{display:flex;gap:16px;align-items:flex-start;margin-bottom:40px}
+.stag{font-family:'Inconsolata',monospace;font-size:9px;border-radius:3px;
+  padding:5px 12px;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;margin-top:7px}
+.stag.g{color:var(--a1);background:rgba(232,168,56,.08);border:1px solid rgba(232,168,56,.2)}
+.stag.v{color:var(--a3);background:rgba(109,184,138,.08);border:1px solid rgba(109,184,138,.2)}
+.stag.s{color:var(--a4);background:rgba(108,174,214,.08);border:1px solid rgba(108,174,214,.2)}
+.stag.r{color:var(--a5);background:rgba(201,125,191,.08);border:1px solid rgba(201,125,191,.2)}
+.stag.e{color:var(--a2);background:rgba(224,92,58,.08);border:1px solid rgba(224,92,58,.2)}
+.stag.t{color:var(--muted);background:rgba(138,125,110,.08);border:1px solid rgba(138,125,110,.2)}
+.stit{font-family:'DM Serif Display',serif;font-size:clamp(1.9rem,4.5vw,2.8rem);line-height:1.1}
+.stit em{color:var(--a1);font-style:italic}
+.ssub{color:var(--muted);font-size:13px;margin-top:7px}
+
+/* ── THEORY ── */
+.th{background:var(--s1);border:1px solid var(--bdr);border-radius:6px;padding:22px 26px;margin-bottom:16px;position:relative;overflow:hidden}
+.th::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;border-radius:3px 0 0 3px}
+.th.gold::before{background:var(--a1)}.th.gold h4{color:var(--a1)}
+.th.green::before{background:var(--a3)}.th.green h4{color:var(--a3)}
+.th.red::before{background:var(--a2)}.th.red h4{color:var(--a2)}
+.th.blue::before{background:var(--a4)}.th.blue h4{color:var(--a4)}
+.th h4{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:9px}
+.th p{font-size:14px;margin-bottom:8px;line-height:1.75}.th p:last-child{margin-bottom:0}
+.th .n{color:var(--muted);font-size:13px;font-style:italic}
+.th strong{color:var(--text)}.th em{color:var(--a3);font-style:normal}
+
+/* ── ARTICLE SHOWCASE ── */
+.art-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+.art-box{border-radius:8px;padding:24px 20px;text-align:center;border:1px solid var(--bdr)}
+.art-box.a{background:linear-gradient(160deg,rgba(232,168,56,.09),rgba(232,168,56,.03))}
+.art-box.an{background:linear-gradient(160deg,rgba(109,184,138,.09),rgba(109,184,138,.03))}
+.art-box.the{background:linear-gradient(160deg,rgba(108,174,214,.09),rgba(108,174,214,.03))}
+.art-box .big{font-family:'DM Serif Display',serif;font-size:3.5rem;line-height:1;margin-bottom:10px}
+.art-box.a .big{color:var(--a1)}.art-box.an .big{color:var(--a3)}.art-box.the .big{color:var(--a4)}
+.art-box .rule{font-size:13px;font-weight:600;margin-bottom:8px}
+.art-box .eg{font-family:'Inconsolata',monospace;font-size:12px;color:var(--muted);line-height:1.9}
+.art-box.a .rule{color:var(--a1)}.art-box.an .rule{color:var(--a3)}.art-box.the .rule{color:var(--a4)}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}
+.tbl thead tr{border-bottom:1px solid var(--a1)}
+.tbl th{padding:12px 16px;text-align:left;font-family:'Inconsolata',monospace;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--a1)}
+.tbl td{padding:12px 16px;border-bottom:1px solid var(--bdr)}
+.tbl tr:hover td{background:rgba(255,255,255,.015)}
+.tbl .en{font-weight:700;font-size:15px}.tbl .ipa{font-family:'Inconsolata',monospace;font-size:12px;color:var(--a4)}
+.tbl .ru{color:var(--muted)}.tbl .ex{font-style:italic;color:var(--a3);font-size:13px}
+.tbl .ctx{font-size:13px;color:var(--text)}.tbl .art{color:var(--a1);font-weight:800}
+
+/* ── MENU CARD GRID (food vocab) ── */
+.menu-sections{display:flex;flex-direction:column;gap:32px;margin-top:24px}
+.menu-section h4{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--a1);
+  margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--bdr);
+  display:flex;align-items:center;gap:10px}
+.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.food-card{background:var(--s1);border:1px solid var(--bdr);border-radius:6px;
+  padding:14px 16px;transition:.2s;cursor:default}
+.food-card:hover{border-color:var(--a1);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.food-card .ico{font-size:26px;margin-bottom:8px}
+.food-card .en{font-weight:700;font-size:15px;margin-bottom:2px}
+.food-card .ipa{font-family:'Inconsolata',monospace;font-size:11px;color:var(--a4);margin-bottom:4px}
+.food-card .ru{font-size:12px;color:var(--muted);margin-bottom:5px}
+.food-card .art-tag{font-family:'Inconsolata',monospace;font-size:11px;color:var(--a1);
+  background:rgba(232,168,56,.1);border:1px solid rgba(232,168,56,.2);border-radius:3px;
+  padding:2px 8px;display:inline-block}
+
+/* ── RESTAURANT MENU VISUAL ── */
+.rest-menu{background:var(--s1);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-top:24px}
+.rest-header{background:linear-gradient(135deg,rgba(232,168,56,.12),rgba(232,168,56,.04));
+  padding:24px 28px;border-bottom:1px solid var(--bdr);text-align:center}
+.rest-header h3{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--a1);margin-bottom:4px}
+.rest-header p{font-size:12px;color:var(--muted);font-family:'Inconsolata',monospace;letter-spacing:2px;text-transform:uppercase}
+.rest-body{padding:24px 28px}
+.rest-cat{margin-bottom:24px}
+.rest-cat h5{font-family:'Inconsolata',monospace;font-size:10px;color:var(--a1);
+  text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;
+  padding-bottom:6px;border-bottom:1px dashed rgba(232,168,56,.2)}
+.rest-item{display:flex;justify-content:space-between;align-items:baseline;
+  padding:7px 0;border-bottom:1px dotted rgba(255,255,255,.04)}
+.rest-item:last-child{border-bottom:none}
+.rest-item .ri-name{font-size:14px;font-weight:600}
+.rest-item .ri-desc{font-size:12px;color:var(--muted);font-style:italic;margin-top:1px}
+.rest-item .ri-price{font-family:'Inconsolata',monospace;font-size:13px;color:var(--a3);flex-shrink:0;margin-left:12px}
+
+/* ── EXERCISES ── */
+.ex-block{background:var(--s1);border:1px solid var(--bdr);border-radius:8px;padding:26px;margin-bottom:20px}
+.ex-block h4{font-size:16px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.ex-block .task{color:var(--muted);font-size:13px;margin-bottom:20px}
+.fr{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:16px;margin-bottom:14px;line-height:2.6}
+input.bl{background:rgba(232,168,56,.06);border:none;border-bottom:2px solid rgba(232,168,56,.35);
+  border-radius:3px 3px 0 0;padding:4px 10px;min-width:70px;font-family:'Inconsolata',monospace;
+  font-size:14px;color:var(--text);outline:none;text-align:center;transition:.2s}
+input.bl:focus{border-color:var(--a1);background:rgba(232,168,56,.1)}
+input.bl.ok{border-color:var(--ok);background:rgba(109,184,138,.1);color:var(--ok)}
+input.bl.bad{border-color:var(--bad);background:rgba(224,92,58,.1);color:var(--bad)}
+
+.chk{display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--a1),#c47a10);
+  color:#12100e;font-weight:700;font-size:13px;padding:10px 26px;
+  border:none;border-radius:4px;cursor:pointer;transition:.2s;
+  font-family:'Instrument Sans',sans-serif;margin-top:12px}
+.chk:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,168,56,.3)}
+.exr{margin-top:14px;padding:10px 16px;border-radius:5px;font-size:13px;display:none}
+.exr.ok{display:block;background:rgba(109,184,138,.08);border:1px solid var(--ok);color:var(--ok)}
+.exr.bad{display:block;background:rgba(224,92,58,.08);border:1px solid var(--bad);color:var(--bad)}
+
+/* ── ORDERING GAME ── */
+.order-scene{background:var(--s2);border:1px solid var(--bdr);border-radius:8px;
+  padding:24px;margin-top:16px}
+.order-scene h5{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--a1);margin-bottom:4px}
+.order-scene p{font-size:13px;color:var(--muted);margin-bottom:18px}
+.order-line{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.order-label{font-size:13px;color:var(--muted);min-width:90px;font-style:italic}
+.order-select{background:var(--s3);border:1px solid var(--bdr);border-radius:4px;
+  padding:7px 12px;font-family:'Instrument Sans',sans-serif;font-size:14px;
+  color:var(--text);outline:none;cursor:pointer;transition:.2s;min-width:160px}
+.order-select:focus{border-color:var(--a1);background:rgba(232,168,56,.06)}
+.order-select.ok{border-color:var(--ok);color:var(--ok)}
+.order-select.bad{border-color:var(--bad);color:var(--bad)}
+
+/* ── DIALOGUE ── */
+.rest-chat{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.rmsg{display:flex;gap:12px;align-items:flex-start}
+.rmsg.r{flex-direction:row-reverse}
+.wav{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  font-size:18px;flex-shrink:0;border:1px solid var(--bdr);background:var(--s2)}
+.wbub{background:var(--s2);border:1px solid var(--bdr);border-radius:8px;
+  padding:12px 16px;max-width:78%;flex:1}
+.rmsg.r .wbub{background:rgba(232,168,56,.07);border-color:rgba(232,168,56,.18)}
+.wbub .en{font-weight:700;font-size:15px;margin-bottom:3px}
+.wbub .ipa{font-family:'Inconsolata',monospace;font-size:11px;color:var(--a4);margin-bottom:4px}
+.wbub .ru{font-size:12px;color:var(--muted)}
+.role-tag{font-family:'Inconsolata',monospace;font-size:9px;text-transform:uppercase;
+  letter-spacing:1.5px;margin-bottom:5px}
+.role-tag.w{color:var(--a2)}.role-tag.c{color:var(--a4)}
+
+/* ── READING ── */
+.rbox{background:var(--s1);border:1px solid var(--bdr);border-radius:8px;padding:30px}
+.rbox .rtitle{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--a1);margin-bottom:20px}
+.rbox p{font-size:15px;line-height:2.1;margin-bottom:14px}
+.hw{border-bottom:1px dashed rgba(232,168,56,.45);color:var(--a1);cursor:help;transition:.2s}
+.hw:hover{color:var(--text);border-color:transparent}
+
+/* ── QUIZ ── */
+.qwrap{background:var(--s1);border:1px solid var(--bdr);border-radius:8px;padding:32px}
+.qbar{height:2px;background:var(--bdr);margin-bottom:28px;overflow:hidden;border-radius:99px}
+.qfill{height:100%;background:linear-gradient(90deg,var(--a1),var(--a2));transition:width .5s}
+.qctr{font-family:'Inconsolata',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.qtxt{font-family:'DM Serif Display',serif;font-size:1.3rem;line-height:1.4;margin-bottom:20px;font-weight:400}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.qopt{background:var(--s2);border:1px solid var(--bdr);border-radius:5px;
+  padding:13px 15px;cursor:pointer;transition:.2s;font-size:14px;
+  font-family:'Instrument Sans',sans-serif;color:var(--text);text-align:left;
+  display:flex;align-items:center;gap:10px}
+.qopt:hover:not(:disabled){border-color:var(--a1);background:rgba(232,168,56,.06)}
+.qopt.ok{border-color:var(--ok);background:rgba(109,184,138,.08);color:var(--ok)}
+.qopt.bad{border-color:var(--bad);background:rgba(224,92,58,.08);color:var(--bad)}
+.qopt:disabled{cursor:not-allowed}
+.ol{font-family:'Inconsolata',monospace;font-size:10px;background:var(--bdr);
+  border-radius:3px;width:22px;height:22px;display:grid;place-items:center;flex-shrink:0}
+.qfb{padding:10px 16px;border-radius:5px;font-size:13px;margin-bottom:14px;display:none}
+.qfb.ok{display:block;background:rgba(109,184,138,.08);border:1px solid var(--ok);color:var(--ok)}
+.qfb.bad{display:block;background:rgba(224,92,58,.08);border:1px solid var(--bad);color:var(--bad)}
+.qnxt{display:none;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--a2),#a83a1e);
+  color:#fff;font-weight:700;font-size:13px;padding:11px 26px;
+  border:none;border-radius:4px;cursor:pointer;transition:.2s;
+  font-family:'Instrument Sans',sans-serif}
+.qnxt.show{display:inline-flex}.qnxt:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(224,92,58,.3)}
+.qres{display:none;text-align:center;padding:20px 0}
+.qres.show{display:block}
+.sring{width:130px;height:130px;border-radius:50%;
+  border:3px solid var(--a1);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;margin:0 auto 24px;
+  background:rgba(232,168,56,.06)}
+.snum{font-family:'DM Serif Display',serif;font-size:3.2rem;color:var(--a1);line-height:1}
+.sof{font-family:'Inconsolata',monospace;font-size:12px;color:var(--muted)}
+.qres h3{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:8px}
+.qres p{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto}
+
+/* ── TIP ── */
+.tip{background:rgba(232,168,56,.05);border:1px solid rgba(232,168,56,.15);
+  border-radius:6px;padding:14px 18px;margin-top:16px;font-size:13px;display:flex;gap:10px;line-height:1.65}
+.tip .ic{font-size:18px;flex-shrink:0}.tip strong{color:var(--gold)}
+
+/* ── SCH ── */
+.sch{margin-top:18px}
+.si{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--bdr)}
+.si:last-child{border-bottom:none}
+.st{font-family:'Inconsolata',monospace;font-size:10px;color:var(--a3);
+  background:rgba(109,184,138,.08);border:1px solid rgba(109,184,138,.15);
+  border-radius:3px;padding:4px 10px;white-space:nowrap;margin-top:2px;min-width:60px;text-align:center}
+.stt{font-weight:700;font-size:14px;margin-bottom:2px}.sds{font-size:12px;color:var(--muted)}
+
+/* ── TAGS ── */
+.tag{display:inline-block;font-family:'Inconsolata',monospace;font-size:9px;
+  padding:3px 10px;border-radius:3px;letter-spacing:1.5px;text-transform:uppercase;margin:0 4px 4px 0}
+.tg{background:rgba(232,168,56,.1);color:var(--a1);border:1px solid rgba(232,168,56,.2)}
+.tv{background:rgba(109,184,138,.1);color:var(--a3);border:1px solid rgba(109,184,138,.2)}
+.ts{background:rgba(108,174,214,.1);color:var(--a4);border:1px solid rgba(108,174,214,.2)}
+.tt{background:rgba(224,92,58,.1);color:var(--a2);border:1px solid rgba(224,92,58,.2)}
+.tr{background:rgba(201,125,191,.1);color:var(--a5);border:1px solid rgba(201,125,191,.2)}
+
+/* ── FOOTER ── */
+footer{padding:60px 0;text-align:center}
+.np{display:inline-flex;align-items:center;gap:12px;background:var(--s1);
+  border:1px solid var(--bdr);border-radius:6px;padding:16px 28px;
+  font-size:14px;font-weight:600;margin-bottom:22px}
+.np .ar{color:var(--a1);font-size:18px}
+footer .mt{color:var(--muted);font-size:13px;max-width:440px;margin:0 auto;line-height:1.7}
+
+/* ── REVEAL ── */
+.rev{opacity:0;transform:translateY(20px);transition:opacity .55s,transform .55s}
+.rev.in{opacity:1;transform:none}
+
+@media(max-width:640px){
+  .art-trio{grid-template-columns:1fr}
+  .qopts{grid-template-columns:1fr}
+  .food-grid{grid-template-columns:repeat(2,1fr)}
+  .bar{padding:12px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-lines"></div>
+  <div class="pill"><span class="pulsedot"></span>День 4 из 90 · A1 → Native</div>
+  <h1>Articles &amp;<br><em>Food</em></h1>
+  <p class="sub">Артикли a / an / the · Еда и напитки · Ресторан · <b>+60 слов</b></p>
+  <div class="bars">
+    <div class="bar"><div class="v">4</div><div class="l">День</div></div>
+    <div class="bar"><div class="v">205</div><div class="l">Слов всего</div></div>
+    <div class="bar"><div class="v">A1+</div><div class="l">Уровень</div></div>
+    <div class="bar"><div class="v">4%</div><div class="l">Прогресс</div></div>
+  </div>
+  <div class="arrow"><span>Scroll</span><span>↓</span></div>
+</section>
+
+<!-- ═══ RIBBON ═══ -->
+<div class="ribbon">
+  <div class="rtrack">
+    <div class="ritem"><span class="rph">День 1</span><span class="rnm">✓ To Be · Алфавит</span></div>
+    <div class="ritem"><span class="rph">День 2</span><span class="rnm">✓ Present Simple · Профессии</span></div>
+    <div class="ritem"><span class="rph">День 3</span><span class="rnm">✓ Present Continuous · Дом</span></div>
+    <div class="ritem cur"><span class="rph">Сейчас</span><span class="rnm">День 4: Артикли · Еда · Ресторан</span></div>
+    <div class="ritem"><span class="rph">День 5</span><span class="rnm">Past Simple · Вчера · История</span></div>
+    <div class="ritem"><span class="rph">День 6</span><span class="rnm">WH-вопросы · Город · Направления</span></div>
+    <div class="ritem"><span class="rph">День 7</span><span class="rnm">Итог недели · Большой тест</span></div>
+    <div class="ritem"><span class="rph">День 1</span><span class="rnm">✓ To Be · Алфавит</span></div>
+    <div class="ritem"><span class="rph">День 2</span><span class="rnm">✓ Present Simple · Профессии</span></div>
+    <div class="ritem"><span class="rph">День 3</span><span class="rnm">✓ Present Continuous · Дом</span></div>
+    <div class="ritem cur"><span class="rph">Сейчас</span><span class="rnm">День 4: Артикли · Еда · Ресторан</span></div>
+    <div class="ritem"><span class="rph">День 5</span><span class="rnm">Past Simple · Вчера · История</span></div>
+    <div class="ritem"><span class="rph">День 6</span><span class="rnm">WH-вопросы · Город · Направления</span></div>
+    <div class="ritem"><span class="rph">День 7</span><span class="rnm">Итог недели · Большой тест</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- РАСПИСАНИЕ -->
+<section class="sec rev">
+  <div class="sh"><div class="stag e">Расписание</div>
+    <div><div class="stit">Программа <em>дня</em></div><div class="ssub">День 4 · ~105 минут · Артикли + Еда + Ресторан</div></div></div>
+  <div style="margin-bottom:16px">
+    <span class="tag tg">Грамматика</span><span class="tag tv">Лексика</span>
+    <span class="tag ts">Говорение</span><span class="tag tr">Чтение</span><span class="tag tt">Тест</span>
+  </div>
+  <div class="sch">
+    <div class="si"><div class="st">10 мин</div><div><div class="stt">🔁 Разогрев — дни 1–3</div><div class="sds">Быстрые устные вопросы: профессии, семья, что делаешь сейчас</div></div></div>
+    <div class="si"><div class="st">25 мин</div><div><div class="stt">⚡ Грамматика: Артикли a / an / the / Ø</div><div class="sds">Правила, исключения, типичные ошибки русских</div></div></div>
+    <div class="si"><div class="st">20 мин</div><div><div class="stt">📚 Лексика: Еда и напитки</div><div class="sds">60+ слов по категориям — завтрак, обед, ужин, напитки</div></div></div>
+    <div class="si"><div class="st">15 мин</div><div><div class="stt">🍽️ Меню ресторана + фразы</div><div class="sds">Как сделать заказ, попросить счёт, описать блюда</div></div></div>
+    <div class="si"><div class="st">15 мин</div><div><div class="stt">✏️ Упражнения A, B, C</div><div class="sds">Fill-in артикли · трансформация · ресторанный заказ</div></div></div>
+    <div class="si"><div class="st">10 мин</div><div><div class="stt">💬 Диалог в ресторане + 📖 Чтение</div><div class="sds">«At the Restaurant» · текст «Elena's Favourite Café»</div></div></div>
+    <div class="si"><div class="st">10 мин</div><div><div class="stt">🧩 Финальный тест — 12 вопросов</div><div class="sds">Артикли + еда + лексика ресторана</div></div></div>
+  </div>
+</section>
+
+<!-- GRAMMAR: ARTICLES -->
+<section class="sec rev">
+  <div class="sh"><div class="stag g">Грамматика</div>
+    <div><div class="stit">The Article <em>System</em></div><div class="ssub">Самая частая ошибка русскоговорящих — артикли не существуют в русском языке</div></div></div>
+
+  <div class="th gold">
+    <h4>🎯 Почему артикли важны?</h4>
+    <p>В русском языке артиклей нет — поэтому мозг их просто «не замечает» при изучении. Но для носителей английского пропущенный артикль звучит так же грубо, как грамматическая ошибка в русском. Артикли нужно вводить в автопилот — практикой каждый день.</p>
+    <p class="n">Хорошая новость: правил немного, и они логичные. Через 2–3 недели практики мозг начинает чувствовать их интуитивно.</p>
+  </div>
+
+  <div class="art-trio">
+    <div class="art-box a">
+      <div class="big">a</div>
+      <div class="rule">Неопределённый<br>перед согласной</div>
+      <div class="eg">a book · a car<br>a teacher · a dog<br>a university*</div>
+    </div>
+    <div class="art-box an">
+      <div class="big">an</div>
+      <div class="rule">Неопределённый<br>перед гласной</div>
+      <div class="eg">an apple · an egg<br>an hour* · an idea<br>an old man</div>
+    </div>
+    <div class="art-box the">
+      <div class="big">the</div>
+      <div class="rule">Определённый<br>конкретный предмет</div>
+      <div class="eg">the book (та самая)<br>the sun · the Moon<br>the President</div>
+    </div>
+  </div>
+
+  <div class="th gold" style="margin-top:8px">
+    <h4>📌 Правило A vs AN — звук, не буква!</h4>
+    <p><strong>A</strong> — перед словами, которые начинаются на <strong>согласный ЗВУК</strong>: a <em>b</em>ook, a <em>c</em>ar, a <em>un</em>iversity (<em>ю</em>-нiversity → согласный звук /j/)</p>
+    <p><strong>AN</strong> — перед словами, которые начинаются на <strong>гласный ЗВУК</strong>: an <em>a</em>pple, an <em>h</em>our (буква h — немая, звук начинается на /aʊ/), an <em>MBA</em> (эм-би-эй → звук /e/)</p>
+    <p class="n">* a university (не «an» — звук /j/); an hour (не «a» — буква h немая, звук /aʊ/)</p>
+  </div>
+
+  <div class="th green" style="margin-top:8px">
+    <h4>📌 Когда использовать THE?</h4>
+    <p><strong>1. Оба знают, о чём речь:</strong> Close <em>the</em> door. (ту дверь, что рядом)</p>
+    <p><strong>2. Второй раз в разговоре:</strong> I saw <em>a</em> dog. <em>The</em> dog was huge.</p>
+    <p><strong>3. Единственный в своём роде:</strong> <em>the</em> Sun, <em>the</em> Moon, <em>the</em> Earth, <em>the</em> President</p>
+    <p><strong>4. Прилагательное в превосходной степени:</strong> <em>the</em> best, <em>the</em> biggest</p>
+    <p><strong>5. Географические названия (реки, горы, моря):</strong> <em>the</em> Volga, <em>the</em> Alps, <em>the</em> Atlantic</p>
+  </div>
+
+  <div class="th red" style="margin-top:8px">
+    <h4>🚫 Нулевой артикль Ø — когда артикль НЕ нужен</h4>
+    <p><strong>Имена собственные:</strong> Ø Moscow, Ø Anna, Ø Russia (не «the Moscow»!)</p>
+    <p><strong>Языки и предметы:</strong> I speak Ø English. I study Ø mathematics.</p>
+    <p><strong>Еда/напитки в общем смысле:</strong> I love Ø coffee. Ø Bread is good for you.</p>
+    <p><strong>Дни недели, месяцы:</strong> on Ø Monday, in Ø January</p>
+    <p><strong>Профессии после to be:</strong> She is Ø a doctor. (НО здесь всё же нужен a/an!)</p>
+    <p class="n">⚠️ Частая ошибка: «I go to the school» → ✅ «I go to school» (в функциональном смысле)</p>
+  </div>
+
+  <table class="tbl" style="margin-top:16px">
+    <thead><tr><th>Ситуация</th><th>A / AN</th><th>THE</th><th>Ø (нет артикля)</th></tr></thead>
+    <tbody>
+      <tr><td class="ctx">Первое упоминание</td><td class="en"><span class="art">A</span> cat walked in.</td><td>—</td><td>—</td></tr>
+      <tr><td class="ctx">Второе упоминание</td><td>—</td><td class="en"><span class="art">The</span> cat sat down.</td><td>—</td></tr>
+      <tr><td class="ctx">Профессия</td><td class="en">She is <span class="art">a</span> teacher.</td><td>—</td><td>—</td></tr>
+      <tr><td class="ctx">Единственный объект</td><td>—</td><td class="en"><span class="art">The</span> Sun is hot.</td><td>—</td></tr>
+      <tr><td class="ctx">Собственное имя</td><td>—</td><td>—</td><td class="en"><span class="art">Ø</span> Paris is beautiful.</td></tr>
+      <tr><td class="ctx">В общем смысле</td><td>—</td><td>—</td><td class="en">I love <span class="art">Ø</span> music.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FOOD VOCABULARY -->
+<section class="sec rev">
+  <div class="sh"><div class="stag v">Лексика</div>
+    <div><div class="stit">Food &amp; <em>Drinks</em></div><div class="ssub">60 слов по категориям — с артиклем для каждого слова</div></div></div>
+
+  <div class="menu-sections">
+    <div class="menu-section">
+      <h4>🥐 Breakfast — Завтрак</h4>
+      <div class="food-grid">
+        <div class="food-card"><div class="ico">🥚</div><div class="en">egg</div><div class="ipa">/eɡ/</div><div class="ru">яйцо</div><div class="art-tag">an egg</div></div>
+        <div class="food-card"><div class="ico">🍞</div><div class="en">bread</div><div class="ipa">/bred/</div><div class="ru">хлеб</div><div class="art-tag">Ø bread / a slice</div></div>
+        <div class="food-card"><div class="ico">🧈</div><div class="en">butter</div><div class="ipa">/ˈbʌt.ər/</div><div class="ru">масло сливочное</div><div class="art-tag">Ø butter</div></div>
+        <div class="food-card"><div class="ico">🥞</div><div class="en">pancake</div><div class="ipa">/ˈpæn.keɪk/</div><div class="ru">блин</div><div class="art-tag">a pancake</div></div>
+        <div class="food-card"><div class="ico">🥣</div><div class="en">porridge</div><div class="ipa">/ˈpɒr.ɪdʒ/</div><div class="ru">каша / овсянка</div><div class="art-tag">Ø porridge</div></div>
+        <div class="food-card"><div class="ico">🍯</div><div class="en">honey</div><div class="ipa">/ˈhʌn.i/</div><div class="ru">мёд</div><div class="art-tag">Ø honey</div></div>
+        <div class="food-card"><div class="ico">🍓</div><div class="en">strawberry</div><div class="ipa">/ˈstrɔː.bər.i/</div><div class="ru">клубника</div><div class="art-tag">a strawberry</div></div>
+        <div class="food-card"><div class="ico">🧇</div><div class="en">waffle</div><div class="ipa">/ˈwɒf.əl/</div><div class="ru">вафля</div><div class="art-tag">a waffle</div></div>
+      </div>
+    </div>
+
+    <div class="menu-section">
+      <h4>🍲 Lunch &amp; Dinner — Обед и ужин</h4>
+      <div class="food-grid">
+        <div class="food-card"><div class="ico">🥩</div><div class="en">meat</div><div class="ipa">/miːt/</div><div class="ru">мясо</div><div class="art-tag">Ø meat</div></div>
+        <div class="food-card"><div class="ico">🐟</div><div class="en">fish</div><div class="ipa">/fɪʃ/</div><div class="ru">рыба</div><div class="art-tag">Ø fish / a fish</div></div>
+        <div class="food-card"><div class="ico">🍗</div><div class="en">chicken</div><div class="ipa">/ˈtʃɪk.ɪn/</div><div class="ru">курица</div><div class="art-tag">Ø chicken</div></div>
+        <div class="food-card"><div class="ico">🍝</div><div class="en">pasta</div><div class="ipa">/ˈpæs.tə/</div><div class="ru">паста / макароны</div><div class="art-tag">Ø pasta</div></div>
+        <div class="food-card"><div class="ico">🍚</div><div class="en">rice</div><div class="ipa">/raɪs/</div><div class="ru">рис</div><div class="art-tag">Ø rice</div></div>
+        <div class="food-card"><div class="ico">🥗</div><div class="en">salad</div><div class="ipa">/ˈsæl.əd/</div><div class="ru">салат</div><div class="art-tag">a salad</div></div>
+        <div class="food-card"><div class="ico">🍜</div><div class="en">soup</div><div class="ipa">/suːp/</div><div class="ru">суп</div><div class="art-tag">Ø soup / a soup</div></div>
+        <div class="food-card"><div class="ico">🥔</div><div class="en">potato</div><div class="ipa">/pəˈteɪ.toʊ/</div><div class="ru">картошка</div><div class="art-tag">a potato</div></div>
+        <div class="food-card"><div class="ico">🧄</div><div class="en">garlic</div><div class="ipa">/ˈɡɑːr.lɪk/</div><div class="ru">чеснок</div><div class="art-tag">Ø garlic</div></div>
+        <div class="food-card"><div class="ico">🫙</div><div class="en">sauce</div><div class="ipa">/sɔːs/</div><div class="ru">соус</div><div class="art-tag">a sauce</div></div>
+        <div class="food-card"><div class="ico">🧀</div><div class="en">cheese</div><div class="ipa">/tʃiːz/</div><div class="ru">сыр</div><div class="art-tag">Ø cheese</div></div>
+        <div class="food-card"><div class="ico">🥕</div><div class="en">carrot</div><div class="ipa">/ˈkær.ət/</div><div class="ru">морковь</div><div class="art-tag">a carrot</div></div>
+      </div>
+    </div>
+
+    <div class="menu-section">
+      <h4>☕ Drinks — Напитки</h4>
+      <div class="food-grid">
+        <div class="food-card"><div class="ico">☕</div><div class="en">coffee</div><div class="ipa">/ˈkɒf.i/</div><div class="ru">кофе</div><div class="art-tag">a coffee / Ø coffee</div></div>
+        <div class="food-card"><div class="ico">🍵</div><div class="en">tea</div><div class="ipa">/tiː/</div><div class="ru">чай</div><div class="art-tag">Ø tea / a cup of tea</div></div>
+        <div class="food-card"><div class="ico">🥛</div><div class="en">milk</div><div class="ipa">/mɪlk/</div><div class="ru">молоко</div><div class="art-tag">Ø milk</div></div>
+        <div class="food-card"><div class="ico">🧃</div><div class="en">juice</div><div class="ipa">/dʒuːs/</div><div class="ru">сок</div><div class="art-tag">Ø juice / a juice</div></div>
+        <div class="food-card"><div class="ico">💧</div><div class="en">water</div><div class="ipa">/ˈwɔː.tər/</div><div class="ru">вода</div><div class="art-tag">Ø water</div></div>
+        <div class="food-card"><div class="ico">🍺</div><div class="en">beer</div><div class="ipa">/bɪər/</div><div class="ru">пиво</div><div class="art-tag">a beer / Ø beer</div></div>
+        <div class="food-card"><div class="ico">🍷</div><div class="en">wine</div><div class="ipa">/waɪn/</div><div class="ru">вино</div><div class="art-tag">Ø wine / a glass of wine</div></div>
+        <div class="food-card"><div class="ico">🥤</div><div class="en">smoothie</div><div class="ipa">/ˈsmuː.ði/</div><div class="ru">смузи</div><div class="art-tag">a smoothie</div></div>
+      </div>
+    </div>
+
+    <div class="menu-section">
+      <h4>🍰 Desserts &amp; Snacks — Десерты и закуски</h4>
+      <div class="food-grid">
+        <div class="food-card"><div class="ico">🎂</div><div class="en">cake</div><div class="ipa">/keɪk/</div><div class="ru">торт / кекс</div><div class="art-tag">a cake / a piece of cake</div></div>
+        <div class="food-card"><div class="ico">🍪</div><div class="en">cookie / biscuit</div><div class="ipa">/ˈkʊk.i/</div><div class="ru">печенье</div><div class="art-tag">a cookie</div></div>
+        <div class="food-card"><div class="ico">🍦</div><div class="en">ice cream</div><div class="ipa">/ˈaɪs kriːm/</div><div class="ru">мороженое</div><div class="art-tag">Ø ice cream / an ice cream</div></div>
+        <div class="food-card"><div class="ico">🍫</div><div class="en">chocolate</div><div class="ipa">/ˈtʃɒk.lət/</div><div class="ru">шоколад</div><div class="art-tag">Ø chocolate / a chocolate</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip"><span class="ic">💡</span>
+    <div><strong>Зачем учить артикль с каждым словом?</strong> Запоминайте слова сразу с артиклем, как единое целое: не просто «apple», а «<b>an apple</b>». Не «sun», а «<b>the sun</b>». Это самый быстрый путь к правильному автоматическому употреблению.</div>
+  </div>
+</section>
+
+<!-- RESTAURANT MENU + PHRASES -->
+<section class="sec rev">
+  <div class="sh"><div class="stag v">Ресторан</div>
+    <div><div class="stit">At the <em>Restaurant</em></div><div class="ssub">Меню + фразы для заказа — всё что нужно в кафе</div></div></div>
+
+  <div class="rest-menu">
+    <div class="rest-header">
+      <h3>The Golden Fork</h3>
+      <p>Fine Dining · English Practice Menu</p>
+    </div>
+    <div class="rest-body">
+      <div class="rest-cat">
+        <h5>🥗 Starters — Закуски</h5>
+        <div class="rest-item"><div><div class="ri-name">A tomato soup</div><div class="ri-desc">with a slice of bread and butter</div></div><div class="ri-price">£5.50</div></div>
+        <div class="rest-item"><div><div class="ri-name">A green salad</div><div class="ri-desc">with an olive oil dressing</div></div><div class="ri-price">£6.00</div></div>
+        <div class="rest-item"><div><div class="ri-name">A garlic bread</div><div class="ri-desc">the chef's special recipe</div></div><div class="ri-price">£4.50</div></div>
+      </div>
+      <div class="rest-cat">
+        <h5>🍽️ Main Course — Основные блюда</h5>
+        <div class="rest-item"><div><div class="ri-name">A grilled chicken</div><div class="ri-desc">with rice and a salad</div></div><div class="ri-price">£14.00</div></div>
+        <div class="rest-item"><div><div class="ri-name">A salmon fillet</div><div class="ri-desc">with potatoes and a lemon sauce</div></div><div class="ri-price">£17.50</div></div>
+        <div class="rest-item"><div><div class="ri-name">A beef steak</div><div class="ri-desc">the best steak in the city</div></div><div class="ri-price">£22.00</div></div>
+        <div class="rest-item"><div><div class="ri-name">A vegetable pasta</div><div class="ri-desc">with a cheese sauce</div></div><div class="ri-price">£11.00</div></div>
+      </div>
+      <div class="rest-cat">
+        <h5>🍰 Desserts — Десерты</h5>
+        <div class="rest-item"><div><div class="ri-name">A chocolate cake</div><div class="ri-desc">with ice cream</div></div><div class="ri-price">£7.00</div></div>
+        <div class="rest-item"><div><div class="ri-name">A fruit salad</div><div class="ri-desc">with honey and a mint leaf</div></div><div class="ri-price">£5.50</div></div>
+      </div>
+      <div class="rest-cat">
+        <h5>☕ Drinks — Напитки</h5>
+        <div class="rest-item"><div class="ri-name">Tea / Coffee / Juice / Water</div><div class="ri-price">£2–3</div></div>
+        <div class="rest-item"><div class="ri-name">A glass of wine / A beer</div><div class="ri-price">£5–7</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="th blue" style="margin-top:24px">
+    <h4>🗣️ Essential Restaurant Phrases — Фразы для ресторана</h4>
+    <p><strong>Входя:</strong> "A table for two, please." / "Do you have a reservation?"</p>
+    <p><strong>Просматривая меню:</strong> "Could I see the menu, please?" / "What do you recommend?"</p>
+    <p><strong>Делая заказ:</strong> "I'd like the grilled chicken, please." / "I'll have a glass of water."</p>
+    <p><strong>Уточнения:</strong> "Does it contain nuts?" / "Can I have it without sauce?"</p>
+    <p><strong>В ходе ужина:</strong> "It's delicious!" / "Could I have some more bread?"</p>
+    <p><strong>В конце:</strong> "Could we have the bill, please?" / "Can I pay by card?"</p>
+    <p class="n">Ключевая конструкция: <strong>"I'd like..."</strong> = «Я бы хотел/а...» — вежливее чем "I want"</p>
+  </div>
+</section>
+
+<!-- EXERCISES -->
+<section class="sec rev">
+  <div class="sh"><div class="stag e">Упражнения</div>
+    <div><div class="stit"><em>Practice</em> — три задания</div><div class="ssub">Артикли · трансформация · ресторанный заказ</div></div></div>
+
+  <!-- EX A: Articles -->
+  <div class="ex-block">
+    <h4>✏️ A — Вставьте a / an / the / Ø</h4>
+    <div class="task">Заполните пропуски правильным артиклем. Ø означает — артикль не нужен</div>
+    <div class="fr">1. I eat <input class="bl" id="a1" data-a="an" placeholder="___"> egg every morning.</div>
+    <div class="fr">2. <input class="bl" id="a2" data-a="The" placeholder="___"> Sun rises in the east.</div>
+    <div class="fr">3. She is <input class="bl" id="a3" data-a="a" placeholder="___"> doctor at a big hospital.</div>
+    <div class="fr">4. I love <input class="bl" id="a4" data-a="Ø" placeholder="___"> coffee in the morning.</div>
+    <div class="fr">5. He lives in <input class="bl" id="a5" data-a="Ø" placeholder="___"> Moscow.</div>
+    <div class="fr">6. Can I have <input class="bl" id="a6" data-a="a" placeholder="___"> glass of water, please?</div>
+    <div class="fr">7. <input class="bl" id="a7" data-a="The" placeholder="___"> book on the table is mine.</div>
+    <div class="fr">8. She plays <input class="bl" id="a8" data-a="Ø" placeholder="___"> chess every evening.</div>
+    <div class="fr">9. I saw <input class="bl" id="a9" data-a="a" placeholder="___"> cat in the garden. <input class="bl" id="a10" data-a="The" placeholder="___"> cat was black.</div>
+    <button class="chk" onclick="chkA()">✓ Проверить ответы</button>
+    <div class="exr" id="resA"></div>
+  </div>
+
+  <!-- EX B: Restaurant ordering game -->
+  <div class="ex-block">
+    <h4>🍽️ B — Ресторанный заказ: выберите правильную фразу</h4>
+    <div class="task">Вы в ресторане. Выберите подходящую фразу для каждой ситуации</div>
+    <div class="order-scene">
+      <h5>The Golden Fork Restaurant</h5>
+      <p>Выберите правильную фразу для каждой ситуации в ресторане:</p>
+      <div class="order-line">
+        <span class="order-label">Хотите стол:</span>
+        <select class="order-select" id="o1" data-a="A table for two, please.">
+          <option value="">— выберите —</option>
+          <option>Give me table for two!</option>
+          <option>A table for two, please.</option>
+          <option>I want two tables.</option>
+          <option>Two persons sit here.</option>
+        </select>
+      </div>
+      <div class="order-line">
+        <span class="order-label">Просите меню:</span>
+        <select class="order-select" id="o2" data-a="Could I see the menu, please?">
+          <option value="">— выберите —</option>
+          <option>Give menu to me now.</option>
+          <option>Where is menu?</option>
+          <option>Could I see the menu, please?</option>
+          <option>I want to see menu.</option>
+        </select>
+      </div>
+      <div class="order-line">
+        <span class="order-label">Делаете заказ:</span>
+        <select class="order-select" id="o3" data-a="I'd like the grilled chicken, please.">
+          <option value="">— выберите —</option>
+          <option>I want chicken grilled.</option>
+          <option>I'd like the grilled chicken, please.</option>
+          <option>Bring me a chicken!</option>
+          <option>Give grilled chicken for me.</option>
+        </select>
+      </div>
+      <div class="order-line">
+        <span class="order-label">Просите счёт:</span>
+        <select class="order-select" id="o4" data-a="Could we have the bill, please?">
+          <option value="">— выберите —</option>
+          <option>We want money bill!</option>
+          <option>How much is cost?</option>
+          <option>Could we have the bill, please?</option>
+          <option>Give us the check now.</option>
+        </select>
+      </div>
+    </div>
+    <button class="chk" onclick="chkB()">✓ Проверить заказ</button>
+    <div class="exr" id="resB"></div>
+  </div>
+
+  <!-- EX C: Fill blanks with food -->
+  <div class="ex-block">
+    <h4>✏️ C — Вставьте слово из урока</h4>
+    <div class="task">Используйте слова: bread · soup · salad · juice · coffee · chicken · cake · water</div>
+    <div class="fr">1. I start every morning with a cup of <input class="bl" id="c1" data-a="coffee" placeholder="___">.</div>
+    <div class="fr">2. For lunch she had a bowl of tomato <input class="bl" id="c2" data-a="soup" placeholder="___">.</div>
+    <div class="fr">3. I'm vegetarian — I don't eat <input class="bl" id="c3" data-a="chicken" placeholder="___"> or meat.</div>
+    <div class="fr">4. Could I have a glass of <input class="bl" id="c4" data-a="water" placeholder="___">, please?</div>
+    <div class="fr">5. He loves orange <input class="bl" id="c5" data-a="juice" placeholder="___"> for breakfast.</div>
+    <div class="fr">6. She ordered a green <input class="bl" id="c6" data-a="salad" placeholder="___"> and a slice of <input class="bl" id="c7" data-a="bread" placeholder="___">.</div>
+    <div class="fr">7. For dessert, we shared a chocolate <input class="bl" id="c8" data-a="cake" placeholder="___">.</div>
+    <button class="chk" onclick="chkC()">✓ Проверить</button>
+    <div class="exr" id="resC"></div>
+  </div>
+</section>
+
+<!-- DIALOGUE -->
+<section class="sec rev">
+  <div class="sh"><div class="stag s">Говорение</div>
+    <div><div class="stit">Dialogue: <em>At the Restaurant</em></div><div class="ssub">Полный диалог от входа до оплаты — читайте вслух по ролям</div></div></div>
+
+  <div class="rest-chat">
+    <div class="rmsg"><div class="wav">🤵</div>
+      <div class="wbub">
+        <div class="role-tag w">Waiter — Официант</div>
+        <div class="en">Good evening! Welcome to The Golden Fork. Do you have a reservation?</div>
+        <div class="ipa">/ɡʊd ˈiːv.nɪŋ ˈwel.kəm tə ðə ˈɡoʊl.dən fɔːrk duː juː hæv ə ˌrez.əˈveɪ.ʃən/</div>
+        <div class="ru">Добрый вечер! Добро пожаловать в The Golden Fork. У вас есть бронь?</div>
+      </div>
+    </div>
+    <div class="rmsg r"><div class="wav">👤</div>
+      <div class="wbub">
+        <div class="role-tag c">Customer — Гость</div>
+        <div class="en">Good evening. No, we don't. A table for two, please.</div>
+        <div class="ipa">/ɡʊd ˈiːv.nɪŋ noʊ wiː doʊnt ə ˈteɪ.bəl fər tuː pliːz/</div>
+        <div class="ru">Добрый вечер. Нет, у нас нет. Столик на двоих, пожалуйста.</div>
+      </div>
+    </div>
+    <div class="rmsg"><div class="wav">🤵</div>
+      <div class="wbub">
+        <div class="role-tag w">Waiter</div>
+        <div class="en">Of course! Follow me, please. Here is the menu. Would you like to start with a drink?</div>
+        <div class="ipa">/əv kɔːrs ˈfɒl.oʊ miː pliːz hɪər ɪz ðə ˈmen.juː wʊd juː laɪk tə stɑːrt wɪð ə drɪŋk/</div>
+        <div class="ru">Конечно! Следуйте за мной. Вот меню. Хотите начать с напитка?</div>
+      </div>
+    </div>
+    <div class="rmsg r"><div class="wav">👤</div>
+      <div class="wbub">
+        <div class="role-tag c">Customer</div>
+        <div class="en">Yes, please. I'd like a glass of water and an orange juice for my friend.</div>
+        <div class="ipa">/jes pliːz aɪd laɪk ə ɡlɑːs əv ˈwɔː.tər ænd ən ˈɒr.ɪndʒ dʒuːs fər maɪ frend/</div>
+        <div class="ru">Да, пожалуйста. Мне стакан воды и апельсиновый сок для моего друга.</div>
+      </div>
+    </div>
+    <div class="rmsg"><div class="wav">🤵</div>
+      <div class="wbub">
+        <div class="role-tag w">Waiter</div>
+        <div class="en">Are you ready to order? What would you like?</div>
+        <div class="ipa">/ɑːr juː ˈred.i tə ˈɔːr.dər wɒt wʊd juː laɪk/</div>
+        <div class="ru">Готовы сделать заказ? Что вы хотите?</div>
+      </div>
+    </div>
+    <div class="rmsg r"><div class="wav">👤</div>
+      <div class="wbub">
+        <div class="role-tag c">Customer</div>
+        <div class="en">I'd like the grilled chicken with rice. And my friend would like the salmon fillet. What do you recommend for dessert?</div>
+        <div class="ipa">/aɪd laɪk ðə ɡrɪld ˈtʃɪk.ɪn wɪð raɪs ænd maɪ frend wʊd laɪk ðə ˈsæm.ən ˈfɪl.ɪt wɒt duː juː ˌrek.əˈmend fər dɪˈzɜːrt/</div>
+        <div class="ru">Я бы хотел жареную курицу с рисом. А мой друг хочет филе лосося. Что вы рекомендуете на десерт?</div>
+      </div>
+    </div>
+    <div class="rmsg"><div class="wav">🤵</div>
+      <div class="wbub">
+        <div class="role-tag w">Waiter</div>
+        <div class="en">The chocolate cake is excellent — it's the chef's speciality. Would you like to try it?</div>
+        <div class="ipa">/ðə ˈtʃɒk.lət keɪk ɪz ɪkˈsel.ənt ɪts ðə ʃefs ˌspeʃ.iˈæl.ɪ.ti wʊd juː laɪk tə traɪ ɪt/</div>
+        <div class="ru">Шоколадный торт великолепен — это фирменное блюдо шефа. Хотите попробовать?</div>
+      </div>
+    </div>
+    <div class="rmsg r"><div class="wav">👤</div>
+      <div class="wbub">
+        <div class="role-tag c">Customer</div>
+        <div class="en">It sounds wonderful! We'll have two slices, please. And could we have the bill at the end?</div>
+        <div class="ipa">/ɪt saʊndz ˈwʌn.dər.fəl wiːl hæv tuː slaɪs.ɪz pliːz ænd kʊd wiː hæv ðə bɪl æt ði end/</div>
+        <div class="ru">Звучит замечательно! Два кусочка, пожалуйста. И можно попросить счёт в конце?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip" style="margin-top:20px"><span class="ic">🗣️</span>
+    <div><strong>Задание:</strong> Разыграйте диалог с партнёром или в одиночку — читайте обе роли. Затем попробуйте заказать свой любимый ужин в ресторане, используя только фразы из урока. Запишите себя на телефон!</div>
+  </div>
+</section>
+
+<!-- READING -->
+<section class="sec rev">
+  <div class="sh"><div class="stag r">Чтение</div>
+    <div><div class="stit">Reading: <em>Elena's Favourite Café</em></div><div class="ssub">Найдите все артикли a / an / the — объясните каждый</div></div></div>
+
+  <div class="rbox">
+    <div class="rtitle">Elena's Favourite Café</div>
+    <p>There is <span class="hw" title="a — впервые упоминаем кафе">a</span> small <span class="hw" title="cafe — кафе">café</span> near my house. It is called "The Morning Cup". I love <span class="hw" title="the — то самое, единственное кафе в нашем контексте">the</span> café — I go there every Saturday morning.</p>
+    <p>The <span class="hw" title="owner — владелец">owner</span> is <span class="hw" title="an — перед 'old', начинающимся на гласный звук">an</span> old Italian man called Marco. He makes <span class="hw" title="the — лучший, с превосходной степенью">the</span> best <span class="hw" title="coffee — кофе в общем смысле, без артикля">coffee</span> in <span class="hw" title="Ø — название города, без артикля">the</span> city. Every morning, <span class="hw" title="a — один конкретный, но неопределённый запах">a</span> wonderful smell of <span class="hw" title="Ø — coffee в общем смысле">coffee</span> and <span class="hw" title="Ø — bread в общем смысле">bread</span> fills <span class="hw" title="the — та улица, рядом с которой мы живём">the</span> street.</p>
+    <p>I always order <span class="hw" title="a — одна чашка, неопределённая">a</span> large cappuccino and <span class="hw" title="an — перед 'almond', начинается на гласный">an</span> almond <span class="hw" title="croissant — круассан">croissant</span>. Sometimes I share <span class="hw" title="a — один кусок">a</span> slice of <span class="hw" title="Ø — chocolate cake в общем смысле">chocolate</span> cake with my friend Anna.</p>
+    <p>Marco doesn't speak much <span class="hw" title="Ø — English в общем смысле, как язык">English</span>, but he always smiles and says: "Welcome! <span class="hw" title="The — тот самый, единственный кофе в этом месте">The</span> coffee is ready!" And that is enough.</p>
+    <p>If you ever visit <span class="hw" title="Ø — имя собственное, название улицы">the</span> city, find <span class="hw" title="the — та самая кафешка, о которой говорим">the</span> little café on <span class="hw" title="Ø — название улицы">Oak Street</span>. Have <span class="hw" title="a — один стакан, неопределённый">a</span> cup of <span class="hw" title="Ø — coffee в общем смысле">coffee</span>. You will not regret it!</p>
+  </div>
+
+  <div class="th green" style="margin-top:20px">
+    <h4>🔍 Задание по тексту</h4>
+    <p>Найдите в тексте все артикли <strong>a / an / the</strong> и для каждого объясните правило. Наведите на <span style="border-bottom:1px dashed rgba(232,168,56,.5);color:var(--a1)">подчёркнутые слова</span> — увидите подсказку.</p>
+    <p>Вопрос для размышления: почему в предложении <em>"I love coffee"</em> нет артикля, а в <em>"The coffee is ready"</em> есть the?</p>
+    <p class="n">Ответ: «I love coffee» = кофе как продукт в общем → Ø. «The coffee is ready» = конкретная чашка кофе, которую уже налили → the.</p>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="sec rev">
+  <div class="sh"><div class="stag t">Финальный Тест</div>
+    <div><div class="stit">Day 4 <em>Quiz</em></div><div class="ssub">12 вопросов · Артикли · Еда · Ресторан</div></div></div>
+
+  <div class="qwrap">
+    <div class="qbar"><div class="qfill" id="qBar" style="width:8%"></div></div>
+    <div id="qMain">
+      <div class="qctr" id="qCtr">Вопрос 1 из 12</div>
+      <div class="qtxt" id="qTxt"></div>
+      <div class="qopts" id="qOpts"></div>
+      <div class="qfb" id="qFb"></div>
+      <button class="qnxt" id="qNxt" onclick="nextQ()">Следующий →</button>
+    </div>
+    <div class="qres" id="qRes">
+      <div class="sring"><div class="snum" id="sNum">0</div><div class="sof">из 12</div></div>
+      <h3 id="sTitle"></h3><p id="sDesc"></p>
+      <div style="margin-top:24px">
+        <button class="chk" onclick="restartQ()" style="background:linear-gradient(135deg,var(--a3),#15803d)">🔄 Начать заново</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap" style="text-align:center">
+    <div class="np"><span>📅 Завтра — День 5</span><span class="ar">→</span><span>Past Simple · Неправильные глаголы · Вчера</span></div>
+    <p class="mt">Повторяйте: каждый раз, произнося существительное на английском, добавляйте артикль автоматически. «Я вижу a dog» — даже в мыслях на русском. Через неделю это войдёт в привычку.</p>
+  </div>
+</footer>
+
+<script>
+/* ═══ QUIZ ═══ */
+const Qs=[
+  {q:"Выберите правильный артикль: '___ apple a day keeps the doctor away.'",opts:["A","An","The","Ø"],c:1,fb:"An — потому что apple начинается на гласный ЗВУК /æ/. Правило: a/an зависит от звука, а не буквы."},
+  {q:"Когда используем THE?",opts:["Впервые упоминаем предмет","Оба участника разговора знают, о чём речь","Говорим о еде в общем","Используем с именами людей"],c:1,fb:"THE = оба участника понимают, какой именно предмет. Например: 'Close the door' (мы оба видим эту дверь)."},
+  {q:"Выберите правильный вариант: 'She is ___ engineer.'",opts:["a","an","the","Ø"],c:1,fb:"engineer начинается на гласный звук /e/ → AN engineer. После 'is' для профессии нужен неопределённый артикль."},
+  {q:"'I love ___ music.' — какой артикль?",opts:["a","an","the","Ø"],c:3,fb:"Ø (нулевой артикль) — когда говорим о вещах в общем смысле. 'I love music' = музыка как явление, а не конкретная песня."},
+  {q:"Как вежливо сделать заказ в ресторане?",opts:["Give me chicken!","I want the chicken.","I'd like the grilled chicken, please.","Chicken for me."],c:2,fb:"'I'd like...' — самая вежливая и естественная конструкция для заказа. 'I want' — грубовато, 'Give me' — очень грубо."},
+  {q:"Что означает 'Could we have the bill, please?'",opts:["Можно меню?","Счёт, пожалуйста","Ещё воды, пожалуйста","Можно поменять блюдо?"],c:1,fb:"The bill = счёт в ресторане. 'Could we have...' — вежливая форма просьбы."},
+  {q:"'___ Sun is a star.' — выберите артикль.",opts:["A","An","The","Ø"],c:2,fb:"THE Sun — потому что Солнце единственное в своём роде. THE используется с уникальными объектами."},
+  {q:"Какое слово означает 'филе лосося'?",opts:["beef steak","salmon fillet","chicken breast","tuna roll"],c:1,fb:"Salmon = лосось, fillet = филе (без костей). Beef = говядина, chicken = курица."},
+  {q:"'He lives in ___ Moscow.' — какой артикль?",opts:["a","an","the","Ø"],c:3,fb:"Ø — с названиями городов, стран, имён собственных артикль не используется. Не 'the Moscow', просто Moscow."},
+  {q:"Переведите: 'Я вижу кошку. Кошка чёрная.'",opts:["I see a cat. A cat is black.","I see the cat. The cat is black.","I see a cat. The cat is black.","I see cat. Cat is black."],c:2,fb:"Первое упоминание = A cat (неопределённый). Второе упоминание той же кошки = The cat (оба уже знают, о которой речь)."},
+  {q:"'Would you like ___ orange juice?' — артикль?",opts:["a","an","the","Ø"],c:1,fb:"AN orange juice — orange начинается на гласный звук /ɒ/. Также 'an orange', 'an apple', 'an egg'."},
+  {q:"Что НЕ правильно в ресторане на английском?",opts:["I'd like the pasta, please.","Could I see the menu?","Give me a water now!","What do you recommend?"],c:2,fb:"'Give me a water now!' — грубо и неправильно. Правильно: 'Could I have some water, please?' или 'I'd like a glass of water, please.'"},
+];
+
+let cur=0,sc=0,done=false;
+function renderQ(){
+  const q=Qs[cur];
+  document.getElementById('qCtr').textContent=`Вопрос ${cur+1} из ${Qs.length}`;
+  document.getElementById('qTxt').textContent=q.q;
+  document.getElementById('qBar').style.width=`${(cur/Qs.length)*100+8}%`;
+  const oo=document.getElementById('qOpts');oo.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const b=document.createElement('button');b.className='qopt';
+    b.innerHTML=`<span class="ol">${l}</span>${q.opts[i]}`;
+    b.onclick=()=>pick(i,b);oo.appendChild(b);
+  });
+  document.getElementById('qFb').className='qfb';
+  document.getElementById('qNxt').className='qnxt';
+  done=false;
+}
+function pick(i,btn){
+  if(done)return;done=true;
+  const q=Qs[cur];
+  document.querySelectorAll('.qopt').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('qFb');
+  if(i===q.c){sc++;btn.classList.add('ok');fb.className='qfb ok';fb.textContent='✅ Правильно! '+q.fb;}
+  else{btn.classList.add('bad');document.querySelectorAll('.qopt')[q.c].classList.add('ok');fb.className='qfb bad';fb.textContent='❌ Неверно. '+q.fb;}
+  document.getElementById('qNxt').className='qnxt show';
+}
+function nextQ(){cur++;cur>=Qs.length?showRes():renderQ();}
+function showRes(){
+  document.getElementById('qMain').style.display='none';
+  document.getElementById('qRes').className='qres show';
+  document.getElementById('qBar').style.width='100%';
+  document.getElementById('sNum').textContent=sc;
+  const rows=[
+    [11,'🏆 Безупречно!','Артикли — ваша сильная сторона. Завтра — Past Simple!'],
+    [9,'👏 Отлично!','Почти идеально. Повторите правила нулевого артикля.'],
+    [7,'📚 Хорошая работа!','Перечитайте раздел THE vs Ø. Артикли требуют практики каждый день.'],
+    [0,'💪 Не сдавайтесь!','Артикли — сложная тема для русских. Перечитайте урок, практикуйтесь ежедневно.']
+  ];
+  const [,t,d]=rows.find(([n])=>sc>=n);
+  document.getElementById('sTitle').textContent=t;
+  document.getElementById('sDesc').textContent=d;
+}
+function restartQ(){cur=0;sc=0;done=false;document.getElementById('qMain').style.display='block';document.getElementById('qRes').className='qres';renderQ();}
+
+/* ═══ EXERCISES ═══ */
+function chkA(){
+  const ids=['a1','a2','a3','a4','a5','a6','a7','a8','a9','a10'];
+  let ok=0;
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    const v=el.value.trim().toLowerCase();
+    const a=el.dataset.a.trim().toLowerCase();
+    if(v===a){el.classList.add('ok');el.classList.remove('bad');ok++;}
+    else{el.classList.add('bad');el.classList.remove('ok');}
+  });
+  const r=document.getElementById('resA');
+  if(ok===ids.length){r.className='exr ok';r.textContent=`✅ Все ${ok} ответов верны! Артикли покоряются вам!`;}
+  else{r.className='exr bad';r.textContent=`❌ Правильных: ${ok} из ${ids.length}. Красным — ошибки. Подсказка: Ø = нет артикля.`;}
+}
+function chkB(){
+  const ids=['o1','o2','o3','o4'];
+  let ok=0;
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    const v=el.value.trim();const a=el.dataset.a.trim();
+    if(v===a){el.classList.add('ok');el.classList.remove('bad');ok++;}
+    else{el.classList.add('bad');el.classList.remove('ok');}
+  });
+  const r=document.getElementById('resB');
+  if(ok===ids.length){r.className='exr ok';r.textContent='✅ Идеальный заказ! Вас обслужат в любом ресторане Лондона!';}
+  else{r.className='exr bad';r.textContent=`❌ Правильных: ${ok} из 4. Перечитайте раздел «Essential Restaurant Phrases».`;}
+}
+function chkC(){
+  const ids=['c1','c2','c3','c4','c5','c6','c7','c8'];
+  let ok=0;
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    const v=el.value.trim().toLowerCase();const a=el.dataset.a.trim().toLowerCase();
+    if(v===a){el.classList.add('ok');el.classList.remove('bad');ok++;}
+    else{el.classList.add('bad');el.classList.remove('ok');}
+  });
+  const r=document.getElementById('resC');
+  if(ok===ids.length){r.className='exr ok';r.textContent=`✅ Все слова верны! Словарный запас растёт!`;}
+  else{r.className='exr bad';r.textContent=`❌ Правильных: ${ok} из 8. Выделены красным — проверьте написание.`;}
+}
+
+/* ═══ REVEAL ═══ */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.07});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+renderQ();
+</script>
+</body>
+</html>
