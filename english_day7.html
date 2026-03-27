@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Mastery | День 7 — Большой Тест Недели</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f4ef;--s1:#ffffff;--s2:#f0ede7;--s3:#e8e3da;
+  --ink:#1a1612;--muted:#8c8070;--bdr:#ddd8ce;
+  --a1:#c0392b;--a2:#1a6b3c;--a3:#1a4a7a;--a4:#7a4a1a;--a5:#5a1a7a;
+  --gold:#d4a017;--ok:#1a6b3c;--bad:#c0392b;
+  --red-light:rgba(192,57,43,.08);--red-bdr:rgba(192,57,43,.25);
+  --grn-light:rgba(26,107,60,.08);--grn-bdr:rgba(26,107,60,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Outfit',sans-serif;line-height:1.7;overflow-x:hidden}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:60px 24px;position:relative;overflow:hidden;text-align:center;
+  background:var(--s1);border-bottom:1px solid var(--bdr)}
+.hero-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  pointer-events:none;overflow:hidden}
+.hero-watermark span{font-family:'DM Serif Text',serif;font-size:28vw;font-weight:400;
+  color:rgba(26,22,18,.025);line-height:1;white-space:nowrap;letter-spacing:-5px;
+  font-style:italic;user-select:none}
+
+.wax-seal{width:72px;height:72px;border-radius:50%;background:var(--a1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;margin:0 auto 28px;
+  box-shadow:0 4px 20px rgba(192,57,43,.3);
+  animation:up .8s ease both}
+
+.hero h1{font-family:'DM Serif Text',serif;font-size:clamp(2.8rem,8vw,6rem);
+  line-height:1;margin-bottom:14px;letter-spacing:-.5px;animation:up .9s .1s ease both}
+.hero h1 em{color:var(--a1);font-style:italic}
+.hero .decree{font-size:clamp(.85rem,1.8vw,1rem);color:var(--muted);max-width:560px;
+  margin:0 auto 40px;font-style:italic;font-family:'DM Serif Text',serif;font-size:1.1rem;
+  animation:up .9s .2s ease both;line-height:1.6}
+
+.medal-row{display:flex;justify-content:center;gap:0;flex-wrap:wrap;animation:up 1s .3s ease both}
+.medal{padding:16px 28px;background:var(--s2);border:1px solid var(--bdr);
+  display:flex;flex-direction:column;align-items:center;gap:4px}
+.medal:first-child{border-radius:8px 0 0 8px}.medal:last-child{border-radius:0 8px 8px 0}
+.medal .v{font-family:'DM Serif Text',serif;font-size:2rem;color:var(--a1)}
+.medal .l{font-family:'Roboto Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  font-family:'Roboto Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;
+  text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:4px;
+  animation:up 1s 1.2s ease both,bob 2.5s 2.2s infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@keyframes up{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── LAYOUT ── */
+.wrap{max-width:900px;margin:0 auto;padding:0 24px}
+.sec{padding:72px 0;border-bottom:1px solid var(--bdr)}
+.sh{display:flex;gap:16px;align-items:flex-start;margin-bottom:36px}
+.stag{font-family:'Roboto Mono',monospace;font-size:9px;border-radius:4px;
+  padding:5px 12px;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;margin-top:7px}
+.stag.r{color:var(--a1);background:var(--red-light);border:1px solid var(--red-bdr)}
+.stag.g{color:var(--a2);background:var(--grn-light);border:1px solid var(--grn-bdr)}
+.stag.b{color:var(--a3);background:rgba(26,74,122,.08);border:1px solid rgba(26,74,122,.22)}
+.stag.br{color:var(--a4);background:rgba(122,74,26,.08);border:1px solid rgba(122,74,26,.22)}
+.stit{font-family:'DM Serif Text',serif;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.1}
+.stit em{color:var(--a1);font-style:italic}
+.ssub{color:var(--muted);font-size:13px;margin-top:7px;font-family:'Roboto Mono',monospace;letter-spacing:.3px}
+
+/* ── REVIEW CARDS ── */
+.review-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:20px}
+.rev-card{background:var(--s1);border:1px solid var(--bdr);border-radius:10px;padding:20px 22px;
+  position:relative;overflow:hidden;transition:.2s}
+.rev-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.rev-card.day1::after{background:var(--a1)}.rev-card.day2::after{background:var(--a2)}
+.rev-card.day3::after{background:var(--a3)}.rev-card.day4::after{background:var(--gold)}
+.rev-card.day5::after{background:var(--a5)}.rev-card.day6::after{background:var(--a4)}
+.rev-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.1);transform:translateY(-2px)}
+.rev-card .day-num{font-family:'Roboto Mono',monospace;font-size:10px;color:var(--muted);
+  text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.rev-card h4{font-family:'DM Serif Text',serif;font-size:1.2rem;margin-bottom:8px}
+.rev-card.day1 h4{color:var(--a1)}.rev-card.day2 h4{color:var(--a2)}
+.rev-card.day3 h4{color:var(--a3)}.rev-card.day4 h4{color:var(--gold)}
+.rev-card.day5 h4{color:var(--a5)}.rev-card.day6 h4{color:var(--a4)}
+.rev-card ul{list-style:none;padding:0}
+.rev-card ul li{font-size:13px;color:var(--muted);padding:3px 0;border-bottom:1px solid var(--bdr);
+  display:flex;align-items:center;gap:8px}
+.rev-card ul li:last-child{border-bottom:none}
+.rev-card ul li::before{content:'›';color:var(--a1);font-weight:700;flex-shrink:0}
+
+/* ── QUICK FIRE TABLE ── */
+.qf-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:20px}
+.qf-table thead tr{border-bottom:2px solid var(--ink);background:var(--s2)}
+.qf-table th{padding:12px 16px;text-align:left;font-family:'Roboto Mono',monospace;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink)}
+.qf-table td{padding:11px 16px;border-bottom:1px solid var(--bdr)}
+.qf-table tr:hover td{background:var(--s2)}
+.qf-table .en{font-weight:700;font-size:15px;font-family:'DM Serif Text',serif}
+.qf-table .form{font-family:'Roboto Mono',monospace;font-size:13px;color:var(--a3)}
+.qf-table .ex{font-style:italic;color:var(--a2);font-size:13px}
+.qf-table .ru{color:var(--muted);font-size:13px}
+
+/* ── EXERCISE BLOCKS ── */
+.ex-block{background:var(--s1);border:1px solid var(--bdr);border-radius:10px;
+  padding:28px;margin-bottom:22px;position:relative}
+.ex-block .ex-num{position:absolute;top:-14px;left:22px;
+  background:var(--a1);color:#fff;font-family:'Roboto Mono',monospace;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:50px}
+.ex-block h4{font-family:'DM Serif Text',serif;font-size:1.2rem;margin-bottom:6px;margin-top:8px}
+.ex-block .task{color:var(--muted);font-size:13px;margin-bottom:22px;
+  font-family:'Roboto Mono',monospace;line-height:1.7;
+  background:var(--s2);border-left:3px solid var(--bdr);padding:10px 16px;border-radius:0 6px 6px 0}
+.fr{display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  font-size:16px;margin-bottom:14px;line-height:2.8}
+input.bl{background:var(--s2);border:none;border-bottom:2px solid var(--bdr);
+  padding:4px 10px;min-width:85px;font-family:'Roboto Mono',monospace;
+  font-size:13px;color:var(--ink);outline:none;text-align:center;transition:.2s}
+input.bl:focus{border-color:var(--a1);background:#fff}
+input.bl.ok{border-color:var(--ok);background:var(--grn-light);color:var(--ok)}
+input.bl.bad{border-color:var(--bad);background:var(--red-light);color:var(--bad)}
+
+.chk{display:inline-flex;align-items:center;gap:8px;
+  background:var(--a1);color:#fff;font-weight:700;font-size:13px;
+  padding:11px 28px;border:none;border-radius:6px;cursor:pointer;transition:.2s;
+  font-family:'Outfit',sans-serif;margin-top:12px;letter-spacing:.3px}
+.chk:hover{background:#a93226;box-shadow:0 6px 20px rgba(192,57,43,.3);transform:translateY(-1px)}
+.chk.grn{background:var(--a2)}.chk.grn:hover{background:#155a30}
+.exr{margin-top:14px;padding:12px 16px;border-radius:6px;font-size:13px;display:none;
+  font-family:'Roboto Mono',monospace;line-height:1.6}
+.exr.ok{display:block;background:var(--grn-light);border:1px solid var(--grn-bdr);color:var(--ok)}
+.exr.bad{display:block;background:var(--red-light);border:1px solid var(--red-bdr);color:var(--bad)}
+
+/* ── ERROR CLINIC ── */
+.error-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.e-wrong{background:var(--red-light);border:1px solid var(--red-bdr);border-radius:8px;padding:14px 16px}
+.e-right{background:var(--grn-light);border:1px solid var(--grn-bdr);border-radius:8px;padding:14px 16px}
+.e-label{font-family:'Roboto Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px}
+.e-wrong .e-label{color:var(--bad)}.e-right .e-label{color:var(--ok)}
+.e-sent{font-size:15px;font-weight:600;line-height:1.5}
+.e-wrong .e-sent{color:var(--bad)}.e-right .e-sent{color:var(--ok)}
+.e-rule{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic}
+
+/* ── THE BIG TEST ── */
+.test-header{background:var(--a1);color:#fff;border-radius:10px 10px 0 0;
+  padding:24px 28px;text-align:center}
+.test-header h3{font-family:'DM Serif Text',serif;font-size:1.8rem;margin-bottom:4px}
+.test-header p{font-size:13px;opacity:.85;font-family:'Roboto Mono',monospace;letter-spacing:.5px}
+.test-body{background:var(--s1);border:1px solid var(--bdr);border-top:none;border-radius:0 0 10px 10px;padding:32px}
+.qbar{height:6px;background:var(--bdr);border-radius:99px;margin-bottom:32px;overflow:hidden}
+.qfill{height:100%;background:linear-gradient(90deg,var(--a1),var(--gold));border-radius:99px;transition:width .5s}
+.q-section-label{font-family:'Roboto Mono',monospace;font-size:10px;text-transform:uppercase;
+  letter-spacing:2px;color:var(--muted);margin-bottom:10px}
+.qtxt{font-family:'DM Serif Text',serif;font-size:1.2rem;line-height:1.5;margin-bottom:18px;font-weight:400}
+.q-context{background:var(--s2);border-left:3px solid var(--a1);border-radius:0 6px 6px 0;
+  padding:10px 16px;font-size:14px;font-style:italic;color:var(--muted);margin-bottom:18px;
+  font-family:'DM Serif Text',serif}
+.qctr{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:8px}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.qopt{background:var(--s2);border:2px solid var(--bdr);border-radius:8px;
+  padding:13px 16px;cursor:pointer;transition:.2s;font-size:14px;
+  font-family:'Outfit',sans-serif;color:var(--ink);text-align:left;
+  display:flex;align-items:center;gap:10px}
+.qopt:hover:not(:disabled){border-color:var(--a1);background:var(--red-light)}
+.qopt.ok{border-color:var(--ok);background:var(--grn-light);color:var(--ok)}
+.qopt.bad{border-color:var(--bad);background:var(--red-light);color:var(--bad)}
+.qopt:disabled{cursor:not-allowed}
+.ol{font-family:'Roboto Mono',monospace;font-size:10px;background:var(--bdr);
+  border-radius:4px;width:24px;height:24px;display:grid;place-items:center;flex-shrink:0}
+.qfb{padding:12px 16px;border-radius:6px;font-size:13px;margin-bottom:16px;display:none;
+  font-family:'Roboto Mono',monospace;line-height:1.6}
+.qfb.ok{display:block;background:var(--grn-light);border:1px solid var(--grn-bdr);color:var(--ok)}
+.qfb.bad{display:block;background:var(--red-light);border:1px solid var(--red-bdr);color:var(--bad)}
+.qnxt{display:none;align-items:center;gap:8px;
+  background:var(--a3);color:#fff;font-weight:700;font-size:13px;
+  padding:12px 28px;border:none;border-radius:6px;cursor:pointer;
+  transition:.2s;font-family:'Outfit',sans-serif}
+.qnxt.show{display:inline-flex}.qnxt:hover{background:#15407a;box-shadow:0 6px 20px rgba(26,74,122,.3)}
+
+/* ── RESULTS ── */
+.results-panel{display:none;text-align:center;padding:20px 0}
+.results-panel.show{display:block}
+.result-ring-wrap{position:relative;width:160px;height:160px;margin:0 auto 32px}
+.result-ring-wrap svg{transform:rotate(-90deg)}
+.result-score-inner{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center}
+.rscore{font-family:'DM Serif Text',serif;font-size:3.2rem;font-weight:400;color:var(--a1);line-height:1}
+.rtotal{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--muted)}
+.result-title{font-family:'DM Serif Text',serif;font-size:2rem;margin-bottom:10px}
+.result-desc{color:var(--muted);font-size:14px;max-width:480px;margin:0 auto 24px;line-height:1.7}
+.result-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  margin:28px 0;text-align:center}
+.rb-item{background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:16px 12px}
+.rb-num{font-family:'DM Serif Text',serif;font-size:1.8rem;color:var(--a1)}
+.rb-lbl{font-family:'Roboto Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.result-topics{background:var(--s2);border-radius:8px;padding:18px;margin-top:20px;text-align:left}
+.result-topics h5{font-family:'DM Serif Text',serif;font-size:1rem;margin-bottom:12px;color:var(--ink)}
+.topic-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.topic-bar-label{font-size:12px;font-family:'Roboto Mono',monospace;min-width:160px;color:var(--muted)}
+.topic-bar-track{flex:1;height:8px;background:var(--bdr);border-radius:99px;overflow:hidden}
+.topic-bar-fill{height:100%;border-radius:99px;transition:width 1s ease}
+.topic-bar-pct{font-family:'Roboto Mono',monospace;font-size:11px;min-width:32px;text-align:right;color:var(--muted)}
+
+/* ── CERTIFICATE ── */
+.cert{background:var(--s1);border:2px solid var(--bdr);border-radius:12px;
+  padding:40px 36px;text-align:center;margin-top:28px;position:relative;overflow:hidden}
+.cert::before{content:'';position:absolute;inset:8px;border:1px solid var(--bdr);
+  border-radius:8px;pointer-events:none}
+.cert-seal{font-size:48px;margin-bottom:16px}
+.cert h3{font-family:'DM Serif Text',serif;font-size:1.5rem;font-style:italic;
+  color:var(--gold);margin-bottom:8px}
+.cert p{color:var(--muted);font-size:14px;font-family:'DM Serif Text',serif;font-style:italic}
+.cert .cert-name{font-family:'DM Serif Text',serif;font-size:2rem;
+  color:var(--ink);margin:12px 0;border-bottom:1px solid var(--bdr);
+  padding-bottom:12px;font-style:italic}
+.cert .cert-level{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--a2);
+  text-transform:uppercase;letter-spacing:2px;margin-top:12px}
+
+/* ── TIP ── */
+.tip{background:rgba(212,160,23,.07);border:1px solid rgba(212,160,23,.25);
+  border-radius:8px;padding:14px 18px;margin-top:16px;font-size:13px;
+  display:flex;gap:10px;line-height:1.7}
+.tip .ic{font-size:18px;flex-shrink:0}.tip strong{color:var(--a4)}
+
+/* ── WEEK 2 PREVIEW ── */
+.week2-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:20px}
+.w2-card{background:var(--s1);border:1px solid var(--bdr);border-radius:8px;
+  padding:18px 18px;transition:.2s}
+.w2-card:hover{border-color:var(--a1);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.08)}
+.w2-card .wday{font-family:'Roboto Mono',monospace;font-size:10px;color:var(--muted);
+  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.w2-card h5{font-family:'DM Serif Text',serif;font-size:1.1rem;margin-bottom:6px;color:var(--a1)}
+.w2-card p{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* ── FOOTER ── */
+footer{padding:60px 0;text-align:center;background:var(--s1);border-top:1px solid var(--bdr)}
+footer h4{font-family:'DM Serif Text',serif;font-size:1.5rem;font-style:italic;margin-bottom:8px}
+footer p{color:var(--muted);font-size:13px;max-width:440px;margin:0 auto 24px;line-height:1.7;font-family:'Roboto Mono',monospace}
+.np{display:inline-flex;align-items:center;gap:12px;background:var(--a1);color:#fff;
+  border-radius:8px;padding:14px 28px;font-size:14px;font-weight:600;font-family:'Outfit',sans-serif}
+.np .ar{font-size:18px}
+
+/* ── REVEAL ── */
+.rev{opacity:0;transform:translateY(18px);transition:opacity .55s,transform .55s}
+.rev.in{opacity:1;transform:none}
+
+@media(max-width:640px){
+  .qopts,.error-pair{grid-template-columns:1fr}
+  .review-grid{grid-template-columns:1fr 1fr}
+  .result-breakdown{grid-template-columns:1fr 1fr}
+  .week2-grid{grid-template-columns:1fr 1fr}
+  .medal{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-watermark"><span>EXAM</span></div>
+  <div class="wax-seal">📜</div>
+  <h1>Week One<br><em>Final Exam</em></h1>
+  <p class="decree">"The expert in anything was once a beginner who refused to give up."<br>— Helen Hayes</p>
+  <div class="medal-row">
+    <div class="medal"><div class="v">7</div><div class="l">День</div></div>
+    <div class="medal"><div class="v">315+</div><div class="l">Слов изучено</div></div>
+    <div class="medal"><div class="v">6</div><div class="l">Тем освоено</div></div>
+    <div class="medal"><div class="v">A2</div><div class="l">Уровень</div></div>
+    <div class="medal"><div class="v">7%</div><div class="l">Прогресс</div></div>
+  </div>
+  <div class="scroll-hint"><span>Begin</span><span>↓</span></div>
+</section>
+
+<div class="wrap">
+
+<!-- REVIEW SUMMARY -->
+<section class="sec rev">
+  <div class="sh"><div class="stag b">Обзор недели</div>
+    <div><div class="stit">Что мы <em>изучили</em></div><div class="ssub">Дни 1–6 · полный обзор перед тестом</div></div></div>
+
+  <div class="review-grid">
+    <div class="rev-card day1">
+      <div class="day-num">День 1</div>
+      <h4>To Be · Алфавит</h4>
+      <ul>
+        <li>I am / She is / They are</li>
+        <li>Отрицание: isn't / aren't</li>
+        <li>Вопрос: Are you…?</li>
+        <li>Числа 1–20 · Цвета</li>
+        <li>Приветствия и фразы выживания</li>
+      </ul>
+    </div>
+    <div class="rev-card day2">
+      <div class="day-num">День 2</div>
+      <h4>Present Simple</h4>
+      <ul>
+        <li>She work<b>s</b> · They work</li>
+        <li>Отрицание: don't / doesn't</li>
+        <li>Вопрос: Do / Does</li>
+        <li>Правила +s / +es / +ies</li>
+        <li>Профессии и семья</li>
+      </ul>
+    </div>
+    <div class="rev-card day3">
+      <div class="day-num">День 3</div>
+      <h4>Present Continuous</h4>
+      <ul>
+        <li>am / is / are + verb-ing</li>
+        <li>Правила образования -ing</li>
+        <li>Stative verbs — исключения</li>
+        <li>Simple vs Continuous</li>
+        <li>Дом · Комнаты · Действия</li>
+      </ul>
+    </div>
+    <div class="rev-card day4">
+      <div class="day-num">День 4</div>
+      <h4>Articles a / an / the</h4>
+      <ul>
+        <li>a — первое упоминание</li>
+        <li>the — конкретный предмет</li>
+        <li>an — перед гласным звуком</li>
+        <li>Ø — имена, языки, еда</li>
+        <li>Еда · Напитки · Ресторан</li>
+      </ul>
+    </div>
+    <div class="rev-card day5">
+      <div class="day-num">День 5</div>
+      <h4>Past Simple</h4>
+      <ul>
+        <li>Правильные: verb + ed</li>
+        <li>Неправильные: go→went, etc.</li>
+        <li>Отрицание: didn't + base</li>
+        <li>Вопрос: Did + subject + base?</li>
+        <li>Was / Were без did</li>
+      </ul>
+    </div>
+    <div class="rev-card day6">
+      <div class="day-num">День 6</div>
+      <h4>WH-Questions</h4>
+      <ul>
+        <li>What · Who · Where · When</li>
+        <li>Why · How · Which · Whose</li>
+        <li>How much / many / far / long</li>
+        <li>Who как субъект — без do</li>
+        <li>Город · Транспорт · Маршруты</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ERROR CLINIC -->
+<section class="sec rev">
+  <div class="sh"><div class="stag r">Клиника ошибок</div>
+    <div><div class="stit">Top <em>Mistakes</em></div><div class="ssub">12 самых частых ошибок русскоговорящих на A1–A2 — разобрать перед тестом</div></div></div>
+
+  <div class="error-pair">
+    <div class="e-wrong"><div class="e-label">❌ Неправильно</div><div class="e-sent">She doesn't works here.</div><div class="e-rule">После doesn't — базовая форма!</div></div>
+    <div class="e-right"><div class="e-label">✅ Правильно</div><div class="e-sent">She doesn't <b>work</b> here.</div><div class="e-rule">doesn't / didn't + verb (base form)</div></div>
+  </div>
+  <div class="error-pair">
+    <div class="e-wrong"><div class="e-label">❌ Неправильно</div><div class="e-sent">I am knowing the answer.</div><div class="e-rule">Know — stative verb!</div></div>
+    <div class="e-right"><div class="e-label">✅ Правильно</div><div class="e-sent">I <b>know</b> the answer.</div><div class="e-rule">Глаголы состояния → Present Simple</div></div>
+  </div>
+  <div class="error-pair">
+    <div class="e-wrong"><div class="e-label">❌ Неправильно</div><div class="e-sent">I live in the Moscow.</div><div class="e-rule">Имена городов — без артикля!</div></div>
+    <div class="e-right"><div class="e-label">✅ Правильно</div><div class="e-sent">I live in <b>Moscow</b>.</div><div class="e-rule">Ø артикль перед именами собственными</div></div>
+  </div>
+  <div class="error-pair">
+    <div class="e-wrong"><div class="e-label">❌ Неправильно</div><div class="e-sent">Did she went to Paris?</div><div class="e-rule">После did — базовая форма!</div></div>
+    <div class="e-right"><div class="e-label">✅ Правильно</div><div class="e-sent">Did she <b>go</b> to Paris?</div><div class="e-rule">Did + subject + base form</div></div>
+  </div>
+  <div class="error-pair">
+    <div class="e-wrong"><div class="e-label">❌ Неправильно</div><div class="e-sent">Who did write this book?</div><div class="e-rule">Who = субъект → без did!</div></div>
+    <div class="e-right"><div class="e-label">✅ Правильно</div><div class="e-sent"><b>Who wrote</b> this book?</div><div class="e-rule">Who как субъект — сразу глагол</div></div>
+  </div>
+  <div class="error-pair">
+    <div class="e-wrong"><div class="e-label">❌ Неправильно</div><div class="e-sent">She is work at a hospital.</div><div class="e-rule">Постоянный факт → Simple!</div></div>
+    <div class="e-right"><div class="e-label">✅ Правильно</div><div class="e-sent">She <b>works</b> at a hospital.</div><div class="e-rule">Present Simple = постоянные состояния</div></div>
+  </div>
+
+  <div class="tip"><span class="ic">📌</span>
+    <div><strong>Как использовать этот список:</strong> Прочитайте каждую пару вслух — сначала неправильный вариант, затем правильный. Мозг запоминает контраст. Повторите этот раздел после теста, если допустили ошибки в соответствующих темах.</div>
+  </div>
+</section>
+
+<!-- WARM-UP EXERCISES -->
+<section class="sec rev">
+  <div class="sh"><div class="stag g">Разминка</div>
+    <div><div class="stit">Quick <em>Warm-Up</em></div><div class="ssub">3 задания — подготовка к большому тесту</div></div></div>
+
+  <!-- EX A -->
+  <div class="ex-block">
+    <div class="ex-num">Задание A</div>
+    <h4>Смешанная грамматика — все 6 тем</h4>
+    <div class="task">Вставьте правильную форму глагола или артикль. Используйте знания всей недели.</div>
+    <div class="fr">1. She <input class="bl" id="a1" data-a="is cooking" placeholder="___"> (cook) dinner right now.</div>
+    <div class="fr">2. I <input class="bl" id="a2" data-a="went" placeholder="___"> (go) to the cinema last Friday.</div>
+    <div class="fr">3. <input class="bl" id="a3" data-a="Does" placeholder="___"> your brother work at a hospital?</div>
+    <div class="fr">4. We saw <input class="bl" id="a4" data-a="a" placeholder="___"> dog in the park. <input class="bl" id="a5" data-a="The" placeholder="___"> dog was huge!</div>
+    <div class="fr">5. She <input class="bl" id="a6" data-a="didn't eat" placeholder="___"> (not eat) breakfast this morning.</div>
+    <div class="fr">6. <input class="bl" id="a7" data-a="Where" placeholder="___"> did you go last weekend?</div>
+    <div class="fr">7. My father <input class="bl" id="a8" data-a="is" placeholder="___"> an engineer. He <input class="bl" id="a9" data-a="designs" placeholder="___"> (design) bridges.</div>
+    <div class="fr">8. I love <input class="bl" id="a10" data-a="Ø" placeholder="___"> music — especially jazz.</div>
+    <button class="chk" onclick="chkEx('A',['a1','a2','a3','a4','a5','a6','a7','a8','a9','a10'])">✓ Проверить</button>
+    <div class="exr" id="resA"></div>
+  </div>
+
+  <!-- EX B: Transform -->
+  <div class="ex-block">
+    <div class="ex-num">Задание B</div>
+    <h4>Трансформация предложений</h4>
+    <div class="task">Переделайте каждое предложение по заданному типу. Сохраняйте смысл.</div>
+    <div class="fr">1. She works at a school. (❓ вопрос) → <input class="bl" id="b1" data-a="Does she work at a school?" placeholder="___________________________"></div>
+    <div class="fr">2. He went to Paris. (✗ отрицание) → <input class="bl" id="b2" data-a="He didn't go to Paris." placeholder="___________________________"></div>
+    <div class="fr">3. They are watching TV. (❓ вопрос) → <input class="bl" id="b3" data-a="Are they watching TV?" placeholder="___________________________"></div>
+    <div class="fr">4. She is a teacher. (✗ отрицание) → <input class="bl" id="b4" data-a="She isn't a teacher." placeholder="___________________________"></div>
+    <div class="fr">5. He made a mistake. (❓ вопрос) → <input class="bl" id="b5" data-a="Did he make a mistake?" placeholder="___________________________"></div>
+    <button class="chk grn" onclick="chkEx('B',['b1','b2','b3','b4','b5'])">✓ Проверить</button>
+    <div class="exr" id="resB"></div>
+  </div>
+
+  <!-- EX C: WH question formation -->
+  <div class="ex-block">
+    <div class="ex-num">Задание C</div>
+    <h4>Сформируйте WH-вопрос к выделенному слову</h4>
+    <div class="task">Задайте WH-вопрос к подчёркнутой части предложения.</div>
+    <div class="fr">1. She went to <u>Moscow</u>. → <input class="bl" id="c1" data-a="Where did she go?" placeholder="___________________________"></div>
+    <div class="fr">2. He called <u>his sister</u>. → <input class="bl" id="c2" data-a="Who did he call?" placeholder="___________________________"></div>
+    <div class="fr">3. They arrived <u>on Monday</u>. → <input class="bl" id="c3" data-a="When did they arrive?" placeholder="___________________________"></div>
+    <div class="fr">4. She left early <u>because she was tired</u>. → <input class="bl" id="c4" data-a="Why did she leave early?" placeholder="___________________________"></div>
+    <div class="fr">5. He goes to work <u>by metro</u>. → <input class="bl" id="c5" data-a="How does he go to work?" placeholder="___________________________"></div>
+    <button class="chk" onclick="chkEx('C',['c1','c2','c3','c4','c5'])">✓ Проверить</button>
+    <div class="exr" id="resC"></div>
+  </div>
+</section>
+
+<!-- THE BIG TEST -->
+<section class="sec rev">
+  <div class="sh"><div class="stag r">Финальный тест</div>
+    <div><div class="stit">The Big <em>Test</em></div><div class="ssub">20 вопросов · вся неделя · уровень A1–A2</div></div></div>
+
+  <div class="test-header">
+    <h3>Week 1 Final Examination</h3>
+    <p>20 questions · All topics · No time limit · Read carefully</p>
+  </div>
+  <div class="test-body">
+    <div class="qbar"><div class="qfill" id="qBar" style="width:5%"></div></div>
+    <div id="qMain">
+      <div class="q-section-label" id="qSection"></div>
+      <div class="qctr" id="qCtr">Вопрос 1 из 20</div>
+      <div class="qtxt" id="qTxt"></div>
+      <div class="q-context" id="qCtx" style="display:none"></div>
+      <div class="qopts" id="qOpts"></div>
+      <div class="qfb" id="qFb"></div>
+      <button class="qnxt" id="qNxt" onclick="nextQ()">Следующий вопрос →</button>
+    </div>
+
+    <div class="results-panel" id="qRes">
+      <div class="result-ring-wrap">
+        <svg width="160" height="160" viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="70" fill="none" stroke="#ddd8ce" stroke-width="12"/>
+          <circle id="ringCircle" cx="80" cy="80" r="70" fill="none" stroke="#c0392b"
+            stroke-width="12" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="440"/>
+        </svg>
+        <div class="result-score-inner">
+          <div class="rscore" id="rScore">0</div>
+          <div class="rtotal">из 20</div>
+        </div>
+      </div>
+      <div class="result-title" id="rTitle"></div>
+      <div class="result-desc" id="rDesc"></div>
+      <div class="result-breakdown">
+        <div class="rb-item"><div class="rb-num" id="rbPct">0%</div><div class="rb-lbl">Результат</div></div>
+        <div class="rb-item"><div class="rb-num" id="rbRight">0</div><div class="rb-lbl">Правильных</div></div>
+        <div class="rb-item"><div class="rb-num" id="rbWrong">0</div><div class="rb-lbl">Ошибок</div></div>
+      </div>
+      <div class="result-topics">
+        <h5>Результат по темам:</h5>
+        <div id="topicBars"></div>
+      </div>
+      <div class="cert" id="certBox">
+        <div class="cert-seal">🏅</div>
+        <h3>Certificate of Completion</h3>
+        <div class="cert-name">Week One — A1/A2 Foundation</div>
+        <p>Успешно завершена первая неделя программы<br><em>«English Mastery: A1 → Native Speaker»</em></p>
+        <div class="cert-level">Level achieved: A2 ✓</div>
+      </div>
+      <div style="margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="chk" onclick="restartQ()">🔄 Пройти снова</button>
+        <button class="chk grn" onclick="document.getElementById('week2').scrollIntoView({behavior:'smooth'})">Неделя 2 →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WEEK 2 PREVIEW -->
+<section class="sec rev" id="week2">
+  <div class="sh"><div class="stag b">Впереди</div>
+    <div><div class="stit">Неделя <em>2 — A2+</em></div><div class="ssub">Дни 8–14 · более сложные времена · богатый словарный запас · свободное общение</div></div></div>
+
+  <div class="week2-grid">
+    <div class="w2-card">
+      <div class="wday">День 8</div>
+      <h5>Future Simple</h5>
+      <p>Will / Won't · Планы и предсказания · «Завтра я буду...»</p>
+    </div>
+    <div class="w2-card">
+      <div class="wday">День 9</div>
+      <h5>Going to</h5>
+      <p>Намерения и планы · Be going to vs Will · Погода</p>
+    </div>
+    <div class="w2-card">
+      <div class="wday">День 10</div>
+      <h5>Comparatives</h5>
+      <p>Bigger, better, faster · Сравниваем людей и вещи · Прилагательные</p>
+    </div>
+    <div class="w2-card">
+      <div class="wday">День 11</div>
+      <h5>Superlatives</h5>
+      <p>The biggest, the best · Превосходная степень · Описания мест</p>
+    </div>
+    <div class="w2-card">
+      <div class="wday">День 12</div>
+      <h5>Present Perfect</h5>
+      <p>Have / Has + V3 · «Когда-либо» · Опыт жизни · I have been to…</p>
+    </div>
+    <div class="w2-card">
+      <div class="wday">День 13</div>
+      <h5>Modal Verbs</h5>
+      <p>Can / Could / Should / Must · Разрешение и обязанность</p>
+    </div>
+    <div class="w2-card">
+      <div class="wday">День 14</div>
+      <h5>Тест недели 2</h5>
+      <p>Итоговый экзамен · Уровень A2+ · Переход к B1</p>
+    </div>
+  </div>
+
+  <div class="tip" style="margin-top:22px"><span class="ic">🚀</span>
+    <div><strong>Путь к Native Speaker:</strong> Вы прошли 7% пути. К концу недели 2 ваш уровень будет A2+. К дню 36 — B1. К дню 72 — B2. К дню 90 — C2/Native. Продолжайте каждый день — даже 45 минут в день изменят всё.</div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <h4>Week One Complete</h4>
+    <p>Повторяйте материал каждой недели по воскресеньям. Прогресс строится не на интенсивности, а на регулярности. До встречи в День 8.</p>
+    <div class="np"><span>📅 Понедельник — День 8</span><span class="ar">→</span><span>Future Simple · Will · Планы</span></div>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════
+   THE BIG TEST — 20 QUESTIONS
+   Covering all 6 topics from week
+═══════════════════════════════ */
+const Qs=[
+  // TO BE / Day 1
+  {s:"День 1: To Be",q:"Выберите правильное предложение с to be:",opts:["They is happy.","We am happy.","She are happy.","They are happy."],c:3,fb:"They → are. Запомните: I am / He–She–It is / You–We–They are."},
+  {s:"День 1: To Be",q:"Как сказать 'Он не из Москвы' по-английски?",opts:["He isn't from Moscow.","He don't from Moscow.","He not is from Moscow.","He doesn't from Moscow."],c:0,fb:"Is not = isn't. Отрицание to be: I'm not / He isn't / They aren't."},
+
+  // PRESENT SIMPLE / Day 2
+  {s:"День 2: Present Simple",q:"Выберите правильную форму: 'My sister ___ at a bank.'",opts:["work","works","is work","working"],c:1,fb:"My sister = She → works (+s для he/she/it). Present Simple."},
+  {s:"День 2: Present Simple",q:"Как задать вопрос: 'Твой брат работает по выходным?'",opts:["Does your brother works on weekends?","Do your brother work on weekends?","Does your brother work on weekends?","Is your brother work on weekends?"],c:2,fb:"Does (для he/she/it) + subject + base form. Does your brother work (не works!)"},
+
+  // PRESENT CONTINUOUS / Day 3
+  {s:"День 3: Present Continuous",q:"Look! The baby ___ right now.",opts:["sleeps","is sleeping","sleeping","does sleep"],c:1,fb:"'Look!' — сигнал Present Continuous. is sleeping = прямо сейчас."},
+  {s:"День 3: Present Continuous",q:"'I am loving this city!' — что не так?",opts:["Всё правильно","Love — stative verb, нельзя в Continuous","Нужно 'I am love this city'","Нужно 'I loves this city'"],c:1,fb:"Love — глагол состояния (stative). Нельзя в Continuous. Правильно: I love this city!"},
+
+  // ARTICLES / Day 4
+  {s:"День 4: Артикли",q:"'She is ___ university student.' — нужный артикль:",opts:["a","an","the","Ø"],c:0,fb:"university начинается на звук /j/ (юни...) — согласный звук → A university. Не 'an'!"},
+  {s:"День 4: Артикли",q:"'I saw a cat. ___ cat was black.' — второй артикль:",opts:["A","An","The","Ø"],c:2,fb:"Первый раз = A (незнакомый). Второй раз = THE (оба знают, о какой кошке речь)."},
+  {s:"День 4: Артикли",q:"'She speaks ___ French.' — нужен ли артикль?",opts:["a French","an French","the French","Ø — без артикля"],c:3,fb:"Языки не требуют артикля: I speak English / French / Russian."},
+
+  // PAST SIMPLE / Day 5
+  {s:"День 5: Past Simple",q:"Выберите правильное предложение в Past Simple:",opts:["She didn't went to work.","She didn't go to work.","She not went to work.","She wasn't go to work."],c:1,fb:"didn't + base form (go, не went). Правило Past Simple: didn't разрушает V2!"},
+  {s:"День 5: Past Simple",q:"Какая форма Past Simple от глагола 'make'?",opts:["maked","made","making","did make"],c:1,fb:"make → made — неправильный глагол. I made a cake. She made a mistake."},
+  {s:"День 5: Past Simple",q:"'When I was a child, I ___ football every day.'",opts:["play","am playing","played","have played"],c:2,fb:"'When I was a child' — маркер прошлого. Привычка в прошлом → Past Simple (played)."},
+
+  // WH-QUESTIONS / Day 6
+  {s:"День 6: WH-Questions",q:"Задайте вопрос к месту: 'She went to Paris.' →",opts:["Who did she go?","Where did she go?","When did she go?","Why did she go Paris?"],c:1,fb:"WHERE — вопрос о месте. Where did she go? (did + base form go, не went!)"},
+  {s:"День 6: WH-Questions",q:"'___ does it take to get to the airport?'",opts:["How long","How far","How much","How many"],c:0,fb:"HOW LONG = сколько времени. 'How long does it take?' → 'About 30 minutes.'"},
+
+  // MIXED — ALL TOPICS
+  {s:"Смешанный тест",q:"Выберите верный вариант всего предложения:",ctx:"Контекст: описываем коллегу на работе.",opts:["My colleague is work at the bank.","My colleague works at a bank.","My colleague working at bank.","My colleague does works at a bank."],c:1,fb:"Present Simple для постоянного факта. works (+s) + a bank (неопределённый артикль, первое упоминание)."},
+  {s:"Смешанный тест",q:"Что здесь неправильно?",ctx:"'Yesterday she buyed a new dress. It was beautiful.'",opts:["Всё правильно","buyed → bought (неправильный глагол)","was → were","a new dress → new dress"],c:1,fb:"buy — неправильный глагол! buy → bought (не buyed). Yesterday she bought a new dress. ✓"},
+  {s:"Смешанный тест",q:"Переведите на английский: 'Как далеко аэропорт отсюда?'",opts:["How long is the airport from here?","How far is the airport from here?","How much is the airport from here?","How many is the airport from here?"],c:1,fb:"HOW FAR = как далеко (расстояние). How far is the airport from here? Ответ: About 15 km."},
+  {s:"Смешанный тест",q:"Выберите правильный вопрос: 'Кто написал Гарри Поттера?'",opts:["Who did write Harry Potter?","Who wrote Harry Potter?","Who did wrote Harry Potter?","Whose wrote Harry Potter?"],c:1,fb:"Who как субъект → без did! Who wrote (Past Simple, V2). Не 'did write'."},
+  {s:"Смешанный тест",q:"'I don't like ___ coffee, but the coffee ___ this café is amazing.'",opts:["Ø … in","the … in","Ø … at","a … in"],c:0,fb:"'I don't like Ø coffee' = кофе в общем → Ø. 'The coffee in this café' = конкретный, определённый кофе → the."},
+  {s:"Смешанный тест",q:"Выберите предложение БЕЗ ошибок:",opts:["She is usually going to work by metro.","She usually goes to work by metro.","She usually is go to work by metro.","She goes usually to work by metro."],c:1,fb:"Present Simple для привычек (usually). Правильный порядок: S + usually + V(+s). She usually goes ✓. Наречие usually стоит ПЕРЕД глаголом."},
+];
+
+const topicMap={
+  "День 1: To Be":[0,1],
+  "День 2: Present Simple":[2,3],
+  "День 3: Present Continuous":[4,5],
+  "День 4: Артикли":[6,7,8],
+  "День 5: Past Simple":[9,10,11],
+  "День 6: WH-Questions":[12,13],
+  "Смешанный тест":[14,15,16,17,18,19]
+};
+
+let cur=0,sc=0,done=false;
+const answers=new Array(20).fill(null);
+
+function renderQ(){
+  const q=Qs[cur];
+  document.getElementById('qSection').textContent=q.s;
+  document.getElementById('qCtr').textContent=`Вопрос ${cur+1} из ${Qs.length}`;
+  document.getElementById('qTxt').textContent=q.q;
+  document.getElementById('qBar').style.width=`${(cur/Qs.length)*100+5}%`;
+
+  const ctx=document.getElementById('qCtx');
+  if(q.ctx){ctx.style.display='block';ctx.textContent=q.ctx;}
+  else{ctx.style.display='none';}
+
+  const oo=document.getElementById('qOpts');oo.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const b=document.createElement('button');b.className='qopt';
+    b.innerHTML=`<span class="ol">${l}</span>${q.opts[i]}`;
+    b.onclick=()=>pick(i,b);oo.appendChild(b);
+  });
+  document.getElementById('qFb').className='qfb';
+  document.getElementById('qNxt').className='qnxt';
+  done=false;
+}
+
+function pick(i,btn){
+  if(done)return;done=true;
+  const q=Qs[cur];
+  answers[cur]=i;
+  document.querySelectorAll('.qopt').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('qFb');
+  if(i===q.c){
+    sc++;btn.classList.add('ok');
+    fb.className='qfb ok';fb.textContent='✅ Правильно! '+q.fb;
+  } else {
+    btn.classList.add('bad');document.querySelectorAll('.qopt')[q.c].classList.add('ok');
+    fb.className='qfb bad';fb.textContent='❌ Неверно. '+q.fb;
+  }
+  document.getElementById('qNxt').className='qnxt show';
+}
+
+function nextQ(){cur++;cur>=Qs.length?showRes():renderQ();}
+
+function showRes(){
+  document.getElementById('qMain').style.display='none';
+  const r=document.getElementById('qRes');r.className='results-panel show';
+  document.getElementById('qBar').style.width='100%';
+  document.getElementById('rScore').textContent=sc;
+
+  const pct=Math.round(sc/Qs.length*100);
+  document.getElementById('rbPct').textContent=pct+'%';
+  document.getElementById('rbRight').textContent=sc;
+  document.getElementById('rbWrong').textContent=Qs.length-sc;
+
+  // Ring animation
+  const circ=document.getElementById('ringCircle');
+  const dash=440;
+  setTimeout(()=>{circ.style.strokeDashoffset=dash-(dash*(pct/100));},300);
+  if(pct>=80)circ.style.stroke='#1a6b3c';
+  else if(pct>=60)circ.style.stroke='#d4a017';
+
+  const configs=[
+    [90,'Outstanding! 🏆','Исключительный результат. Вы полностью готовы к Неделе 2 на уровне A2+.'],
+    [75,'Excellent! 👏','Отличный результат. Небольшая доработка ошибочных тем — и вы идеально готовы.'],
+    [60,'Good Work! 📚','Хорошая база. Перечитайте темы, где были ошибки, затем переходите к Неделе 2.'],
+    [40,'Keep Going 💪','Повторите материал недели 1 ещё раз. Особое внимание — временам и артиклям.'],
+    [0,'Start Again 🔄','Пройдите дни 1–6 заново. Фундамент — важнее скорости.']
+  ];
+  const [,title,desc]=configs.find(([n])=>pct>=n);
+  document.getElementById('rTitle').textContent=title;
+  document.getElementById('rDesc').textContent=desc;
+
+  // Topic bars
+  const barsDiv=document.getElementById('topicBars');
+  barsDiv.innerHTML='';
+  const colors={'День 1: To Be':'#c0392b','День 2: Present Simple':'#1a6b3c',
+    'День 3: Present Continuous':'#1a4a7a','День 4: Артикли':'#d4a017',
+    'День 5: Past Simple':'#5a1a7a','День 6: WH-Questions':'#7a4a1a','Смешанный тест':'#c0392b'};
+  Object.entries(topicMap).forEach(([topic,idxs])=>{
+    const correct=idxs.filter(i=>answers[i]===Qs[i].c).length;
+    const p=Math.round(correct/idxs.length*100);
+    barsDiv.innerHTML+=`
+      <div class="topic-bar-row">
+        <div class="topic-bar-label">${topic}</div>
+        <div class="topic-bar-track"><div class="topic-bar-fill" data-pct="${p}" style="background:${colors[topic]||'#c0392b'};width:0%"></div></div>
+        <div class="topic-bar-pct">${p}%</div>
+      </div>`;
+  });
+  setTimeout(()=>{
+    document.querySelectorAll('.topic-bar-fill').forEach(el=>{
+      el.style.width=el.dataset.pct+'%';
+    });
+  },400);
+
+  // Certificate only if >= 70%
+  document.getElementById('certBox').style.display=pct>=70?'block':'none';
+}
+
+function restartQ(){
+  cur=0;sc=0;done=false;answers.fill(null);
+  document.getElementById('qMain').style.display='block';
+  document.getElementById('qRes').className='results-panel';
+  document.getElementById('ringCircle').style.strokeDashoffset='440';
+  renderQ();
+}
+
+/* ═══ FILL-IN ═══ */
+function chkEx(name,ids){
+  let ok=0;
+  ids.forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const v=el.value.trim().toLowerCase(),a=el.dataset.a.trim().toLowerCase();
+    if(v===a){el.classList.add('ok');el.classList.remove('bad');ok++;}
+    else{el.classList.add('bad');el.classList.remove('ok');}
+  });
+  const r=document.getElementById('res'+name);
+  if(ok===ids.length){r.className='exr ok';r.textContent=`✅ Все ${ok} ответов верны! Отличная подготовка!`;}
+  else{r.className='exr bad';r.textContent=`❌ Правильных: ${ok} из ${ids.length}. Красным — ошибки. Проверьте перед тестом!`;}
+}
+
+/* ═══ REVEAL ═══ */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.07});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+renderQ();
+</script>
+</body>
+</html>

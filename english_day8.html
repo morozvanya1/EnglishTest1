@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Mastery | День 8 из 90</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&family=Space+Mono:wght@400;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060912;--s1:#0b0f1e;--s2:#101526;--s3:#161c30;
+  --a1:#00f5d4;--a2:#f72585;--a3:#7209b7;--a4:#ffd60a;--a5:#4cc9f0;
+  --text:#e8eaf6;--muted:#5a6480;--bdr:#1a2140;
+  --ok:#00f5d4;--bad:#f72585;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;line-height:1.7;overflow-x:hidden}
+
+/* ── STARS BG ── */
+.stars-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.4}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:60px 24px;position:relative;z-index:1;text-align:center}
+.hero-orb{position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,245,212,.06) 0%,transparent 65%);
+  pointer-events:none;top:50%;left:50%;transform:translate(-50%,-60%);animation:orb 8s ease-in-out infinite alternate}
+@keyframes orb{from{transform:translate(-50%,-60%) scale(1)}to{transform:translate(-50%,-55%) scale(1.08)}}
+
+.badge{display:inline-flex;align-items:center;gap:9px;margin-bottom:28px;
+  background:rgba(0,245,212,.06);border:1px solid rgba(0,245,212,.2);
+  border-radius:2px;padding:7px 22px;font-family:'Space Mono',monospace;
+  font-size:11px;color:var(--a1);letter-spacing:3px;text-transform:uppercase;animation:fd .8s ease both}
+.blink{width:7px;height:7px;border-radius:50%;background:var(--a1);
+  box-shadow:0 0 8px var(--a1);animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
+
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(3rem,9vw,7rem);font-weight:700;
+  line-height:.95;margin-bottom:20px;letter-spacing:2px;animation:fd .9s .1s ease both}
+.hero h1 em{color:var(--a1);font-style:normal;display:block;font-size:.65em;
+  font-weight:400;letter-spacing:4px;font-family:'Space Mono',monospace}
+.hero .sub{font-family:'Space Mono',monospace;font-size:clamp(.75rem,1.8vw,.9rem);
+  color:var(--muted);max-width:580px;margin:0 auto 44px;line-height:2;animation:fd .9s .2s ease both}
+.hero .sub b{color:var(--text)}
+
+.kpis{display:flex;justify-content:center;flex-wrap:wrap;gap:0;animation:fd 1s .35s ease both}
+.kpi{padding:15px 26px;background:var(--s1);border:1px solid var(--bdr);
+  display:flex;flex-direction:column;align-items:center;gap:3px}
+.kpi:first-child{border-radius:2px 0 0 2px}.kpi:last-child{border-radius:0 2px 2px 0}
+.kpi .v{font-family:'Cinzel',serif;font-size:1.9rem;color:var(--a1)}
+.kpi .l{font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+
+.cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:3px;
+  text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:4px;
+  animation:fd 1s 1.3s ease both,bob 2.5s 2.2s infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@keyframes fd{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── TICKER ── */
+.ticker{background:var(--s1);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);
+  overflow:hidden;height:40px;display:flex;align-items:center;position:relative;z-index:1}
+.ttrack{display:flex;width:max-content;animation:tick 44s linear infinite}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.titem{display:flex;align-items:center;gap:9px;padding:0 30px;border-right:1px solid var(--bdr);white-space:nowrap;height:40px}
+.titem .tp{font-family:'Space Mono',monospace;font-size:8px;color:var(--a1);letter-spacing:2px;text-transform:uppercase}
+.titem .tn{font-size:12px;font-weight:600}.titem.cur .tn{color:var(--a1)}
+
+/* ── LAYOUT ── */
+.wrap{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.sec{padding:80px 0;border-bottom:1px solid var(--bdr)}
+.sh{display:flex;gap:16px;align-items:flex-start;margin-bottom:40px}
+.stag{font-family:'Space Mono',monospace;font-size:8px;border-radius:2px;
+  padding:5px 12px;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;margin-top:7px}
+.stag.g{color:var(--a1);background:rgba(0,245,212,.06);border:1px solid rgba(0,245,212,.18)}
+.stag.v{color:var(--a4);background:rgba(255,214,10,.06);border:1px solid rgba(255,214,10,.18)}
+.stag.s{color:var(--a5);background:rgba(76,201,240,.06);border:1px solid rgba(76,201,240,.18)}
+.stag.r{color:var(--a3);background:rgba(114,9,183,.08);border:1px solid rgba(114,9,183,.25)}
+.stag.e{color:var(--a2);background:rgba(247,37,133,.06);border:1px solid rgba(247,37,133,.18)}
+.stag.t{color:var(--muted);background:rgba(90,100,128,.06);border:1px solid rgba(90,100,128,.18)}
+.stit{font-family:'Cinzel',serif;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:600;line-height:1.1;letter-spacing:1px}
+.stit em{color:var(--a1);font-style:normal}
+.ssub{color:var(--muted);font-size:12px;margin-top:8px;font-family:'Space Mono',monospace;letter-spacing:.5px}
+
+/* ── THEORY ── */
+.th{background:var(--s1);border:1px solid var(--bdr);border-radius:4px;padding:22px 26px;margin-bottom:16px;position:relative}
+.th::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%}
+.th.teal::before{background:var(--a1)}.th.teal h4{color:var(--a1)}
+.th.pink::before{background:var(--a2)}.th.pink h4{color:var(--a2)}
+.th.purp::before{background:var(--a3)}.th.purp h4{color:var(--a3)}
+.th.gold::before{background:var(--a4)}.th.gold h4{color:var(--a4)}
+.th.blue::before{background:var(--a5)}.th.blue h4{color:var(--a5)}
+.th h4{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;
+  font-family:'Space Mono',monospace;letter-spacing:1px;text-transform:uppercase}
+.th p{font-size:14px;margin-bottom:8px;line-height:1.8}.th p:last-child{margin-bottom:0}
+.th .n{color:var(--muted);font-size:12px;font-style:italic;font-family:'Space Mono',monospace}
+.th strong{color:var(--text)}.th em{color:var(--a1);font-style:normal}
+
+/* ── FORMULA ── */
+.form{display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  background:var(--s2);border:1px solid var(--bdr);border-radius:4px;
+  padding:18px 22px;margin:18px 0;font-family:'Space Mono',monospace;font-size:12px}
+.fb{padding:7px 14px;border-radius:3px;font-weight:700;font-size:12px}
+.fs{background:rgba(255,214,10,.1);color:var(--a4);border:1px solid rgba(255,214,10,.2)}
+.fv{background:rgba(0,245,212,.1);color:var(--a1);border:1px solid rgba(0,245,212,.2)}
+.fo{background:rgba(76,201,240,.1);color:var(--a5);border:1px solid rgba(76,201,240,.2)}
+.fn{background:rgba(247,37,133,.1);color:var(--a2);border:1px solid rgba(247,37,133,.2)}
+.fp{color:var(--muted);font-size:18px}
+.feq{color:var(--muted);font-size:11px;margin-left:8px}
+
+/* ── WILL/WON'T TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}
+.tbl thead tr{border-bottom:1px solid var(--a1)}
+.tbl th{padding:11px 15px;text-align:left;font-family:'Space Mono',monospace;
+  font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--a1)}
+.tbl td{padding:11px 15px;border-bottom:1px solid var(--bdr)}
+.tbl tr:hover td{background:rgba(255,255,255,.01)}
+.tbl .sbj{font-weight:700;color:var(--a4)}.tbl .form2{font-family:'Space Mono',monospace;color:var(--a1);font-size:13px;font-weight:700}
+.tbl .neg{font-family:'Space Mono',monospace;color:var(--a2);font-size:13px}
+.tbl .ex{font-style:italic;color:var(--a5);font-size:13px}.tbl .ru{color:var(--muted);font-size:13px}
+.tbl .ipa{font-family:'Space Mono',monospace;font-size:11px;color:var(--a5)}
+.tbl .en{font-weight:700;font-size:15px}
+
+/* ── WILL vs GOING TO ── */
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.vs-box{border-radius:4px;padding:22px 20px;border:1px solid var(--bdr)}
+.vs-box.will{background:rgba(0,245,212,.05)}
+.vs-box.going{background:rgba(247,37,133,.05)}
+.vs-box h5{font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;
+  letter-spacing:2px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--bdr)}
+.vs-box.will h5{color:var(--a1)}.vs-box.going h5{color:var(--a2)}
+.vs-row{font-size:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.vs-row:last-child{border-bottom:none}
+.vs-row .vr-en{font-weight:600;margin-bottom:3px}
+.vs-row .vr-ru{font-size:12px;color:var(--muted)}
+
+/* ── WEATHER CARDS ── */
+.weather-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin-top:18px}
+.wx-card{background:var(--s1);border:1px solid var(--bdr);border-radius:4px;
+  padding:14px 16px;transition:.2s;cursor:default}
+.wx-card:hover{border-color:var(--a1);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.wx-card .ico{font-size:28px;margin-bottom:8px}
+.wx-card .en{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;margin-bottom:3px;color:var(--a1)}
+.wx-card .ipa{font-family:'Space Mono',monospace;font-size:10px;color:var(--a5);margin-bottom:4px}
+.wx-card .ru{font-size:12px;color:var(--muted);margin-bottom:5px}
+.wx-card .ex{font-size:12px;font-style:italic;color:var(--a5);border-top:1px solid var(--bdr);padding-top:6px;margin-top:4px;line-height:1.5}
+
+/* ── FUTURE VOCAB ── */
+.fut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px;margin-top:18px}
+.fut-card{background:var(--s1);border:1px solid var(--bdr);border-radius:4px;padding:14px 16px;transition:.2s}
+.fut-card:hover{border-color:var(--a4);transform:translateY(-2px)}
+.fut-card .fw{font-weight:700;font-size:15px;margin-bottom:2px}
+.fut-card .fi{font-family:'Space Mono',monospace;font-size:10px;color:var(--a5);margin-bottom:4px}
+.fut-card .fr2{font-size:12px;color:var(--muted);margin-bottom:5px}
+.fut-card .fe{font-size:12px;font-style:italic;color:var(--a1)}
+
+/* ── PREDICTION CARDS ── */
+.pred-wrap{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+.pred-card{background:var(--s2);border:1px solid var(--bdr);border-radius:4px;
+  padding:16px 20px;display:flex;gap:14px;align-items:flex-start;transition:.2s}
+.pred-card:hover{border-color:var(--a1)}
+.pred-ico{font-size:22px;flex-shrink:0}
+.pred-en{font-weight:700;font-size:15px;margin-bottom:3px}
+.pred-type{font-family:'Space Mono',monospace;font-size:10px;color:var(--a2);
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.pred-ru{font-size:13px;color:var(--muted)}
+
+/* ── EXERCISES ── */
+.ex-block{background:var(--s1);border:1px solid var(--bdr);border-radius:4px;padding:26px;margin-bottom:20px}
+.ex-block h4{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;margin-bottom:6px;
+  display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.5px}
+.ex-block .task{color:var(--muted);font-size:12px;margin-bottom:20px;font-family:'Space Mono',monospace;
+  line-height:1.7;background:var(--s2);padding:10px 14px;border-left:2px solid var(--a1)}
+.fr{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:16px;margin-bottom:14px;line-height:2.8}
+input.bl{background:rgba(0,245,212,.04);border:none;border-bottom:2px solid rgba(0,245,212,.25);
+  border-radius:2px 2px 0 0;padding:4px 10px;min-width:80px;font-family:'Space Mono',monospace;
+  font-size:12px;color:var(--text);outline:none;text-align:center;transition:.2s}
+input.bl:focus{border-color:var(--a1);background:rgba(0,245,212,.08)}
+input.bl.ok{border-color:var(--ok);background:rgba(0,245,212,.08);color:var(--ok)}
+input.bl.bad{border-color:var(--bad);background:rgba(247,37,133,.08);color:var(--bad)}
+
+.chk{display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--a1);font-weight:700;font-size:12px;
+  padding:10px 26px;border:1px solid var(--a1);border-radius:2px;
+  cursor:pointer;transition:.2s;font-family:'Space Mono',monospace;
+  text-transform:uppercase;letter-spacing:1px;margin-top:12px}
+.chk:hover{background:rgba(0,245,212,.08);box-shadow:0 0 20px rgba(0,245,212,.15)}
+.exr{margin-top:14px;padding:10px 14px;border-radius:2px;font-size:12px;display:none;font-family:'Space Mono',monospace;line-height:1.6}
+.exr.ok{display:block;background:rgba(0,245,212,.06);border:1px solid var(--ok);color:var(--ok)}
+.exr.bad{display:block;background:rgba(247,37,133,.06);border:1px solid var(--bad);color:var(--bad)}
+
+/* ── RADIO EXERCISE ── */
+.radio-group{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.radio-q{font-size:15px;font-weight:600;margin-bottom:6px}
+.radio-opts{display:flex;gap:10px;flex-wrap:wrap}
+.radio-opt{display:flex;align-items:center;gap:7px;padding:8px 14px;
+  background:var(--s2);border:1px solid var(--bdr);border-radius:3px;
+  cursor:pointer;transition:.2s;font-size:14px;user-select:none}
+.radio-opt:hover{border-color:var(--a1);background:rgba(0,245,212,.05)}
+.radio-opt input{display:none}
+.radio-opt.selected{border-color:var(--a1);background:rgba(0,245,212,.08);color:var(--a1)}
+.radio-opt.ok{border-color:var(--ok);background:rgba(0,245,212,.08);color:var(--ok)}
+.radio-opt.bad{border-color:var(--bad);background:rgba(247,37,133,.08);color:var(--bad)}
+
+/* ── DIALOGUE ── */
+.chat{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.msg{display:flex;gap:12px;align-items:flex-start}
+.msg.r{flex-direction:row-reverse}
+.av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+  font-size:17px;flex-shrink:0;border:1px solid var(--bdr);background:var(--s2)}
+.bub{background:var(--s2);border:1px solid var(--bdr);border-radius:4px;
+  padding:12px 16px;max-width:78%;flex:1}
+.msg.r .bub{background:rgba(0,245,212,.06);border-color:rgba(0,245,212,.18)}
+.bub .en{font-weight:700;font-size:15px;margin-bottom:3px}
+.bub .ip{font-family:'Space Mono',monospace;font-size:10px;color:var(--a5);margin-bottom:4px}
+.bub .ru{font-size:12px;color:var(--muted)}
+
+/* ── READING ── */
+.rbox{background:var(--s1);border:1px solid var(--bdr);border-radius:4px;padding:30px}
+.rbox .rtit{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;color:var(--a4);margin-bottom:20px;letter-spacing:1px}
+.rbox p{font-size:15px;line-height:2.1;margin-bottom:14px}
+.hw{border-bottom:1px dashed rgba(0,245,212,.4);color:var(--a1);cursor:help;transition:.2s}
+.hw:hover{color:var(--text);border-color:transparent}
+.will-hl{color:var(--a4);font-weight:700}
+
+/* ── QUIZ ── */
+.qwrap{background:var(--s1);border:1px solid var(--bdr);border-radius:4px;padding:32px}
+.qbar{height:2px;background:var(--bdr);margin-bottom:28px;overflow:hidden}
+.qfill{height:100%;background:linear-gradient(90deg,var(--a1),var(--a2));transition:width .5s}
+.qctr{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.qtxt{font-size:1.1rem;font-weight:700;line-height:1.5;margin-bottom:18px}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.qopt{background:var(--s2);border:1px solid var(--bdr);border-radius:3px;
+  padding:13px 15px;cursor:pointer;transition:.2s;font-size:14px;
+  font-family:'Exo 2',sans-serif;color:var(--text);text-align:left;display:flex;align-items:center;gap:10px}
+.qopt:hover:not(:disabled){border-color:var(--a1);background:rgba(0,245,212,.05)}
+.qopt.ok{border-color:var(--ok);background:rgba(0,245,212,.07);color:var(--ok)}
+.qopt.bad{border-color:var(--bad);background:rgba(247,37,133,.07);color:var(--bad)}
+.qopt:disabled{cursor:not-allowed}
+.ol{font-family:'Space Mono',monospace;font-size:9px;background:var(--bdr);border-radius:2px;width:22px;height:22px;display:grid;place-items:center;flex-shrink:0}
+.qfb{padding:10px 14px;border-radius:3px;font-size:12px;margin-bottom:14px;display:none;font-family:'Space Mono',monospace;line-height:1.7}
+.qfb.ok{display:block;background:rgba(0,245,212,.06);border:1px solid var(--ok);color:var(--ok)}
+.qfb.bad{display:block;background:rgba(247,37,133,.06);border:1px solid var(--bad);color:var(--bad)}
+.qnxt{display:none;align-items:center;gap:8px;background:transparent;
+  color:var(--a2);font-weight:700;font-size:11px;padding:11px 26px;
+  border:1px solid var(--a2);border-radius:2px;cursor:pointer;transition:.2s;
+  font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:1px}
+.qnxt.show{display:inline-flex}.qnxt:hover{background:rgba(247,37,133,.08);box-shadow:0 0 20px rgba(247,37,133,.15)}
+.qres{display:none;text-align:center;padding:20px 0}
+.qres.show{display:block}
+.sring{width:130px;height:130px;border-radius:50%;border:2px solid var(--a1);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 auto 24px;background:rgba(0,245,212,.04);box-shadow:0 0 30px rgba(0,245,212,.1)}
+.snum{font-family:'Cinzel',serif;font-size:3rem;color:var(--a1);line-height:1}
+.sof{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted)}
+.qres h3{font-family:'Cinzel',serif;font-size:1.6rem;margin-bottom:8px;letter-spacing:1px}
+.qres p{color:var(--muted);font-size:13px;max-width:420px;margin:0 auto;font-family:'Space Mono',monospace;line-height:1.7}
+
+/* ── TIP ── */
+.tip{background:rgba(255,214,10,.04);border:1px solid rgba(255,214,10,.15);
+  border-radius:3px;padding:14px 18px;margin-top:16px;font-size:13px;display:flex;gap:10px;line-height:1.7}
+.tip .ic{font-size:18px;flex-shrink:0}.tip strong{color:var(--a4)}
+
+/* ── SCH ── */
+.sch{margin-top:18px}
+.si{display:flex;gap:16px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--bdr)}
+.si:last-child{border-bottom:none}
+.st{font-family:'Space Mono',monospace;font-size:9px;color:var(--a1);
+  background:rgba(0,245,212,.06);border:1px solid rgba(0,245,212,.15);
+  border-radius:2px;padding:4px 10px;white-space:nowrap;margin-top:2px;min-width:60px;text-align:center}
+.stt{font-weight:700;font-size:14px;margin-bottom:2px}.sds{font-size:12px;color:var(--muted);font-family:'Space Mono',monospace}
+
+/* ── FOOTER ── */
+footer{padding:60px 0;text-align:center;position:relative;z-index:1}
+.np{display:inline-flex;align-items:center;gap:12px;background:var(--s1);
+  border:1px solid var(--bdr);border-radius:2px;padding:16px 28px;
+  font-family:'Space Mono',monospace;font-size:11px;font-weight:700;
+  margin-bottom:22px;text-transform:uppercase;letter-spacing:1px}
+.np .ar{color:var(--a1);font-size:18px}
+footer .mt{color:var(--muted);font-size:11px;max-width:440px;margin:0 auto;
+  line-height:1.9;font-family:'Space Mono',monospace}
+
+/* ── REVEAL ── */
+.rev{opacity:0;transform:translateY(18px);transition:opacity .55s,transform .55s}
+.rev.in{opacity:1;transform:none}
+
+@media(max-width:640px){
+  .qopts,.vs-grid{grid-template-columns:1fr}
+  .weather-grid,.fut-grid{grid-template-columns:repeat(2,1fr)}
+  .kpi{padding:12px 14px}
+}
+</style>
+</head>
+<body>
+
+<canvas class="stars-canvas" id="starsCanvas"></canvas>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-orb"></div>
+  <div class="badge"><span class="blink"></span>День 8 из 90 · Неделя 2</div>
+  <h1>FUTURE<em>will · won't · shall</em></h1>
+  <p class="sub">Предсказания · Обещания · Спонтанные решения<br>Погода · <b>+55 слов</b> · Неделя 2 начинается</p>
+  <div class="kpis">
+    <div class="kpi"><div class="v">8</div><div class="l">День</div></div>
+    <div class="kpi"><div class="v">370</div><div class="l">Слов всего</div></div>
+    <div class="kpi"><div class="v">A2</div><div class="l">Уровень</div></div>
+    <div class="kpi"><div class="v">8%</div><div class="l">Прогресс</div></div>
+  </div>
+  <div class="cue"><span>Scroll</span><span>↓</span></div>
+</section>
+
+<!-- ═══ TICKER ═══ -->
+<div class="ticker">
+  <div class="ttrack">
+    <div class="titem"><span class="tp">✓ Нед.1</span><span class="tn">To Be · Simple · Continuous · Артикли · Past · WH</span></div>
+    <div class="titem cur"><span class="tp">Сейчас</span><span class="tn">День 8: Future Simple · Will · Погода</span></div>
+    <div class="titem"><span class="tp">День 9</span><span class="tn">Going To · Намерения · Прогнозы</span></div>
+    <div class="titem"><span class="tp">День 10</span><span class="tn">Comparatives · Bigger · Better</span></div>
+    <div class="titem"><span class="tp">День 11</span><span class="tn">Superlatives · The Best · The Biggest</span></div>
+    <div class="titem"><span class="tp">День 12</span><span class="tn">Present Perfect · Have/Has + V3</span></div>
+    <div class="titem"><span class="tp">День 13</span><span class="tn">Modal Verbs · Can · Should · Must</span></div>
+    <div class="titem"><span class="tp">День 14</span><span class="tn">Тест Недели 2 · A2+</span></div>
+    <div class="titem"><span class="tp">✓ Нед.1</span><span class="tn">To Be · Simple · Continuous · Артикли · Past · WH</span></div>
+    <div class="titem cur"><span class="tp">Сейчас</span><span class="tn">День 8: Future Simple · Will · Погода</span></div>
+    <div class="titem"><span class="tp">День 9</span><span class="tn">Going To · Намерения · Прогнозы</span></div>
+    <div class="titem"><span class="tp">День 10</span><span class="tn">Comparatives · Bigger · Better</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- SCHEDULE -->
+<section class="sec rev">
+  <div class="sh"><div class="stag e">Расписание</div>
+    <div><div class="stit">Программа <em>Дня</em></div><div class="ssub">День 8 · ~105 мин · Future Simple + Погода + Предсказания</div></div></div>
+  <div class="sch">
+    <div class="si"><div class="st">10 мин</div><div><div class="stt">🔁 Разогрев — неделя 1</div><div class="sds">Past Simple глаголы · WH-вопросы · Артикли — 2 минуты вслух</div></div></div>
+    <div class="si"><div class="st">25 мин</div><div><div class="stt">⚡ Грамматика: Future Simple (Will)</div><div class="sds">Утверждение · Отрицание (won't) · Вопрос · 4 ситуации употребления</div></div></div>
+    <div class="si"><div class="st">10 мин</div><div><div class="stt">📊 Will vs Going To — ключевые отличия</div><div class="sds">Спонтанное решение vs запланированное намерение</div></div></div>
+    <div class="si"><div class="st">20 мин</div><div><div class="stt">📚 Лексика: Погода + Будущее</div><div class="sds">20 слов о погоде + 20 слов для описания планов и будущего</div></div></div>
+    <div class="si"><div class="st">15 мин</div><div><div class="stt">✏️ Упражнения A, B, C</div><div class="sds">Fill-in will/won't · Выбор will vs going to · Предсказания</div></div></div>
+    <div class="si"><div class="st">10 мин</div><div><div class="stt">💬 Диалог + 📖 Текст «2050»</div><div class="sds">Разговор о планах · чтение о будущем мира</div></div></div>
+    <div class="si"><div class="st">15 мин</div><div><div class="stt">🧩 Финальный тест — 12 вопросов</div><div class="sds">Future Simple · Will/Won't · Погода · Предсказания</div></div></div>
+  </div>
+</section>
+
+<!-- GRAMMAR: FUTURE SIMPLE -->
+<section class="sec rev">
+  <div class="sh"><div class="stag g">Грамматика</div>
+    <div><div class="stit">Future <em>Simple</em> — Will</div><div class="ssub">Будущее время — простейшая форма для всех местоимений</div></div></div>
+
+  <div class="th gold">
+    <h4>🚀 4 ситуации для Will</h4>
+    <p><strong>1. Спонтанное решение прямо сейчас:</strong> It's hot. I <em>will open</em> the window. (решил только что)</p>
+    <p><strong>2. Предсказание без доказательств:</strong> I think it <em>will rain</em> tomorrow. She <em>will be</em> a great leader.</p>
+    <p><strong>3. Обещание или угроза:</strong> I <em>will call</em> you tomorrow, I promise! Don't do that — you <em>will regret</em> it!</p>
+    <p><strong>4. Просьба / предложение:</strong> <em>Will</em> you help me? I <em>will carry</em> your bag.</p>
+    <p class="n">Маркеры: tomorrow, next week/year, in 2030, soon, in the future, someday, I think, I believe, probably, maybe</p>
+  </div>
+
+  <!-- POSITIVE -->
+  <p style="font-family:'Space Mono',monospace;font-weight:700;margin:24px 0 10px;font-size:11px;color:var(--a1);text-transform:uppercase;letter-spacing:1px">▶ Утверждение</p>
+  <div class="form">
+    <span class="fb fs">Subject</span><span class="fp">+</span>
+    <span class="fb fv">will ('ll)</span><span class="fp">+</span>
+    <span class="fb fo">Verb (BASE)</span>
+    <span class="feq">→ She <b style="color:var(--a1)">will go</b> / She<b style="color:var(--a1)">'ll go</b></span>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>Местоимение</th><th>Полная форма</th><th>Краткая</th><th>Пример</th></tr></thead>
+    <tbody>
+      <tr><td class="sbj">I / You / He / She / It / We / They</td><td class="form2">will + base</td><td class="form2">'ll</td><td class="ex">I will call you. / She'll be there.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="th teal" style="margin-top:18px">
+    <h4>✨ Will — одинаково для всех!</h4>
+    <p>Главное преимущество will: оно <strong>не изменяется</strong> ни для одного местоимения. I will / she will / they will — всегда одно и то же слово. Никаких +s, никаких исключений.</p>
+    <p>Краткая форма <strong>'ll</strong> используется в разговорной речи: I'll, you'll, he'll, she'll, it'll, we'll, they'll</p>
+  </div>
+
+  <!-- NEGATIVE -->
+  <p style="font-family:'Space Mono',monospace;font-weight:700;margin:24px 0 10px;font-size:11px;color:var(--a2);text-transform:uppercase;letter-spacing:1px">✗ Отрицание — WON'T</p>
+  <div class="form">
+    <span class="fb fs">Subject</span><span class="fp">+</span>
+    <span class="fb fn">will not (won't)</span><span class="fp">+</span>
+    <span class="fb fo">Verb (BASE)</span>
+    <span class="feq">→ She <b style="color:var(--a2)">won't come</b>. / I <b style="color:var(--a2)">will not</b> do it.</span>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>Полная форма</th><th>Краткая</th><th>Произношение</th><th>Пример</th></tr></thead>
+    <tbody>
+      <tr><td class="form2">will not</td><td class="neg">won't</td><td class="ipa">/woʊnt/</td><td class="ex">I won't be late, I promise.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="th pink" style="margin-top:14px">
+    <h4>⚠️ Произношение WON'T — осторожно!</h4>
+    <p>Won't = /woʊnt/ — звучит как «вонт», <strong>не «вилл нот»</strong> в разговоре.</p>
+    <p>Won't ≠ Want! <strong>won't</strong> /woʊnt/ = не будет &nbsp;|&nbsp; <strong>want</strong> /wɒnt/ = хотеть</p>
+    <p>Практика: «I won't» — скажите вслух 5 раз, добиваясь чёткого /woʊ/ в начале.</p>
+  </div>
+
+  <!-- QUESTION -->
+  <p style="font-family:'Space Mono',monospace;font-weight:700;margin:24px 0 10px;font-size:11px;color:var(--a5);text-transform:uppercase;letter-spacing:1px">? Вопрос</p>
+  <div class="form">
+    <span class="fb fv">Will</span><span class="fp">+</span>
+    <span class="fb fs">Subject</span><span class="fp">+</span>
+    <span class="fb fo">Verb (BASE)</span><span class="fp">+</span>
+    <span class="fb" style="background:rgba(76,201,240,.1);color:var(--a5);border:1px solid rgba(76,201,240,.2)">...?</span>
+    <span class="feq">→ <b style="color:var(--a5)">Will</b> she come? / <b style="color:var(--a5)">Will</b> it rain?</span>
+  </div>
+
+  <table class="tbl" style="margin-top:16px">
+    <thead><tr><th>Вопрос</th><th>Краткий ответ ДА</th><th>Краткий ответ НЕТ</th></tr></thead>
+    <tbody>
+      <tr><td class="ex">Will you help me?</td><td class="form2">Yes, I will.</td><td class="neg">No, I won't.</td></tr>
+      <tr><td class="ex">Will she be there?</td><td class="form2">Yes, she will.</td><td class="neg">No, she won't.</td></tr>
+      <tr><td class="ex">Will it rain tomorrow?</td><td class="form2">Yes, it will.</td><td class="neg">No, it won't.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- WILL vs GOING TO -->
+<section class="sec rev">
+  <div class="sh"><div class="stag g">Сравнение</div>
+    <div><div class="stit">Will <em>vs</em> Going To</div><div class="ssub">Два способа говорить о будущем — важно понять разницу</div></div></div>
+
+  <div class="vs-grid">
+    <div class="vs-box will">
+      <h5>⚡ Will — спонтанно / предсказание</h5>
+      <div class="vs-row">
+        <div class="vr-en">«The phone is ringing.» — «I'll get it!»</div>
+        <div class="vr-ru">Спонтанное решение прямо сейчас</div>
+      </div>
+      <div class="vs-row">
+        <div class="vr-en">I think it will snow tomorrow.</div>
+        <div class="vr-ru">Предсказание — нет конкретных признаков</div>
+      </div>
+      <div class="vs-row">
+        <div class="vr-en">Don't worry, I'll help you.</div>
+        <div class="vr-ru">Обещание</div>
+      </div>
+      <div class="vs-row">
+        <div class="vr-en">The meeting will start at 9.</div>
+        <div class="vr-ru">Факт о будущем / расписание</div>
+      </div>
+    </div>
+    <div class="vs-box going">
+      <h5>📋 Going To — план / очевидный факт</h5>
+      <div class="vs-row">
+        <div class="vr-en">I'm going to study medicine next year.</div>
+        <div class="vr-ru">Заранее принятое решение / план</div>
+      </div>
+      <div class="vs-row">
+        <div class="vr-en">Look at those clouds — it's going to rain!</div>
+        <div class="vr-ru">Предсказание с очевидными признаками</div>
+      </div>
+      <div class="vs-row">
+        <div class="vr-en">She's going to have a baby!</div>
+        <div class="vr-ru">Намерение + очевидность</div>
+      </div>
+      <div class="vs-row">
+        <div class="vr-en">We're going to visit Paris this summer.</div>
+        <div class="vr-ru">Уже запланировано, куплены билеты</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="th teal" style="margin-top:8px">
+    <h4>💡 Простое правило запоминания</h4>
+    <p><strong>WILL</strong> — реакция. Телефон зазвонил → «I'll answer it!» (только что решил). Смотришь на небо без туч → «I think it will rain» (предположение).</p>
+    <p><strong>GOING TO</strong> — план. Вчера купил билет → «I'm going to fly to London» (уже решено). Видишь чёрные тучи → «It's going to rain!» (признаки видны прямо сейчас).</p>
+    <p class="n">Завтра — полный урок «Going To». Сегодня сосредоточьтесь на Will.</p>
+  </div>
+</section>
+
+<!-- WEATHER VOCABULARY -->
+<section class="sec rev">
+  <div class="sh"><div class="stag v">Лексика</div>
+    <div><div class="stit"><em>Weather</em> — Погода</div><div class="ssub">20 слов для разговора о погоде — без погоды нет small talk</div></div></div>
+
+  <div class="weather-grid">
+    <div class="wx-card"><div class="ico">☀️</div><div class="en">sunny</div><div class="ipa">/ˈsʌn.i/</div><div class="ru">солнечный</div><div class="ex">It will be sunny tomorrow.</div></div>
+    <div class="wx-card"><div class="ico">🌧️</div><div class="en">rainy</div><div class="ipa">/ˈreɪ.ni/</div><div class="ru">дождливый</div><div class="ex">It'll be rainy all week.</div></div>
+    <div class="wx-card"><div class="ico">❄️</div><div class="en">snowy</div><div class="ipa">/ˈsnoʊ.i/</div><div class="ru">снежный</div><div class="ex">Will it be snowy this winter?</div></div>
+    <div class="wx-card"><div class="ico">💨</div><div class="en">windy</div><div class="ipa">/ˈwɪn.di/</div><div class="ru">ветреный</div><div class="ex">It's going to be windy!</div></div>
+    <div class="wx-card"><div class="ico">🌫️</div><div class="en">foggy</div><div class="ipa">/ˈfɒɡ.i/</div><div class="ru">туманный</div><div class="ex">It was foggy this morning.</div></div>
+    <div class="wx-card"><div class="ico">⛅</div><div class="en">cloudy</div><div class="ipa">/ˈklaʊ.di/</div><div class="ru">облачный</div><div class="ex">It'll be cloudy but dry.</div></div>
+    <div class="wx-card"><div class="ico">⛈️</div><div class="en">stormy</div><div class="ipa">/ˈstɔːr.mi/</div><div class="ru">штормовой</div><div class="ex">There will be a storm tonight.</div></div>
+    <div class="wx-card"><div class="ico">🌡️</div><div class="en">hot / cold</div><div class="ipa">/hɒt/ /koʊld/</div><div class="ru">жарко / холодно</div><div class="ex">It will be hot this summer.</div></div>
+    <div class="wx-card"><div class="ico">🌤️</div><div class="en">warm / cool</div><div class="ipa">/wɔːrm/ /kuːl/</div><div class="ru">тепло / прохладно</div><div class="ex">It'll be warm in April.</div></div>
+    <div class="wx-card"><div class="ico">🌈</div><div class="en">rainbow</div><div class="ipa">/ˈreɪn.boʊ/</div><div class="ru">радуга</div><div class="ex">There will be a rainbow after rain.</div></div>
+    <div class="wx-card"><div class="ico">🧊</div><div class="en">freezing</div><div class="ipa">/ˈfriː.zɪŋ/</div><div class="ru">ледяной / морозный</div><div class="ex">It'll be freezing tonight!</div></div>
+    <div class="wx-card"><div class="ico">🌊</div><div class="en">flood / flooding</div><div class="ipa">/flʌd/</div><div class="ru">наводнение</div><div class="ex">There will be floods this spring.</div></div>
+  </div>
+
+  <div class="th blue" style="margin-top:22px">
+    <h4>🗣️ Small Talk о погоде — как говорят носители</h4>
+    <p><strong>«What's the weather like today?»</strong> — Какая сегодня погода?</p>
+    <p><strong>«It's absolutely freezing!»</strong> — Жуткий мороз! (усиление)</p>
+    <p><strong>«It looks like rain.»</strong> — Похоже, будет дождь.</p>
+    <p><strong>«What will the weather be like tomorrow?»</strong> — Какой будет погода завтра?</p>
+    <p><strong>«It's supposed to be sunny.»</strong> — Говорят, будет солнечно. (по прогнозу)</p>
+    <p class="n">В Британии о погоде говорят каждые 20 минут — это самая безопасная тема для small talk!</p>
+  </div>
+</section>
+
+<!-- FUTURE VOCABULARY -->
+<section class="sec rev">
+  <div class="sh"><div class="stag v">Лексика</div>
+    <div><div class="stit">Future <em>Expressions</em></div><div class="ssub">20 слов и фраз для описания планов, надежд и будущего</div></div></div>
+
+  <div class="fut-grid">
+    <div class="fut-card"><div class="fw">hope to</div><div class="fi">/hoʊp tuː/</div><div class="fr2">надеяться</div><div class="fe">I hope to travel the world.</div></div>
+    <div class="fut-card"><div class="fw">plan to</div><div class="fi">/plæn tuː/</div><div class="fr2">планировать</div><div class="fe">She plans to study abroad.</div></div>
+    <div class="fut-card"><div class="fw">dream of</div><div class="fi">/driːm ɒv/</div><div class="fr2">мечтать о</div><div class="fe">He dreams of becoming a pilot.</div></div>
+    <div class="fut-card"><div class="fw">probably</div><div class="fi">/ˈprɒb.ə.bli/</div><div class="fr2">вероятно</div><div class="fe">It will probably rain.</div></div>
+    <div class="fut-card"><div class="fw">definitely</div><div class="fi">/ˈdef.ɪ.nɪt.li/</div><div class="fr2">определённо</div><div class="fe">I will definitely come.</div></div>
+    <div class="fut-card"><div class="fw">maybe / perhaps</div><div class="fi">/ˈmeɪ.bi/</div><div class="fr2">может быть</div><div class="fe">Maybe I'll visit London.</div></div>
+    <div class="fut-card"><div class="fw">soon</div><div class="fi">/suːn/</div><div class="fr2">скоро</div><div class="fe">She'll be here soon.</div></div>
+    <div class="fut-card"><div class="fw">eventually</div><div class="fi">/ɪˈvent.ʃu.ə.li/</div><div class="fr2">в конечном счёте</div><div class="fe">He'll eventually succeed.</div></div>
+    <div class="fut-card"><div class="fw">in the future</div><div class="fi">/ɪn ðə ˈfjuː.tʃər/</div><div class="fr2">в будущем</div><div class="fe">Robots will do all the work.</div></div>
+    <div class="fut-card"><div class="fw">by next year</div><div class="fi">/baɪ nekst jɪər/</div><div class="fr2">к следующему году</div><div class="fe">I'll be fluent by next year.</div></div>
+    <div class="fut-card"><div class="fw">promise</div><div class="fi">/ˈprɒm.ɪs/</div><div class="fr2">обещать/обещание</div><div class="fe">I promise I won't be late!</div></div>
+    <div class="fut-card"><div class="fw">predict</div><div class="fi">/prɪˈdɪkt/</div><div class="fr2">предсказывать</div><div class="fe">Experts predict prices will rise.</div></div>
+  </div>
+</section>
+
+<!-- PREDICTIONS BLOCK -->
+<section class="sec rev">
+  <div class="sh"><div class="stag v">Предсказания</div>
+    <div><div class="stit"><em>Predictions</em> о мире</div><div class="ssub">Как говорить о будущем с will — реальные примеры из жизни</div></div></div>
+
+  <div class="pred-wrap">
+    <div class="pred-card"><div class="pred-ico">🤖</div><div>
+      <div class="pred-type">Технологии</div>
+      <div class="pred-en">Robots will replace many jobs in the next 20 years.</div>
+      <div class="pred-ru">Роботы заменят многие работы в следующие 20 лет.</div>
+    </div></div>
+    <div class="pred-card"><div class="pred-ico">🌍</div><div>
+      <div class="pred-type">Климат</div>
+      <div class="pred-en">Temperatures will rise by 2°C by 2050 if we don't act.</div>
+      <div class="pred-ru">Температура вырастет на 2°C к 2050 году, если мы не будем действовать.</div>
+    </div></div>
+    <div class="pred-card"><div class="pred-ico">🚀</div><div>
+      <div class="pred-type">Космос</div>
+      <div class="pred-en">Humans will probably land on Mars within 30 years.</div>
+      <div class="pred-ru">Люди, вероятно, высадятся на Марс в течение 30 лет.</div>
+    </div></div>
+    <div class="pred-card"><div class="pred-ico">📱</div><div>
+      <div class="pred-type">Общество</div>
+      <div class="pred-en">English will remain the global language for business and science.</div>
+      <div class="pred-ru">Английский останется мировым языком бизнеса и науки.</div>
+    </div></div>
+    <div class="pred-card"><div class="pred-ico">💊</div><div>
+      <div class="pred-type">Медицина</div>
+      <div class="pred-en">Scientists will find a cure for many diseases we can't treat today.</div>
+      <div class="pred-ru">Учёные найдут лекарство от многих болезней, которые сегодня неизлечимы.</div>
+    </div></div>
+    <div class="pred-card"><div class="pred-ico">📚</div><div>
+      <div class="pred-type">Образование</div>
+      <div class="pred-en">AI tutors will help students learn any language 5x faster than today.</div>
+      <div class="pred-ru">ИИ-репетиторы помогут студентам учить любой язык в 5 раз быстрее, чем сегодня.</div>
+    </div></div>
+  </div>
+
+  <div class="tip"><span class="ic">✍️</span>
+    <div><strong>Задание:</strong> Напишите 5 своих предсказаний о будущем — про технологии, свою жизнь, работу, планету. Используйте: «I think... will», «probably will», «will definitely», «won't». Например: «I will speak English fluently by the end of this course.»</div>
+  </div>
+</section>
+
+<!-- EXERCISES -->
+<section class="sec rev">
+  <div class="sh"><div class="stag e">Упражнения</div>
+    <div><div class="stit"><em>Practice</em> — три задания</div><div class="ssub">Will/Won't · Will vs Going To · Погода</div></div></div>
+
+  <!-- EX A -->
+  <div class="ex-block">
+    <h4>✏️ A — Вставьте will или won't</h4>
+    <div class="task">Используйте контекст для выбора: will (положительное) или won't (отрицательное)</div>
+    <div class="fr">1. Don't worry! I <input class="bl" id="a1" data-a="won't" placeholder="___"> be late. I promise!</div>
+    <div class="fr">2. Look at those clouds — I think it <input class="bl" id="a2" data-a="will" placeholder="___"> rain this afternoon.</div>
+    <div class="fr">3. She's so talented. I'm sure she <input class="bl" id="a3" data-a="will" placeholder="___"> become a great scientist.</div>
+    <div class="fr">4. He's very stubborn. He <input class="bl" id="a4" data-a="won't" placeholder="___"> change his mind.</div>
+    <div class="fr">5. «The phone is ringing!» — «OK, I <input class="bl" id="a5" data-a="'ll" placeholder="___"> get it!»</div>
+    <div class="fr">6. They probably <input class="bl" id="a6" data-a="won't" placeholder="___"> arrive before midnight.</div>
+    <div class="fr">7. <input class="bl" id="a7" data-a="Will" placeholder="___"> you help me with this exercise?</div>
+    <div class="fr">8. I'm sure technology <input class="bl" id="a8" data-a="will" placeholder="___"> solve many problems in the future.</div>
+    <button class="chk" onclick="chkEx('A',['a1','a2','a3','a4','a5','a6','a7','a8'])">✓ Проверить</button>
+    <div class="exr" id="resA"></div>
+  </div>
+
+  <!-- EX B: WILL vs GOING TO -->
+  <div class="ex-block">
+    <h4>🔀 B — Will или Going To?</h4>
+    <div class="task">Прочитайте контекст и выберите правильный вариант. Объяснение ниже каждого пункта.</div>
+    <div id="willGoingEx"></div>
+    <button class="chk" onclick="checkWillGoing()">✓ Проверить</button>
+    <div class="exr" id="resB"></div>
+  </div>
+
+  <!-- EX C: WEATHER -->
+  <div class="ex-block">
+    <h4>🌤️ C — Прогноз погоды</h4>
+    <div class="task">Опишите погоду, используя слова: sunny · rainy · windy · cloudy · freezing · warm · stormy</div>
+    <div class="fr">1. The temperature will be −25°C tonight. It'll be <input class="bl" id="c1" data-a="freezing" placeholder="___">.</div>
+    <div class="fr">2. The sky is clear and the sun is shining. It will be <input class="bl" id="c2" data-a="sunny" placeholder="___"> all day.</div>
+    <div class="fr">3. There will be heavy rain tomorrow. It'll be very <input class="bl" id="c3" data-a="rainy" placeholder="___">.</div>
+    <div class="fr">4. Strong gusts of wind are predicted — up to 80 km/h. It'll be very <input class="bl" id="c4" data-a="windy" placeholder="___">.</div>
+    <div class="fr">5. Lightning and thunder are expected tonight. It'll be <input class="bl" id="c5" data-a="stormy" placeholder="___">.</div>
+    <div class="fr">6. The temperature will reach 22°C — perfect for a walk. It'll be <input class="bl" id="c6" data-a="warm" placeholder="___">.</div>
+    <button class="chk" onclick="chkEx('C',['c1','c2','c3','c4','c5','c6'])">✓ Проверить прогноз</button>
+    <div class="exr" id="resC"></div>
+  </div>
+</section>
+
+<!-- DIALOGUE -->
+<section class="sec rev">
+  <div class="sh"><div class="stag s">Говорение</div>
+    <div><div class="stit">Dialogue: <em>Plans & Promises</em></div><div class="ssub">Разговор о планах на будущее — все формы Will в действии</div></div></div>
+
+  <div class="chat">
+    <div class="msg"><div class="av">👤</div>
+      <div class="bub">
+        <div class="en">Hey! Have you thought about what you'll do after you finish this English course?</div>
+        <div class="ip">/heɪ hæv juː θɔːt əˈbaʊt wɒt juːl duː ˈɑːf.tər juː fɪnɪʃ ðɪs ˈɪŋɡlɪʃ kɔːrs/</div>
+        <div class="ru">Привет! Ты думал о том, что будешь делать после окончания курса английского?</div>
+      </div>
+    </div>
+    <div class="msg r"><div class="av">👥</div>
+      <div class="bub">
+        <div class="en">Yes! I think I'll travel to the UK. I'll probably spend a month in London and a week in Edinburgh.</div>
+        <div class="ip">/jes aɪ θɪŋk aɪl ˈtræv.əl tə ðə juː.keɪ aɪl ˈprɒb.ə.bli spend ə mʌnθ ɪn ˈlʌn.dən ænd ə wiːk ɪn ˈed.ɪn.brə/</div>
+        <div class="ru">Да! Думаю, я поеду в Великобританию. Вероятно, проведу месяц в Лондоне и неделю в Эдинбурге.</div>
+      </div>
+    </div>
+    <div class="msg"><div class="av">👤</div>
+      <div class="bub">
+        <div class="en">That sounds amazing! What will you do there? Will you take any courses?</div>
+        <div class="ip">/ðæt saʊndz əˈmeɪ.zɪŋ wɒt wɪl juː duː ðeər wɪl juː teɪk ˈeni ˈkɔːr.sɪz/</div>
+        <div class="ru">Звучит потрясающе! Что ты там будешь делать? Будешь ли ты посещать какие-нибудь курсы?</div>
+      </div>
+    </div>
+    <div class="msg r"><div class="av">👥</div>
+      <div class="bub">
+        <div class="en">I'll definitely visit museums and attend some lectures at the university. I won't waste a single day — I'll speak English with everyone I meet!</div>
+        <div class="ip">/aɪl ˈdef.ɪ.nɪt.li ˈvɪz.ɪt mjuːˈziː.əmz ænd əˈtend sʌm ˈlek.tʃərz æt ðə juːnɪˈvɜːr.sɪ.ti aɪ woʊnt weɪst ə ˈsɪŋ.ɡəl deɪ aɪl spiːk ˈɪŋɡlɪʃ wɪð ˈev.ri.wʌn aɪ miːt/</div>
+        <div class="ru">Я обязательно посещу музеи и схожу на лекции в университете. Я не потрачу ни одного дня впустую — буду говорить по-английски со всеми, кого встречу!</div>
+      </div>
+    </div>
+    <div class="msg"><div class="av">👤</div>
+      <div class="bub">
+        <div class="en">I'm sure you'll do great. What about the weather? I heard it rains a lot in London.</div>
+        <div class="ip">/aɪm ʃʊər juːl duː ɡreɪt wɒt əˈbaʊt ðə ˈweð.ər aɪ hɜːrd ɪt reɪnz ə lɒt ɪn ˈlʌn.dən/</div>
+        <div class="ru">Я уверен, что у тебя всё получится. А насчёт погоды? Я слышал, в Лондоне часто идёт дождь.</div>
+      </div>
+    </div>
+    <div class="msg r"><div class="av">👥</div>
+      <div class="bub">
+        <div class="en">Ha! Yes, it'll probably be cloudy and rainy most of the time. But I won't complain — I'll just buy a good umbrella!</div>
+        <div class="ip">/hɑː jes ɪtl ˈprɒb.ə.bli biː ˈklaʊ.di ænd ˈreɪ.ni moʊst əv ðə taɪm bʌt aɪ woʊnt kəmˈpleɪn aɪl dʒʌst baɪ ə ɡʊd ʌmˈbrel.ə/</div>
+        <div class="ru">Ха! Да, скорее всего будет пасмурно и дождливо большую часть времени. Но я не буду жаловаться — просто куплю хороший зонт!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip" style="margin-top:16px"><span class="ic">🗣️</span>
+    <div><strong>Задание:</strong> Расскажите вслух о своих планах на следующий год — 6–8 предложений с will, won't и probably. «Next year I will... I won't... I'll probably... I hope I'll...»</div>
+  </div>
+</section>
+
+<!-- READING -->
+<section class="sec rev">
+  <div class="sh"><div class="stag r">Чтение</div>
+    <div><div class="stit">Reading: <em>The World in 2050</em></div><div class="ssub">Найдите все формы will/won't — их не менее 12</div></div></div>
+
+  <div class="rbox">
+    <div class="rtit">The World in 2050</div>
+    <p>What <span class="will-hl hw" title="will the world look — Future Simple вопрос">will</span> the world look like in 2050? Nobody knows for certain, but scientists and researchers have made some interesting <span class="hw" title="predictions — предсказания">predictions</span>.</p>
+    <p>First, the planet <span class="will-hl hw" title="will be — Future Simple">will be</span> significantly <span class="hw" title="warmer — теплее">warmer</span>. Summers <span class="will-hl hw" title="will be longer and hotter">will be</span> longer and hotter. Some regions <span class="will-hl hw" title="will experience — испытают">will experience</span> more <span class="hw" title="floods — наводнения">floods</span> and <span class="hw" title="storms — бури">storms</span>. However, scientists believe we <span class="will-hl hw" title="won't — отрицание">won't</span> <span class="hw" title="reach — достигнем">reach</span> the worst scenarios if we act now.</p>
+    <p>Technology <span class="will-hl hw" title="will transform — изменит">will transform</span> our daily lives. Electric cars <span class="will-hl hw" title="will replace — заменят">will replace</span> most <span class="hw" title="petrol — бензин">petrol</span> vehicles. People <span class="will-hl hw" title="will work — будут работать">will work</span> from home more often. Artificial intelligence <span class="will-hl hw" title="will help — поможет">will help</span> doctors diagnose diseases faster, and students <span class="will-hl hw" title="will learn — будут учить">will learn</span> languages in a fraction of the time it takes today.</p>
+    <p>Space exploration <span class="will-hl hw" title="will also advance — также продвинется">will also advance</span>. Humans <span class="will-hl hw" title="will probably — вероятно">will probably</span> <span class="hw" title="establish — основают">establish</span> a permanent <span class="hw" title="base — базу">base</span> on the Moon. Some experts think the first <span class="hw" title="mission — миссия">mission</span> to Mars <span class="will-hl hw" title="will have — состоится">will have</span> already happened.</p>
+    <p>One thing is certain: English <span class="will-hl hw" title="will remain — останется">will remain</span> the global language of business, science, and technology. The person who is reading this text right now <span class="will-hl hw" title="will be — будет">will be</span> better prepared for that future. Keep studying — it <span class="will-hl hw" title="will be worth it — оно того стоит">will be worth it</span>.</p>
+  </div>
+  <div class="th teal" style="margin-top:20px">
+    <h4>🔍 Задания по тексту</h4>
+    <p>1. Выпишите все формы <span style="color:var(--a4)">will/won't</span> и глаголы после них — должно быть 12+.</p>
+    <p>2. Найдите слово <strong>«probably»</strong> — почему здесь will, а не going to?</p>
+    <p>3. Напишите 3 своих предсказания о мире в 2050, начиная с «I think...», «Probably...», «I believe...»</p>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="sec rev">
+  <div class="sh"><div class="stag t">Финальный Тест</div>
+    <div><div class="stit">Day 8 <em>Quiz</em></div><div class="ssub">12 вопросов · Future Simple · Will/Won't · Погода · Предсказания</div></div></div>
+
+  <div class="qwrap">
+    <div class="qbar"><div class="qfill" id="qBar" style="width:8%"></div></div>
+    <div id="qMain">
+      <div class="qctr" id="qCtr">Вопрос 1 из 12</div>
+      <div class="qtxt" id="qTxt"></div>
+      <div class="qopts" id="qOpts"></div>
+      <div class="qfb" id="qFb"></div>
+      <button class="qnxt" id="qNxt" onclick="nextQ()">Next →</button>
+    </div>
+    <div class="qres" id="qRes">
+      <div class="sring"><div class="snum" id="sNum">0</div><div class="sof">из 12</div></div>
+      <h3 id="sTitle"></h3><p id="sDesc"></p>
+      <div style="margin-top:24px">
+        <button class="chk" onclick="restartQ()">🔄 Restart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap" style="text-align:center">
+    <div class="np"><span>📅 Завтра — День 9</span><span class="ar">→</span><span>Going To · Намерения · Погода</span></div>
+    <p class="mt">Сегодня вечером — составьте 10 предсказаний на будущее на английском. «By next year I will...» «In 10 years, robots will...» Записывайте в тетрадь — и возвращайтесь к ним каждую неделю.</p>
+  </div>
+</footer>
+
+<script>
+/* ── STARS ── */
+(function(){
+  const c=document.getElementById('starsCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  let W,H,stars=[];
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;
+    stars=Array.from({length:160},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*.8+.2,a:Math.random()}));
+  }
+  function draw(){ctx.clearRect(0,0,W,H);stars.forEach(s=>{
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(200,220,255,${s.a})`;ctx.fill();
+    s.a+=(.003*(Math.random()-.5));if(s.a<.05)s.a=.05;if(s.a>.9)s.a=.9;
+  });requestAnimationFrame(draw);}
+  window.addEventListener('resize',resize);resize();draw();
+})();
+
+/* ── WILL vs GOING TO EXERCISE ── */
+const wgItems=[
+  {ctx:"A: The phone is ringing! B:",q:"«___ answer it!»",opts:["I'll","I'm going to"],c:0,fb:"Спонтанное решение — прямо сейчас. Will (I'll) = решил только что."},
+  {ctx:"Situation: She already bought tickets to Paris.",q:"«She ___ visit Paris next month.»",opts:["will","is going to"],c:1,fb:"Уже куплены билеты = заранее принятое решение → Going To."},
+  {ctx:"Looking at dark clouds outside:",q:"«It ___ rain — look at those clouds!»",opts:["will","is going to"],c:1,fb:"Видны явные признаки (тучи) → Going To для очевидного предсказания."},
+  {ctx:"General prediction, no evidence:",q:"«I think electric cars ___ replace all petrol cars.»",opts:["will","are going to"],c:0,fb:"Общее предсказание без очевидных признаков прямо сейчас → Will."},
+];
+
+function buildWGEx(){
+  const div=document.getElementById('willGoingEx');
+  div.innerHTML='';
+  wgItems.forEach((item,i)=>{
+    div.innerHTML+=`
+    <div style="background:var(--s2);border:1px solid var(--bdr);border-radius:4px;padding:16px 18px;margin-bottom:12px">
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:6px">${item.ctx}</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:10px">${item.q}</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap" id="wg-opts-${i}">
+        ${item.opts.map((o,j)=>`<div class="radio-opt" data-idx="${i}" data-opt="${j}" onclick="selectWG(this,${i},${j})">${o}</div>`).join('')}
+      </div>
+    </div>`;
+  });
+}
+
+function selectWG(el,i,j){
+  document.querySelectorAll(`[data-idx="${i}"]`).forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');
+  el.dataset.chosen=j;
+}
+
+function checkWillGoing(){
+  let ok=0;
+  wgItems.forEach((item,i)=>{
+    const opts=document.querySelectorAll(`[data-idx="${i}"]`);
+    let chosen=null;
+    opts.forEach(o=>{if(o.classList.contains('selected'))chosen=parseInt(o.dataset.opt);});
+    if(chosen===null){opts.forEach(o=>o.classList.add('bad'));return;}
+    if(chosen===item.c){opts[chosen].classList.add('ok');opts[chosen].classList.remove('selected');ok++;}
+    else{opts[chosen].classList.add('bad');opts[item.c].classList.add('ok');}
+  });
+  const r=document.getElementById('resB');
+  if(ok===wgItems.length){r.className='exr ok';r.textContent=`✅ Все ${ok} ответов верны! Отличное понимание Will vs Going To!`;}
+  else{r.className='exr bad';r.textContent=`❌ Правильных: ${ok} из ${wgItems.length}. Перечитайте раздел Will vs Going To.`;}
+}
+
+buildWGEx();
+
+/* ── FILL-IN ── */
+function chkEx(name,ids){
+  let ok=0;
+  ids.forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const v=el.value.trim().toLowerCase(),a=el.dataset.a.trim().toLowerCase();
+    if(v===a){el.classList.add('ok');el.classList.remove('bad');ok++;}
+    else{el.classList.add('bad');el.classList.remove('ok');}
+  });
+  const r=document.getElementById('res'+name);
+  if(ok===ids.length){r.className='exr ok';r.textContent=`✅ Все ${ok} ответов верны! Отлично!`;}
+  else{r.className='exr bad';r.textContent=`❌ Правильных: ${ok} из ${ids.length}. Красным — ошибки.`;}
+}
+
+/* ── QUIZ ── */
+const Qs=[
+  {q:"Выберите правильное предложение в Future Simple:",opts:["She wills go to London.","She will goes to London.","She will go to London.","She goes will to London."],c:2,fb:"will + base form (без изменений). Will одинаково для всех местоимений."},
+  {q:"Как сказать 'Я не приду на вечеринку' по-английски?",opts:["I will not come to the party.","I won't come to the party.","Both are correct.","I won't to come to the party."],c:2,fb:"И 'will not', и 'won't' — правильные варианты. Won't — разговорная краткая форма. Оба варианта верны!"},
+  {q:"Телефон звонит. Вы говорите: «Я отвечу!» → ",opts:["I'm going to answer it!","I answer it!","I'll answer it!","I will answering it!"],c:2,fb:"Спонтанное решение прямо сейчас → Will (I'll). Это классический пример для will vs going to."},
+  {q:"Выберите правильный вопрос о будущем:",opts:["Will she comes tomorrow?","Will she come tomorrow?","Does she will come tomorrow?","She will come tomorrow?"],c:1,fb:"Will + subject + base form + ? → Will she come? (не comes!)"},
+  {q:"«It ___ probably rain this evening.» Выберите форму:",opts:["wills","is going","will","does"],c:2,fb:"probably + will для вероятного предсказания. It will probably rain. Порядок: will + probably или probably + will — оба варианта встречаются."},
+  {q:"Что значит слово «freezing» применительно к погоде?",opts:["солнечно","дождливо","ужасно холодно, морозно","облачно"],c:2,fb:"Freezing = ужасно холодно, мороз. 'It's freezing!' — очень распространённое выражение в английской речи."},
+  {q:"«I ___ late, I promise!» — выберите won't или will not:",opts:["won't be","will not be","Both correct","will be"],c:2,fb:"Won't be = will not be — оба варианта правильны. Это обещание: 'I won't be late, I promise!'"},
+  {q:"В чём разница Will vs Going To в этих примерах? «I think it will rain» vs «Look — it's going to rain!»",opts:["Нет разницы","Will = предсказание без признаков; Going To = явные признаки","Will = прошлое; Going To = настоящее","Going To = сильнее уверенность"],c:1,fb:"Will = предсказание без конкретных признаков (просто мнение). Going To = видны явные признаки прямо сейчас."},
+  {q:"Переведите: «Они, наверное, не приедут вовремя.»",opts:["They probably won't arrive on time.","They won't probably arrive on time.","They probably will not to arrive on time.","They will probably not arrive on time."],c:0,fb:"Probably + won't = вероятно не. 'They probably won't...' — наиболее естественный порядок в разговоре."},
+  {q:"Что лучше всего переводится как «by next year»?",opts:["прошлым летом","к следующему году","в следующем году","за следующий год"],c:1,fb:"By next year = к следующему году (к определённому моменту в будущем). In next year = неправильно; правильно 'next year' или 'by next year'."},
+  {q:"«What ___ the weather ___ like tomorrow?»",opts:["is ... be","will ... be","does ... be","will ... is"],c:1,fb:"What will the weather be like? — классический вопрос о погоде. Will + subject + be = правильная структура."},
+  {q:"Выберите предложение с ПРАВИЛЬНЫМ использованием will:",opts:["I will to go home now.","She will not helps us.","He'll probably be late.","They will studying English."],c:2,fb:"He'll probably be late — правильно! will (he'll) + probably + base form (be). Остальные нарушают правило will + base form."},
+];
+
+let cur=0,sc=0,done=false;
+function renderQ(){
+  const q=Qs[cur];
+  document.getElementById('qCtr').textContent=`Вопрос ${cur+1} из ${Qs.length}`;
+  document.getElementById('qTxt').textContent=q.q;
+  document.getElementById('qBar').style.width=`${(cur/Qs.length)*100+8}%`;
+  const oo=document.getElementById('qOpts');oo.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const b=document.createElement('button');b.className='qopt';
+    b.innerHTML=`<span class="ol">${l}</span>${q.opts[i]}`;
+    b.onclick=()=>pick(i,b);oo.appendChild(b);
+  });
+  document.getElementById('qFb').className='qfb';
+  document.getElementById('qNxt').className='qnxt';
+  done=false;
+}
+function pick(i,btn){
+  if(done)return;done=true;
+  const q=Qs[cur];
+  document.querySelectorAll('.qopt').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('qFb');
+  if(i===q.c){sc++;btn.classList.add('ok');fb.className='qfb ok';fb.textContent='✅ Правильно! '+q.fb;}
+  else{btn.classList.add('bad');document.querySelectorAll('.qopt')[q.c].classList.add('ok');fb.className='qfb bad';fb.textContent='❌ Неверно. '+q.fb;}
+  document.getElementById('qNxt').className='qnxt show';
+}
+function nextQ(){cur++;cur>=Qs.length?showRes():renderQ();}
+function showRes(){
+  document.getElementById('qMain').style.display='none';
+  document.getElementById('qRes').className='qres show';
+  document.getElementById('qBar').style.width='100%';
+  document.getElementById('sNum').textContent=sc;
+  const rows=[
+    [11,'MISSION ACCOMPLISHED','Future Simple завоёван. Завтра — Going To!'],
+    [9,'EXCELLENT TRAJECTORY','Отлично! Небольшая работа над Will vs Going To.'],
+    [7,'GOOD PROGRESS','Хорошо! Перечитайте раздел Won\'t и Will vs Going To.'],
+    [0,'RECALCULATING','Перечитайте грамматику. Future Simple — важная тема!']
+  ];
+  const [,t,d]=rows.find(([n])=>sc>=n);
+  document.getElementById('sTitle').textContent=t;
+  document.getElementById('sDesc').textContent=d;
+}
+function restartQ(){cur=0;sc=0;done=false;document.getElementById('qMain').style.display='block';document.getElementById('qRes').className='qres';renderQ();}
+
+/* ── REVEAL ── */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.07});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+renderQ();
+</script>
+</body>
+</html>
